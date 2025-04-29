@@ -61,12 +61,23 @@
       font-size: 1rem;
     }
 
-    /* إضافة قائمة همبرغر */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #0d0d0d;
+      padding: 10px 20px;
+    }
+
+    .logo {
+      height: 50px;
+      cursor: pointer;
+    }
+
     .hamburger {
-      display: none;
+      display: flex;
       flex-direction: column;
       cursor: pointer;
-      margin: 10px;
     }
 
     .hamburger div {
@@ -77,22 +88,26 @@
     }
 
     .menu {
-      display: flex;
+      display: none;
       flex-direction: column;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: #0d0d0d;
       position: absolute;
       top: 60px;
-      right: 0;
-      width: 200px;
+      right: 20px;
       border: 1px solid gold;
       border-radius: 5px;
-      overflow: hidden;
-      z-index: 1000;
+      padding: 10px;
     }
 
     .menu a {
-      padding: 10px;
+      text-decoration: none;
+      color: gold;
+      padding: 10px 0;
       text-align: right;
+    }
+
+    .menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
     @media (min-width: 600px) {
@@ -116,11 +131,13 @@
   </style>
 </head>
 <body>
-  <!-- قائمة الهمبرغر -->
-  <div class="hamburger" onclick="toggleMenu()">
-    <div></div>
-    <div></div>
-    <div></div>
+  <div class="navbar">
+    <img src="logo.png" alt="Logo" class="logo" onclick="location.href='index.html'">
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   </div>
 
   <div class="menu" id="menu">

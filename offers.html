@@ -60,31 +60,53 @@
       background-color: #111;
       font-size: 1rem;
     }
-    .nav-menu {
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #0d0d0d;
+      padding: 10px 20px;
+    }
+
+    .logo {
+      height: 50px;
+      cursor: pointer;
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: gold;
+      margin: 4px 0;
+    }
+
+    .menu {
       display: none;
       flex-direction: column;
-      align-items: center;
+      background-color: #0d0d0d;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      border: 1px solid gold;
+      border-radius: 5px;
+      padding: 10px;
     }
-    .nav-menu.open {
-      display: flex;
-    }
-    .nav-toggle {
-      display: none;
-      cursor: pointer;
-      font-size: 1.5rem;
+
+    .menu a {
+      text-decoration: none;
       color: gold;
+      padding: 10px 0;
+      text-align: right;
     }
-    @media (max-width: 768px) {
-      .nav-toggle {
-        display: block;
-      }
-      nav a {
-        display: none;
-      }
-      .nav-menu.open a {
-        display: block;
-        margin: 10px 0;
-      }
+
+    .menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
     }
   </style>
 </head>
@@ -98,6 +120,11 @@
         navMenu.classList.toggle('open');
       });
     });
+
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    }
   </script>
   <nav>
     <span class="nav-toggle">☰</span>

@@ -37,27 +37,6 @@
       margin: 0;
       animation: fadeIn 3s ease-in-out;
     }
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      padding: 10px 0;
-      display: flex;
-      justify-content: center;
-      z-index: 999;
-    }
-    nav a {
-      color: gold;
-      text-decoration: none;
-      margin: 0 20px;
-      font-weight: bold;
-      font-size: 1.1rem;
-      transition: color 0.3s ease;
-    }
-    nav a:hover {
-      color: #FFD700;
-    }
     section {
       max-width: 900px;
       text-align: center;
@@ -104,92 +83,76 @@
       0% { opacity: 0; transform: translateY(-50px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-    .nav-menu {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-    }
-    .nav-menu.open {
+
+    .navbar {
       display: flex;
-    }
-    .nav-toggle {
-      display: none;
-      cursor: pointer;
-      font-size: 1.5rem;
-      color: gold;
-    }
-    @media (max-width: 768px) {
-      .nav-toggle {
-        display: block;
-      }
-      nav a {
-        display: none;
-      }
-      .nav-menu.open a {
-        display: block;
-        margin: 10px 0;
-      }
+      align-items: center;
+      justify-content: space-between;
+      background-color: #0d0d0d;
+      padding: 10px 20px;
     }
 
-    /* إضافة قائمة همبرغر */
+    .logo {
+      height: 50px;
+      cursor: pointer;
+    }
+
     .hamburger {
-      display: none;
+      display: flex;
       flex-direction: column;
       cursor: pointer;
-      margin-left: auto;
-      margin-right: 20px;
     }
+
     .hamburger div {
       width: 25px;
       height: 3px;
       background-color: gold;
       margin: 4px 0;
-      transition: 0.3s;
     }
+
     .menu {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       display: none;
-    }
-    .menu a {
+      flex-direction: column;
+      background-color: #0d0d0d;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      border: 1px solid gold;
+      border-radius: 5px;
       padding: 10px;
+    }
+
+    .menu a {
       text-decoration: none;
       color: gold;
-      font-weight: bold;
-      transition: color 0.3s ease;
+      padding: 10px 0;
+      text-align: right;
     }
+
     .menu a:hover {
-      color: #FFD700;
-    }
-    @media (max-width: 768px) {
-      .hamburger {
-        display: flex;
-      }
-      .nav-menu {
-        display: none;
-      }
+      background-color: rgba(255, 255, 255, 0.1);
     }
   </style>
 </head>
 <body>
 
-  <nav>
+  <div class="navbar">
+    <img src="logo.png" alt="Logo" class="logo" onclick="location.href='index.html'">
     <div class="hamburger" onclick="toggleMenu()">
       <div></div>
       <div></div>
       <div></div>
     </div>
+  </div>
 
-    <div class="menu" id="menu">
-      <a href="index.html">الرئيسية</a>
-      <a href="about.html">من نحن</a>
-      <a href="offers.html">العروض</a>
-      <a href="gallery.html">صور الرحلات</a>
-      <a href="contact.html">اتصل بنا</a>
-      <a href="booking.html">الحجز</a>
-    </div>
-  </nav>
+  <div class="menu" id="menu">
+    <a href="index.html">الرئيسية</a>
+    <a href="about.html">من نحن</a>
+    <a href="offers.html">العروض</a>
+    <a href="gallery.html">صور الرحلات</a>
+    <a href="contact.html">اتصل بنا</a>
+    <a href="booking.html">الحجز</a>
+  </div>
 
   <header>
     <section>
@@ -212,15 +175,6 @@
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const navToggle = document.querySelector('.nav-toggle');
-      const navMenu = document.querySelector('.nav-menu');
-
-      navToggle.addEventListener('click', function() {
-        navMenu.classList.toggle('open');
-      });
-    });
-
     function toggleMenu() {
       const menu = document.getElementById('menu');
       menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
