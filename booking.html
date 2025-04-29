@@ -29,11 +29,48 @@
     button:hover {
       background-color: #e6b800;
     }
+    /* إضافة تنسيقات قائمة الهمبرغر */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .hamburger div {
+      width: 30px;
+      height: 3px;
+      background-color: gold;
+      margin: 5px 0;
+    }
+    .menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      right: 10px;
+      background-color: #0d0d0d;
+      border: 1px solid gold;
+      border-radius: 5px;
+      padding: 10px;
+    }
+    .menu a {
+      color: gold;
+      text-decoration: none;
+      margin: 5px 0;
+    }
+    .menu a:hover {
+      text-decoration: underline;
+    }
   </style>
   <script>
     document.addEventListener('contextmenu', event => event.preventDefault());
     document.addEventListener('selectstart', event => event.preventDefault());
     document.addEventListener('copy', event => event.preventDefault());
+
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    }
   </script>
 </head>
 <body>
@@ -41,5 +78,20 @@
   <button onclick="window.location.href='index.html'">الرجوع إلى الصفحة الرئيسية</button>
   <button onclick="window.location.href='https://wa.me/201155528093'">تواصل عبر واتساب</button>
   <button onclick="window.location.href='https://www.instagram.com/hejj_w_3mrra/'">تواصل عبر انستجرام</button>
+
+  <!-- إضافة قائمة همبرغر -->
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <div class="menu" id="menu">
+    <a href="index.html">الرئيسية</a>
+    <a href="about.html">عن الموقع</a>
+    <a href="contact.html">اتصل بنا</a>
+    <a href="gallery.html">المعرض</a>
+    <a href="offers.html">العروض</a>
+  </div>
 </body>
 </html>

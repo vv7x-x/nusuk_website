@@ -47,15 +47,73 @@
       background-color: #111;
       font-size: 1rem;
     }
+
+    /* إضافة قائمة همبرغر */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: gold;
+      margin: 4px;
+      transition: 0.3s;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 60px;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.9);
+      width: 200px;
+      padding: 10px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    .menu a {
+      padding: 10px;
+      text-decoration: none;
+      color: gold;
+      display: block;
+    }
+
+    .menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
   </style>
 </head>
 <body>
-  <nav>
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <div class="menu" id="menu">
     <a href="index.html">الرئيسية</a>
-    <a href="about.html">من نحن</a>
+    <a href="about.html">عن الموقع</a>
+    <a href="contact.html">اتصل بنا</a>
+    <a href="gallery.html">المعرض</a>
     <a href="offers.html">العروض</a>
-    <a href="gallery.html">صور الرحلات</a>
-  </nav>
+  </div>
+
   <section>
     <h2>اتصل بنا</h2>
     <p>إذا كان لديك أي استفسار أو ترغب في معرفة المزيد من المعلومات حول عروضنا، لا تتردد في الاتصال بنا من خلال الطرق التالية:</p>
@@ -72,6 +130,11 @@
         const audio = new Audio('contact.mp3');
         audio.play();
       };
+
+      function toggleMenu() {
+        const menu = document.getElementById('menu');
+        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+      }
     </script>
 </body>
 </html>

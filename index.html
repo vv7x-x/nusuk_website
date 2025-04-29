@@ -128,30 +128,45 @@
         font-size: 0.8rem;
       }
     }
-    .nav-menu {
+
+    /* إضافة قائمة همبرغر */
+    .hamburger {
       display: none;
       flex-direction: column;
-      align-items: center;
-    }
-    .nav-menu.open {
-      display: flex;
-    }
-    .nav-toggle {
-      display: none;
       cursor: pointer;
-      font-size: 1.5rem;
-      color: gold;
     }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: black;
+      margin: 4px 0;
+    }
+
+    .menu {
+      display: none;
+      flex-direction: column;
+      background-color: #f9f9f9;
+      position: absolute;
+      top: 40px;
+      right: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: black;
+      padding: 8px 0;
+    }
+
+    .menu a:hover {
+      background-color: #ddd;
+    }
+
     @media (max-width: 768px) {
-      .nav-toggle {
-        display: block;
-      }
-      nav a {
-        display: none;
-      }
-      .nav-menu.open a {
-        display: block;
-        margin: 10px 0;
+      .hamburger {
+        display: flex;
       }
     }
   </style>
@@ -168,6 +183,11 @@
       const audio = new Audio('welcome.mp3');
       audio.play();
     };
+
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    }
   </script>
 </head>
 <body>
@@ -185,6 +205,22 @@
     <h1>خطوة لقلبك للسفر والسياحة</h1>
     <button onclick="location.href='booking.html'" style="margin-top: 20px; padding: 10px 20px; font-size: 1.2rem; background-color: gold; color: black; border: none; border-radius: 5px; cursor: pointer;">احجز الآن</button>
   </header>
+
+  <!-- إضافة قائمة همبرغر -->
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <div class="menu" id="menu">
+    <a href="index.html">الرئيسية</a>
+    <a href="about.html">عن الموقع</a>
+    <a href="contact.html">اتصل بنا</a>
+    <a href="gallery.html">المعرض</a>
+    <a href="offers.html">العروض</a>
+  </div>
+
   <footer>
     &copy; 2025 خطوة لقلبك للسفر والسياحة - جميع الحقوق محفوظة
   </footer>
