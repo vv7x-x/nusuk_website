@@ -37,6 +37,27 @@
       margin: 0;
       animation: fadeIn 3s ease-in-out;
     }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      z-index: 999;
+    }
+    nav a {
+      color: gold;
+      text-decoration: none;
+      margin: 0 20px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #FFD700;
+    }
     section {
       max-width: 900px;
       text-align: center;
@@ -45,8 +66,6 @@
       border-radius: 10px;
       margin: 20px auto;
       flex-grow: 1;
-      box-sizing: border-box;
-      min-height: calc(100vh - 160px); /* Adjust for header and footer */
     }
     h2 {
       font-size: 2.5rem;
@@ -83,76 +102,18 @@
       0% { opacity: 0; transform: translateY(-50px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #0d0d0d;
-      padding: 10px 20px;
-    }
-
-    .logo {
-      height: 50px;
-      cursor: pointer;
-    }
-
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-    }
-
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background-color: gold;
-      margin: 4px 0;
-    }
-
-    .menu {
-      display: none;
-      flex-direction: column;
-      background-color: #0d0d0d;
-      position: absolute;
-      top: 60px;
-      right: 20px;
-      border: 1px solid gold;
-      border-radius: 5px;
-      padding: 10px;
-    }
-
-    .menu a {
-      text-decoration: none;
-      color: gold;
-      padding: 10px 0;
-      text-align: right;
-    }
-
-    .menu a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
   </style>
 </head>
 <body>
 
+  <nav>
+    <a href="index.html">الرئيسية</a>
+    <a href="offers.html">العروض</a>
+    <a href="gallery.html">صور الرحلات</a>
+    <a href="contact.html">اتصل بنا</a>
+  </nav>
+
   <header>
-    <div class="navbar">
-      <img src="logo.png" alt="Logo" class="logo" onclick="location.href='index.html'">
-      <div class="hamburger" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-    <div class="menu" id="menu">
-      <a href="index.html">الرئيسية</a>
-      <a href="about.html">من نحن</a>
-      <a href="offers.html">العروض</a>
-      <a href="gallery.html">صور الرحلات</a>
-      <a href="contact.html">اتصل بنا</a>
-      <a href="booking.html">الحجز</a>
-    </div>
     <section>
       <h2>من نحن</h2>
       <p>
@@ -171,13 +132,6 @@
     <p>&copy; 2025 خطوة لقلبك للسفر والسياحة - جميع الحقوق محفوظة</p>
     <p><a href="contact.html">اتصل بنا</a> | <a href="privacy.html">سياسة الخصوصية</a></p>
   </footer>
-
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('menu');
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-    }
-  </script>
 
   <script>
       window.onload = function() {

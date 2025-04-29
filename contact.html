@@ -33,8 +33,6 @@
       padding: 80px 40px;
       max-width: 1200px;
       margin: auto;
-      box-sizing: border-box;
-      min-height: calc(100vh - 160px); /* Adjust for header and footer */
     }
     h2 {
       font-size: 2rem;
@@ -47,87 +45,15 @@
       background-color: #111;
       font-size: 1rem;
     }
-
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #0d0d0d;
-      padding: 10px 20px;
-    }
-
-    .logo {
-      height: 50px;
-      cursor: pointer;
-    }
-
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-    }
-
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background-color: gold;
-      margin: 4px 0;
-    }
-
-    .menu {
-      display: none;
-      flex-direction: column;
-      background-color: #0d0d0d;
-      position: absolute;
-      top: 60px;
-      right: 20px;
-      border: 1px solid gold;
-      border-radius: 5px;
-      padding: 10px;
-    }
-
-    .menu a {
-      text-decoration: none;
-      color: gold;
-      padding: 10px 0;
-      text-align: right;
-    }
-
-    .menu a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    @media (max-width: 768px) {
-      nav {
-        display: none;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-    }
   </style>
 </head>
 <body>
-  <header>
-  <div class="navbar">
-    <img src="logo.png" alt="Logo" class="logo" onclick="location.href='index.html'">
-    <div class="hamburger" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
-  <div class="menu" id="menu">
+  <nav>
     <a href="index.html">الرئيسية</a>
     <a href="about.html">من نحن</a>
     <a href="offers.html">العروض</a>
     <a href="gallery.html">صور الرحلات</a>
-    <a href="contact.html">اتصل بنا</a>
-    <a href="booking.html">الحجز</a>
-  </div>
-</header>
-
+  </nav>
   <section>
     <h2>اتصل بنا</h2>
     <p>إذا كان لديك أي استفسار أو ترغب في معرفة المزيد من المعلومات حول عروضنا، لا تتردد في الاتصال بنا من خلال الطرق التالية:</p>
@@ -144,11 +70,6 @@
         const audio = new Audio('contact.mp3');
         audio.play();
       };
-
-      function toggleMenu() {
-        const menu = document.getElementById('menu');
-        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-      }
     </script>
 </body>
 </html>

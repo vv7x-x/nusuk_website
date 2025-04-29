@@ -33,61 +33,34 @@
       50% { transform: translateY(-10px); }
       100% { transform: translateY(0); }
     }
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #0d0d0d;
-      padding: 10px 20px;
-    }
-
-    .logo {
-      height: 50px;
-      cursor: pointer;
-    }
-
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-    }
-
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background-color: gold;
-      margin: 4px 0;
-    }
-
-    .menu {
-      display: none;
-      flex-direction: column;
-      background-color: #0d0d0d;
-      position: absolute;
-      top: 60px;
-      right: 20px;
-      border: 1px solid gold;
-      border-radius: 5px;
-      padding: 10px;
-    }
-
-    .menu a {
-      text-decoration: none;
-      color: gold;
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
       padding: 10px 0;
-      text-align: right;
+      display: flex;
+      justify-content: center;
+      z-index: 999;
     }
-
-    .menu a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+    nav a {
+      color: gold;
+      text-decoration: none;
+      margin: 0 20px;
+      font-weight: bold;
+      transition: color 0.3s;
     }
-
+    nav a:hover {
+      color: white;
+    }
+    .logo {
+      max-width: 150px;
+      margin-bottom: 20px;
+    }
     section {
       padding: 80px 40px;
       max-width: 1200px;
       margin: auto;
-      box-sizing: border-box;
-      min-height: calc(100vh - 160px); /* Adjust for header and footer */
     }
     h2 {
       border-bottom: 2px solid gold;
@@ -117,88 +90,25 @@
       background-color: #111;
       font-size: 1rem;
     }
-
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2.5rem;
-      }
-      nav a {
-        margin: 0 10px;
-        font-size: 0.9rem;
-      }
-      .offers, .gallery {
-        grid-template-columns: 1fr;
-      }
-      section {
-        padding: 40px 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      header {
-        height: 70vh;
-      }
-      header h1 {
-        font-size: 2rem;
-      }
-      .logo {
-        max-width: 100px;
-      }
-      nav {
-        flex-direction: column;
-        padding: 5px 0;
-      }
-      nav a {
-        margin: 5px 0;
-        font-size: 0.8rem;
-      }
-    }
   </style>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const navToggle = document.querySelector('.nav-toggle');
-      const navMenu = document.querySelector('.nav-menu');
-
-      navToggle.addEventListener('click', function() {
-        navMenu.classList.toggle('open');
-      });
-    });
-    window.onload = function() {
-      const audio = new Audio('welcome.mp3');
-      audio.play();
-    };
-
-    function toggleMenu() {
-      const menu = document.getElementById('menu');
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-    }
-  </script>
+      window.onload = function() {
+        const audio = new Audio('welcome.mp3');
+        audio.play();
+      };
+    </script>
 </head>
 <body>
+  <nav>
+    <a href="about.html">من نحن</a>
+    <a href="offers.html">العروض</a>
+    <a href="gallery.html">صور الرحلات</a>
+    <a href="contact.html">اتصل بنا</a>
+  </nav>
   <header>
-    <div class="navbar">
-      <img src="logo.png" alt="Logo" class="logo" onclick="location.href='index.html'">
-      <div class="hamburger" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-    <div class="menu" id="menu">
-      <a href="index.html">الرئيسية</a>
-      <a href="about.html">من نحن</a>
-      <a href="offers.html">العروض</a>
-      <a href="gallery.html">صور الرحلات</a>
-      <a href="contact.html">اتصل بنا</a>
-      <a href="booking.html">الحجز</a>
-    </div>
+    <img src="logo.png" alt="شعار خطوة لقلبك" class="logo">
+    <h1>خطوة لقلبك للسفر والسياحة</h1>
   </header>
-
-  <main style="text-align: center; margin-top: 20%;">
-    <h1 style="font-size: 3rem; color: gold;">خطوة لقلبك للسفر والسياحة</h1>
-    <button onclick="location.href='booking.html'" style="margin-top: 20px; padding: 10px 20px; font-size: 1.2rem; background-color: gold; border: none; border-radius: 5px; cursor: pointer;">احجز الآن</button>
-  </main>
-
   <footer>
     &copy; 2025 خطوة لقلبك للسفر والسياحة - جميع الحقوق محفوظة
   </footer>
