@@ -126,16 +126,24 @@
       menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
     }
   </script>
-  <nav>
-    <span class="nav-toggle">☰</span>
-    <div class="nav-menu">
-      <a href="about.html">من نحن</a>
-      <a href="offers.html">العروض</a>
-      <a href="gallery.html">صور الرحلات</a>
-      <a href="contact.html">اتصل بنا</a>
-      <a href="booking.html">الحجز</a>
+  <header>
+  <div class="navbar">
+    <img src="logo.png" alt="Logo" class="logo" onclick="location.href='index.html'">
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-  </nav>
+  </div>
+  <div class="menu" id="menu">
+    <a href="index.html">الرئيسية</a>
+    <a href="about.html">من نحن</a>
+    <a href="offers.html">العروض</a>
+    <a href="gallery.html">صور الرحلات</a>
+    <a href="contact.html">اتصل بنا</a>
+    <a href="booking.html">الحجز</a>
+  </div>
+</header>
   <section>
     <h2>العروض</h2>
     <div class="offers">
