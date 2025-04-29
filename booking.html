@@ -61,6 +61,25 @@
     .menu a:hover {
       text-decoration: underline;
     }
+    .nav-menu {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      left: 10px;
+      background-color: #0d0d0d;
+      border: 1px solid gold;
+      border-radius: 5px;
+      padding: 10px;
+    }
+    .nav-menu a {
+      color: gold;
+      text-decoration: none;
+      margin: 5px 0;
+    }
+    .nav-menu a:hover {
+      text-decoration: underline;
+    }
   </style>
   <script>
     document.addEventListener('contextmenu', event => event.preventDefault());
@@ -92,6 +111,13 @@
     <a href="contact.html">اتصل بنا</a>
     <a href="gallery.html">المعرض</a>
     <a href="offers.html">العروض</a>
+  </div>
+
+  <div class="nav-menu">
+    <a href="about.html">من نحن</a>
+    <a href="offers.html">العروض</a>
+    <a href="gallery.html">صور الرحلات</a>
+    <a href="contact.html">اتصل بنا</a>
   </div>
 </body>
 </html>
