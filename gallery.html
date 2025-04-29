@@ -70,19 +70,39 @@
   <section>
     <h2>صور الرحلات</h2>
     <div class="gallery">
-      <div class="photo">
-        <img src="hajj.jpg" alt="صور الحج" style="width: 100%; border-radius: 10px;">
-      </div>
-      <div class="photo">
-        <img src="madinah.jpg" alt="صور المدينة" style="width: 100%; border-radius: 10px;">
-      </div>
-      <div class="photo">
-        <img src="umrah.jpg" alt="صور العمرة" style="width: 100%; border-radius: 10px;">
-      </div>
+      <!-- Start dynamically loading images from رحلاتنا السابقة -->
+      <script>
+        const galleryDiv = document.querySelector('.gallery');
+        const imageFolder = 'رحلاتنا السابقه';
+        const images = [
+          'WhatsApp Image 2025-04-28 at 20.51.49_e22dca13.jpg',
+          'WhatsApp Image 2025-04-28 at 20.51.50_05ad8505.jpg',
+          'WhatsApp Image 2025-04-28 at 20.51.50_f3d710a0.jpg',
+          'WhatsApp Image 2025-04-28 at 20.51.50_f9d436d3.jpg'
+        ];
+
+        images.forEach(image => {
+          const photoDiv = document.createElement('div');
+          photoDiv.className = 'photo';
+          const imgElement = document.createElement('img');
+          imgElement.src = `${imageFolder}/${image}`;
+          imgElement.alt = 'صورة من رحلاتنا السابقة';
+          imgElement.style = 'width: 100%; border-radius: 10px;';
+          photoDiv.appendChild(imgElement);
+          galleryDiv.appendChild(photoDiv);
+        });
+      </script>
+      <!-- End dynamically loading images -->
     </div>
   </section>
   <footer>
     &copy; 2025 خطوة لقلبك للسفر والسياحة - جميع الحقوق محفوظة
   </footer>
+  <script>
+      window.onload = function() {
+        const audio = new Audio('gallery.mp3');
+        audio.play();
+      };
+    </script>
 </body>
 </html>
