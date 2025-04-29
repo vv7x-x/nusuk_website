@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>من نحن - خطوة لقلبك للسفر والسياحة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      font-family: 'Cairo', sans-serif;
+      color: #FFD700;
+      background-color: #111;
+    }
+    header {
+      background: url('kaaba.jpg') no-repeat center center/cover;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      margin: 0;
+      animation: fadeIn 3s ease-in-out;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      z-index: 999;
+    }
+    nav a {
+      color: gold;
+      text-decoration: none;
+      margin: 0 20px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #FFD700;
+    }
+    section {
+      max-width: 900px;
+      text-align: center;
+      padding: 30px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      margin: 20px auto;
+      flex-grow: 1;
+    }
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #FFD700;
+      border-bottom: 2px solid #FFD700;
+      padding-bottom: 10px;
+    }
+    p {
+      font-size: 1.2rem;
+      line-height: 2;
+      color: #ddd;
+      text-align: justify;
+    }
+    footer {
+      background-color: #111;
+      color: #ccc;
+      text-align: center;
+      padding: 20px;
+      font-size: 1rem;
+      border-top: 2px solid #333;
+    }
+    footer a {
+      color: gold;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: #FFD700;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">الرئيسية</a>
+    <a href="offers.html">العروض</a>
+    <a href="gallery.html">صور الرحلات</a>
+    <a href="contact.html">اتصل بنا</a>
+  </nav>
+
+  <header>
+    <section>
+      <h2>من نحن</h2>
+      <p>
+
+        شركة خطوة لقلبك هي شركة سياحة مصرية ، متخصصة في تقديم حلول شاملة للسفر والسياحة وخدمات الحج والعمرة. تأسست خطوة لقلبك عام 2010 ، واستطاعت خلال السنوات الماضية أن تبني سمعة قوية وثقة عالية لدى عملائها، من خلال تقديم خدمات ذات جودة عالية تراعي راحة العملاء وتلبية احتياجاتهم.
+        
+        تتميز خطوة لقلبك بتقديم مجموعة متنوعة من خدمات السفر التي تشمل حجز تذاكر الطيران لجميع الوجهات العالمية، استخراج التأشيرات السياحية، وحجز الفنادق في أفضل المواقع حول العالم. تسعى الشركة لتسهيل تجربة السفر، سواء كانت سياحة داخلية لاستكشاف معالم مصر أو سياحة خارجية لزيارة أجمل الوجهات السياحية العالمية.
+        
+        كما توفر الشركة برامج متكاملة للحج والعمرة، تهدف إلى تقديم رحلات دينية تتسم بالراحة والتنظيم الجيد، حيث تتضمن خدمات الإقامة والتنقلات والإرشاد الديني، لتأمين تجربة روحانية مميزة للحجاج والمعتمرين. تلتزم خطوة لقلبك بتقديم دعم متواصل خلال الرحلة، ما يجعلها الخيار الأمثل لمن يسعى لتجربة حج أو عمرة خالية من المتاعب.
+        
+        تسعى خطوة لقلبك دائماً إلى التطوير والابتكار في تقديم خدماتها، بما يتماشى مع تطلعات عملائها، مع فريق عمل متخصص يحرص على خدمة العملاء بمهنية وإخلاص، لضمان رضاهم وتحقيق تجربة سفر متميزة.</p>
+    </section>
+  </header>
+
+  <footer>
+    <p>&copy; 2025 خطوة لقلبك للسفر والسياحة - جميع الحقوق محفوظة</p>
+    <p><a href="contact.html">اتصل بنا</a> | <a href="privacy.html">سياسة الخصوصية</a></p>
+  </footer>
+
+  <script>
+      window.onload = function() {
+        const audio = new Audio('about.mp3');
+        audio.play();
+      };
+    </script>
+
+</body>
+</html>
