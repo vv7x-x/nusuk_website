@@ -14,24 +14,19 @@
       scroll-behavior: smooth;
     }
     header {
-      background: url('kaaba.jpg') no-repeat center center/cover;
-      height: 100vh;
-      position: relative;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      text-align: center;
+      justify-content: flex-start;
+      padding: 10px;
+      height: auto;
     }
-    header h1 {
-      font-size: 4rem;
-      animation: floatText 6s infinite ease-in-out;
-      text-shadow: 2px 2px 5px #000;
+    .logo {
+      width: 50px;
+      margin-right: 10px;
     }
-    @keyframes floatText {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
+    .header-title {
+      font-size: 1.5rem;
+      color: white;
     }
     nav {
       position: fixed;
@@ -52,13 +47,6 @@
     }
     nav a:hover {
       color: white;
-    }
-    .logo {
-      max-width: 150px;
-      margin-bottom: 20px;
-      position: absolute;
-      top: 10px;
-      left: 10px;
     }
     section {
       padding: 80px 40px;
@@ -110,11 +98,11 @@
   </nav>
   <header>
     <img src="logo.png" alt="شعار خطوة لقلبك" class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
-    <h1>خطوة لقلبك للسفر والسياحة</h1>
+    <h1 class="header-title">خطوة لقلبك للسفر والسياحة</h1>
   </header>
   <section>
-    <div style="text-align: center; margin-top: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-      <button style="background-color: gold; color: black; padding: 15px 30px; font-size: 1.2rem; border: none; border-radius: 10px; cursor: pointer; margin: 10px;" onclick="window.location.href='booking.html'">احجز معنا الآن</button>
+    <div style="display: flex; align-items: center; justify-content: center; height: 100vh;">
+      <button style="background-color: gold; color: black; padding: 15px 30px; font-size: 1.2rem; border: none; border-radius: 10px; cursor: pointer;" onclick="window.location.href='booking.html'">احجز معنا الآن</button>
     </div>
   </section>
   <footer>
