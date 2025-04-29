@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صور الرحلات - خطوة لقلبك للسفر والسياحة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background-color: #0d0d0d;
+      font-family: 'Cairo', sans-serif;
+      color: gold;
+      scroll-behavior: smooth;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      z-index: 999;
+    }
+    nav a {
+      color: gold;
+      text-decoration: none;
+      margin: 0 20px;
+      font-weight: bold;
+    }
+    section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    h2 {
+      font-size: 2rem;
+      border-bottom: 2px solid gold;
+      padding-bottom: 15px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .photo {
+      background-color: #1a1a1a;
+      border: 1px solid gold;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 10px #222;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      background-color: #111;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">الرئيسية</a>
+    <a href="about.html">من نحن</a>
+    <a href="offers.html">العروض</a>
+    <a href="contact.html">اتصل بنا</a>
+  </nav>
+  <section>
+    <h2>صور الرحلات</h2>
+    <div class="gallery">
+      <div class="photo">
+        <img src="hajj.jpg" alt="صور الحج" style="width: 100%; border-radius: 10px;">
+      </div>
+      <div class="photo">
+        <img src="madinah.jpg" alt="صور المدينة" style="width: 100%; border-radius: 10px;">
+      </div>
+      <div class="photo">
+        <img src="umrah.jpg" alt="صور العمرة" style="width: 100%; border-radius: 10px;">
+      </div>
+    </div>
+  </section>
+  <footer>
+    &copy; 2025 خطوة لقلبك للسفر والسياحة - جميع الحقوق محفوظة
+  </footer>
+</body>
+</html>
