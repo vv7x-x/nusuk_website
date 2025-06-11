@@ -54,8 +54,13 @@
       color: white;
     }
     .logo {
-      max-width: 150px;
-      margin-bottom: 20px;
+      max-width: 250px; /* زاد الحجم */
+      margin-bottom: 30px;
+      filter: drop-shadow(0 0 8px gold); /* توهج ذهبي */
+      transition: transform 0.3s ease-in-out;
+    }
+    .logo:hover {
+      transform: scale(1.05); /* تكبير بسيط عند التمرير */
     }
     section {
       padding: 80px 40px;
@@ -96,7 +101,7 @@
         const audio = new Audio('welcome.mp3');
         audio.play();
       };
-    </script>
+  </script>
 </head>
 <body>
   <nav>
