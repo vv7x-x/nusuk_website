@@ -49,15 +49,40 @@
       z-index: 999;
     }
 
-    nav a {
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 1200px;
+    }
+
+    .nav-logo {
+      width: 60px;
+      height: auto;
+      cursor: pointer;
+      filter: drop-shadow(0 0 5px gold);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .nav-logo:hover {
+      transform: scale(1.1);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
       color: gold;
       text-decoration: none;
-      margin: 0 20px;
       font-weight: bold;
       transition: color 0.3s;
     }
 
-    nav a:hover {
+    .nav-links a:hover {
       color: white;
     }
 
@@ -115,10 +140,15 @@
 <body>
 
   <nav>
-    <a href="about.html">من نحن</a>
-    <a href="offers.html">العروض</a>
-    <a href="gallery.html">صور الرحلات</a>
-    <a href="contact.html">اتصل بنا</a>
+    <div class="nav-container">
+      <img src="logo.png" alt="شعار نُسُك" class="nav-logo" id="logo" />
+      <div class="nav-links">
+        <a href="about.html">من نحن</a>
+        <a href="offers.html">العروض</a>
+        <a href="gallery.html">صور الرحلات</a>
+        <a href="contact.html">اتصل بنا</a>
+      </div>
+    </div>
   </nav>
 
   <header>
@@ -135,12 +165,18 @@
     &copy; 2025 نُسُك للسفر والسياحة - جميع الحقوق محفوظة
   </footer>
 
-  <!-- صوت ترحيبي -->
+  <!-- صوت ترحيبي + صوت عند الضغط -->
   <script>
     window.onload = function() {
       const audio = new Audio('welcome.mp3');
       audio.play();
     };
+
+    const logo = document.getElementById('logo');
+    const clickSound = new Audio('click.mp3');
+    logo.addEventListener('click', () => {
+      clickSound.play();
+    });
   </script>
 
   <!-- مكتبة AOS للتحريك عند التمرير -->
