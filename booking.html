@@ -165,11 +165,8 @@
   <a href="https://wa.me/+201007522405" target="_blank" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
     <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="تواصل واتساب" style="width:60px; height:60px;">
   </a>
-  <a href="#" id="scrollDown" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; cursor: pointer;">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/down.png" alt="Scroll Down" style="width:50px; height:50px;">
-  </a>
   <a href="developer-info.html" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; text-decoration: none; color: gold; font-size: 1rem; background: rgba(0, 0, 0, 0.8); padding: 10px 15px; border-radius: 8px; box-shadow: 0 0 10px #222;">معلومات عن المطور</a>
-  <footer>
+  <footer style="background: rgba(0, 0, 0, 0.8); color: gold; text-align: center; padding: 10px; font-size: 1rem; border-top: 1px solid gold;">
     &copy; 2025 نُسُك للحج والعمرة - جميع الحقوق محفوظة
   </footer>
   <script>
@@ -208,17 +205,9 @@
       const audio = new Audio('الأصوات/booking.mp3');
       audio.play();
     };
-    // إزالة تأثير التحريك عند التمرير فوق السهم
+    // إزالة سهم النزول
     const scrollDown = document.getElementById('scrollDown');
-    scrollDown.removeEventListener('mouseover', () => {
-      scrollDown.firstElementChild.style.transform = 'scale(1.2)';
-    });
-    scrollDown.removeEventListener('mouseout', () => {
-      scrollDown.firstElementChild.style.transform = 'scale(1)';
-    });
-    scrollDown.addEventListener('click', () => {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    });
+    scrollDown.remove();
   </script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
