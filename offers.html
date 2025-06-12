@@ -190,13 +190,14 @@
   </footer>
   <script>
     window.onload = function() {
-      const audio = new Audio('bb.mp3');
+      const audio = new Audio('الأصوات/33.mp3');
       audio.play();
     };
     const logo = document.getElementById('logo');
     const clickSound = new Audio('click.mp3');
     logo.addEventListener('click', () => {
       clickSound.play();
+      window.location.href = 'index.html';
     });
     document.getElementById('scrollDown').addEventListener('click', () => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
