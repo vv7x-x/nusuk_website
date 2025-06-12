@@ -249,37 +249,43 @@
     scrollDownAbout.addEventListener('mouseout', () => {
       scrollDownAbout.firstElementChild.style.transform = 'scale(1)';
     });
+  </script>
+  <script>
+    // إصلاح تكرار تعريف المتغير scrollDown
     const scrollDown = document.getElementById('scrollDown');
-    scrollDown.addEventListener('mouseover', () => {
-      scrollDown.querySelector('svg').style.transform = 'scale(1.2)';
-    });
-    scrollDown.addEventListener('mouseout', () => {
-      scrollDown.querySelector('svg').style.transform = 'scale(1)';
-    });
+    if (scrollDown) {
+      scrollDown.addEventListener('mouseover', () => {
+        if (scrollDown.firstElementChild) scrollDown.firstElementChild.style.transform = 'scale(1.2)';
+        if (scrollDown.querySelector('svg')) scrollDown.querySelector('svg').style.transform = 'scale(1.2)';
+      });
+      scrollDown.addEventListener('mouseout', () => {
+        if (scrollDown.firstElementChild) scrollDown.firstElementChild.style.transform = 'scale(1)';
+        if (scrollDown.querySelector('svg')) scrollDown.querySelector('svg').style.transform = 'scale(1)';
+      });
+      scrollDown.addEventListener('click', () => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      });
+      document.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY;
+        if (scrollPosition > 100) {
+          scrollDown.style.display = 'none';
+        } else {
+          scrollDown.style.display = 'block';
+        }
+      });
+    }
   </script>
   <footer>
     &copy; 2025 نُسُك للحج والعمرة - جميع الحقوق محفوظة
   </footer>
   <script>
-    window.onload = function() {
+    window.addEventListener('DOMContentLoaded', function() {
       const audio = new Audio('الأصوات/about.mp3');
       audio.play();
-    };
+    });
     const logo = document.getElementById('logo');
     logo.addEventListener('click', () => {
       window.location.href = 'index.html';
-    });
-    const scrollDown = document.getElementById('scrollDown');
-    document.addEventListener('scroll', () => {
-      const scrollPosition = window.scrollY;
-      if (scrollPosition > 100) {
-        scrollDown.style.display = 'none';
-      } else {
-        scrollDown.style.display = 'block';
-      }
-    });
-    scrollDown.addEventListener('click', () => {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     });
   </script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
