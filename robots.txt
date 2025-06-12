@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://khutwa-website-wine.vercel.app/sitemap.xml
