@@ -183,5 +183,32 @@
   <footer>
     &copy; 2025 نُسُك للحج والعمرة - جميع الحقوق محفوظة
   </footer>
+  <script>
+    // تشغيل صوت عند المرور على أيقونات التواصل
+    function playSound(src) {
+      const audio = new Audio(src);
+      audio.play();
+    }
+    // واتساب
+    const whatsappIcon = document.querySelector('.social-icons a[title="واتساب"] img');
+    if (whatsappIcon) {
+      whatsappIcon.addEventListener('mouseenter', () => playSound('الأصوات/whatsapp.mp3'));
+    }
+    // انستجرام
+    const instaIcon = document.querySelector('.social-icons a[title="إنستجرام"] img');
+    if (instaIcon) {
+      instaIcon.addEventListener('mouseenter', () => playSound('الأصوات/insta.mp3'));
+    }
+    // فيسبوك
+    const fbIcon = document.querySelector('.social-icons a[title="فيسبوك"] img');
+    if (fbIcon) {
+      fbIcon.addEventListener('mouseenter', () => playSound('الأصوات/ff.mp3'));
+    }
+    // رقم الهاتف
+    const phoneLink = document.querySelector('.contact a[href^="tel:"]');
+    if (phoneLink) {
+      phoneLink.addEventListener('mouseenter', () => playSound('الأصوات/رقمي.mp3'));
+    }
+  </script>
 </body>
 </html>
