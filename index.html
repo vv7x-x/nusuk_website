@@ -206,6 +206,24 @@
       50% { transform: translateY(10px); }
     }
   </style>
+  <script>
+    // تحديث عنوان الصفحة تلقائياً بناءً على اسم الصفحة بدون .html
+    document.addEventListener('DOMContentLoaded', function() {
+      const path = window.location.pathname;
+      const pageMap = {
+        '/index.html': 'الرئيسية',
+        '/about.html': 'من نحن',
+        '/offers.html': 'العروض',
+        '/gallery.html': 'صور الرحلات',
+        '/contact.html': 'اتصل بنا',
+        '/booking.html': 'حجز',
+        '/developer-info.html': 'معلومات عن المطور'
+      };
+      if (pageMap[path]) {
+        document.title = pageMap[path] + ' - نُسُك للحج والعمرة';
+      }
+    });
+  </script>
 </head>
 <body>
  <header>

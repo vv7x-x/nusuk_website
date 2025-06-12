@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <title>صور الرحلات - نُسُك للحج والعمرة</title>
+  <title>نُسُك للحج والعمرة</title>
   <link rel="icon" type="image/png" href="logo.png" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
   <style>
@@ -275,6 +275,24 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init({ duration: 1000 });
+  </script>
+  <script>
+    // تحديث عنوان الصفحة تلقائياً بناءً على اسم الصفحة بدون .html
+    document.addEventListener('DOMContentLoaded', function() {
+      const path = window.location.pathname;
+      const pageMap = {
+        '/index.html': 'الرئيسية',
+        '/about.html': 'من نحن',
+        '/offers.html': 'العروض',
+        '/gallery.html': 'صور الرحلات',
+        '/contact.html': 'اتصل بنا',
+        '/booking.html': 'حجز',
+        '/developer-info.html': 'معلومات عن المطور'
+      };
+      if (pageMap[path]) {
+        document.title = pageMap[path] + ' - نُسُك للحج والعمرة';
+      }
+    });
   </script>
 </body>
 </html>
