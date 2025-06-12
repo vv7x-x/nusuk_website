@@ -57,7 +57,7 @@
       color: white;
     }
     header {
-      background: url('kaaba.jpg') no-repeat center center/cover;
+      background: none;
     }
     section {
       padding: 80px 40px;
@@ -170,7 +170,7 @@
     <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="تواصل واتساب" style="width:60px; height:60px;">
   </a>
   <a href="#" id="scrollDown" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; cursor: pointer;">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/down.png" alt="Scroll Down" style="width:50px; height:50px; transition: transform 0.3s ease-in-out;">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/down.png" alt="Scroll Down" style="width:50px; height:50px;">
   </a>
   <footer>
     &copy; 2025 نُسُك للحج والعمرة - جميع الحقوق محفوظة
@@ -211,11 +211,12 @@
       const audio = new Audio('الأصوات/booking.mp3');
       audio.play();
     };
+    // إزالة تأثير التحريك عند التمرير فوق السهم
     const scrollDown = document.getElementById('scrollDown');
-    scrollDown.addEventListener('mouseover', () => {
+    scrollDown.removeEventListener('mouseover', () => {
       scrollDown.firstElementChild.style.transform = 'scale(1.2)';
     });
-    scrollDown.addEventListener('mouseout', () => {
+    scrollDown.removeEventListener('mouseout', () => {
       scrollDown.firstElementChild.style.transform = 'scale(1)';
     });
     scrollDown.addEventListener('click', () => {
