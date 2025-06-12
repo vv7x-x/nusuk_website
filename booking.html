@@ -233,11 +233,20 @@
     document.getElementById('bookingForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const form = e.target;
-      const data = {
-        name: form.name.value,
-        phone: form.phone.value,
-        trip: form.trip.value,
-      };
+      // حماية من إدخال أكواد HTML أو سكريبتات
+      const sanitize = str => str.replace(/[<>"'\\]/g, '');
+      const name = sanitize(form.name.value.trim());
+      const phone = sanitize(form.phone.value.trim());
+      const trip = sanitize(form.trip.value.trim());
+      if (!name || !phone || !trip) {
+        alert('يرجى إدخال جميع البيانات بشكل صحيح.');
+        return;
+      }
+      if (!/^\d+$/.test(phone)) {
+        alert('رقم الهاتف يجب أن يحتوي على أرقام فقط.');
+        return;
+      }
+      const data = { name, phone, trip };
       // رابط Google Apps Script Web App الجديد
       const scriptURL = 'https://script.google.com/macros/s/AKfycbzJJkFNfmlzDAW0YkE_0mAaryXnZ0rvlZUsQEB2P2SCXxyVXOwFI82emqbLU8uoTAGU/exec';
       try {

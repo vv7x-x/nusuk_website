@@ -171,6 +171,18 @@
     section, .offer, .nav-logo, .logo, .nav-links a, .contact {
       transition: all 0.3s cubic-bezier(.4,2,.6,1);
     }
+    .animated-arrow { animation: arrowBounce 1.2s infinite; }
+    @keyframes arrowBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+    #scrollDown svg:hover circle {
+      stroke: #fff;
+      filter: drop-shadow(0 0 8px #FFD700);
+    }
+    #scrollDown svg:hover polyline {
+      stroke: #fff;
+    }
   </style>
 </head>
 <body>
@@ -223,8 +235,14 @@
     <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="تواصل واتساب" style="width:60px; height:60px;">
   </a>
   <a href="#" id="scrollDown" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; cursor: pointer;">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/down.png" alt="Scroll Down" style="width:50px; height:50px; transition: transform 0.3s ease-in-out;">
-</a><a href="developer-info.html" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; text-decoration: none; color: gold; font-size: 1rem; background: rgba(0, 0, 0, 0.8); padding: 10px 15px; border-radius: 8px; box-shadow: 0 0 10px #222;">معلومات عن المطور</a>
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="animated-arrow">
+        <circle cx="24" cy="24" r="22" stroke="#FFD700" stroke-width="3" fill="rgba(24,18,43,0.7)"/>
+        <polyline points="16,22 24,32 32,22" fill="none" stroke="#FFD700" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+          <animate attributeName="points" values="16,22 24,32 32,22; 16,26 24,36 32,26; 16,22 24,32 32,22" dur="1.2s" repeatCount="indefinite"/>
+        </polyline>
+      </svg>
+    </a>
+    <a href="developer-info.html" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; text-decoration: none; color: gold; font-size: 1rem; background: rgba(0, 0, 0, 0.8); padding: 10px 15px; border-radius: 8px; box-shadow: 0 0 10px #222;">معلومات عن المطور</a>
   <footer>
     &copy; 2025 نُسُك للحج والعمرة - جميع الحقوق محفوظة
   </footer>
@@ -250,10 +268,10 @@
   <script>
     const scrollDown = document.getElementById('scrollDown');
     scrollDown.addEventListener('mouseover', () => {
-      scrollDown.firstElementChild.style.transform = 'scale(1.2)';
+      scrollDown.querySelector('svg').style.transform = 'scale(1.2)';
     });
     scrollDown.addEventListener('mouseout', () => {
-      scrollDown.firstElementChild.style.transform = 'scale(1)';
+      scrollDown.querySelector('svg').style.transform = 'scale(1)';
     });
   </script>
 </body>
