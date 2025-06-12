@@ -102,7 +102,7 @@
     .offers, .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      gap: 
       margin-top: 30px;
     }
     .offer, .photo {
@@ -171,15 +171,9 @@
   <a href="https://wa.me/+201007522405" target="_blank" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
     <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="تواصل واتساب" style="width:60px; height:60px;">
   </a>
-  <a href="#" id="scrollDown" style="position: fixed; bottom: 50%; right: 20px; z-index: 9999; cursor: pointer; animation: bounce 2s infinite;">
-    <video autoplay loop muted style="width:50px; height:50px;">
-        <source src="https://img.pikbest.com/11/39/01/01cpIkbEsTZtW.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+  <a href="#" id="scrollDown" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; cursor: pointer;">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/down.png" alt="Scroll Down" style="width:50px; height:50px; transition: transform 0.3s ease-in-out;">
   </a>
-  <footer>
-    &copy; 2025 نُسُك للحج والعمرة - جميع الحقوق محفوظة
-  </footer>
   <script>
     window.onload = function() {
       const audio = new Audio('call.mp3');
@@ -200,6 +194,13 @@
     });
     scrollDown.addEventListener('click', () => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+    const scrollDownContact = document.getElementById('scrollDown');
+    scrollDownContact.addEventListener('mouseover', () => {
+      scrollDownContact.firstElementChild.style.transform = 'scale(1.2)';
+    });
+    scrollDownContact.addEventListener('mouseout', () => {
+      scrollDownContact.firstElementChild.style.transform = 'scale(1)';
     });
   </script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
