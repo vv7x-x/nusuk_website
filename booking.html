@@ -58,13 +58,6 @@
     }
     header {
       background: url('kaaba.jpg') no-repeat center center/cover;
-      height: 100vh;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
     }
     section {
       padding: 80px 40px;
@@ -160,7 +153,7 @@
       <label for="name">الاسم الكامل</label>
       <input type="text" id="name" name="name" required />
       <label for="phone">رقم الهاتف</label>
-      <input type="tel" id="phone" name="phone" required />
+      <input type="tel" id="phone" name="phone" required pattern="[0-9]+" />
       <label for="trip">نوع الرحلة</label>
       <select id="trip" name="trip" required>
         <option value="">اختر نوع الرحلة</option>
