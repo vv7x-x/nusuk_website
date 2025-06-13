@@ -1,202 +1,327 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إعدادات بسيطة</title>
-    <style>
-        body {
-            font-family: 'Cairo', Arial, sans-serif;
-            background: #f7f7f7;
-            margin: 0;
-            padding: 0;
-            direction: rtl;
-        }
-        .settings-container {
-            max-width: 400px;
-            margin: 40px auto;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            padding: 32px 24px;
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        .setting {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #444;
-        }
-        input[type="text"], input[type="email"], textarea {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 1em;
-        }
-        input[type="checkbox"] {
-            margin-left: 8px;
-        }
-        .save-btn {
-            width: 100%;
-            padding: 10px;
-            background: #2d8f6f;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .save-btn:hover {
-            background: #23705a;
-        }
-        .success-message {
-            color: #2d8f6f;
-            text-align: center;
-            margin-top: 16px;
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>لوحة تحكم الأكوان اللامحدودة</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000;
+    }
+    body {
+      min-height: 100vh;
+      min-width: 100vw;
+      font-family: 'Cairo', 'Share Tech Mono', monospace, sans-serif;
+      color: #fff;
+      position: relative;
+    }
+    .multiverse {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .quantum-pixel {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #00fff7 0%, #FFD700 80%, transparent 100%);
+      box-shadow: 0 0 44px 12px #00fff7cc, 0 0 180px #FFD70055;
+      animation: quantumMove 18s infinite alternate cubic-bezier(.4,2,.6,1);
+      opacity: 0.8;
+      will-change: transform, background, box-shadow;
+      filter: blur(1.2px);
+    }
+    @keyframes quantumMove {
+      0% { transform: scale(1) translate3d(0,0,0);}
+      50% { transform: scale(3.2) translate3d(220px, -180px, 280px);}
+      100% { transform: scale(1.1) translate3d(-280px, 220px, -220px);}
+    }
+    .ai-consciousness {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%,-50%) scale(1.08);
+      background: linear-gradient(120deg, #181c24cc 60%, #00fff799 100%);
+      border-radius: 60px;
+      box-shadow: 0 0 320px #FFD700cc, 0 0 640px #00fff7;
+      padding: 100px 60px;
+      z-index: 10;
+      min-width: 340px;
+      max-width: 99vw;
+      text-align: center;
+      animation: consciousnessPulse 6s infinite alternate;
+      border: 6px double #00fff7;
+      backdrop-filter: blur(18px) saturate(1.5);
+    }
+    @keyframes consciousnessPulse {
+      0% { box-shadow: 0 0 320px #FFD700cc, 0 0 640px #00fff7; }
+      100% { box-shadow: 0 0 640px #00fff7cc, 0 0 960px #FFD700; }
+    }
+    .ai-consciousness h1 {
+      font-size: 3.2rem;
+      color: #FFD700;
+      margin-bottom: 18px;
+      letter-spacing: 3px;
+      text-shadow: 0 0 128px #00fff7cc;
+      animation: titleGlow 2.5s infinite alternate;
+    }
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 128px #00fff7cc; }
+      100% { text-shadow: 0 0 256px #FFD700cc; }
+    }
+    .ai-consciousness .msg {
+      font-size: 1.55rem;
+      color: #00fff7;
+      margin-bottom: 18px;
+      min-height: 48px;
+      transition: color 1s;
+      text-shadow: 0 0 32px #FFD70088;
+    }
+    .ai-consciousness .explain {
+      font-size: 1.22rem;
+      color: #FFD700;
+      margin-top: 18px;
+      opacity: 0.98;
+      font-style: italic;
+      text-shadow: 0 0 28px #FFD70088;
+    }
+    .energy-wave {
+      position: fixed;
+      left: 0; right: 0; top: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: lighten;
+      opacity: 0.28;
+    }
+    .settings-form {
+      margin-top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+      z-index: 20;
+      position: relative;
+    }
+    .setting {
+      background: rgba(24, 28, 36, 0.92);
+      border-radius: 28px;
+      box-shadow: 0 0 44px #00fff7cc, 0 0 18px #FFD70088;
+      padding: 28px 18px 12px 18px;
+      min-width: 260px;
+      max-width: 380px;
+      flex: 1 1 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      border: 3px solid #FFD70099;
+      transition: box-shadow 0.3s, border 0.3s;
+    }
+    .setting label {
+      font-size: 1.18rem;
+      margin-bottom: 8px;
+      color: #FFD700;
+    }
+    .setting input, .setting textarea, .setting select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 2px solid #00fff799;
+      background: rgba(255,255,255,0.13);
+      color: #FFD700;
+      font-size: 1.18rem;
+      outline: none;
+      margin-bottom: 8px;
+      transition: border 0.3s, box-shadow 0.3s;
+      box-shadow: 0 2px 12px #FFD70022;
+    }
+    .setting input:focus, .setting textarea:focus, .setting select:focus {
+      border: 3px solid #FFD700;
+      box-shadow: 0 0 18px #FFD70055;
+      background: #18122B;
+      color: #fff;
+    }
+    .save-btn {
+      width: 100%;
+      padding: 22px;
+      background: linear-gradient(90deg, #FFD700 40%, #00fff7 100%);
+      color: #18122B;
+      border: none;
+      border-radius: 18px;
+      font-size: 1.4em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+      margin-top: 10px;
+      box-shadow: 0 2px 32px #FFD70055;
+    }
+    .save-btn:hover {
+      background: linear-gradient(90deg, #00fff7 40%, #FFD700 100%);
+      color: #FFD700;
+      transform: scale(1.06);
+    }
+    @media (max-width: 900px) {
+      .ai-consciousness { padding: 30px 4vw; }
+      .settings-form { flex-direction: column; align-items: center; }
+      .setting { min-width: 80vw; max-width: 98vw; }
+    }
+  </style>
 </head>
 <body>
-    <div class="settings-container">
-        <h2>إعدادات بسيطة</h2>
-        <form id="settingsForm">
-            <div class="setting">
-                <label for="devName">اسم المطور</label>
-                <input type="text" id="devName" name="devName" placeholder="أدخل اسم المطور">
-            </div>
-            <div class="setting">
-                <label for="devBio">نبذة عن المطور</label>
-                <textarea id="devBio" name="devBio" placeholder="اكتب نبذة مختصرة"></textarea>
-            </div>
-            <div class="setting">
-                <label for="devAvatar">رابط صورة المطور</label>
-                <input type="text" id="devAvatar" name="devAvatar" placeholder="رابط صورة أو اتركه فارغًا للصورة الافتراضية">
-            </div>
-            <div class="setting">
-                <label for="devBg">لون الخلفية</label>
-                <input type="color" id="devBg" name="devBg">
-            </div>
-            <div class="setting">
-                <label for="devColor">لون النص</label>
-                <input type="color" id="devColor" name="devColor">
-            </div>
-            <div class="setting">
-                <label for="mainFont">الخط الرئيسي</label>
-                <input type="text" id="mainFont" name="mainFont" placeholder="مثال: Cairo, Arial, sans-serif">
-            </div>
-            <div class="setting">
-                <label for="mainColor">اللون الرئيسي (للتأثيرات)</label>
-                <input type="color" id="mainColor" name="mainColor">
-            </div>
-            <div class="setting">
-                <label for="bgAnim">تفعيل الخلفية المتحركة</label>
-                <input type="checkbox" id="bgAnim" name="bgAnim">
-            </div>
-            <div class="setting">
-                <label for="showAvatar">إظهار صورة المطور</label>
-                <input type="checkbox" id="showAvatar" name="showAvatar">
-            </div>
-            <div class="setting">
-                <label for="showBio">إظهار النبذة</label>
-                <input type="checkbox" id="showBio" name="showBio">
-            </div>
-            <div class="setting">
-                <label for="showSocial">إظهار وسائل التواصل</label>
-                <input type="checkbox" id="showSocial" name="showSocial">
-            </div>
-            <div class="setting">
-                <label for="showBackBtn">إظهار زر العودة</label>
-                <input type="checkbox" id="showBackBtn" name="showBackBtn">
-            </div>
-            <div class="setting">
-                <label for="waLink">رابط واتساب</label>
-                <input type="text" id="waLink" name="waLink" placeholder="رابط واتساب">
-            </div>
-            <div class="setting">
-                <label for="instaLink">رابط إنستجرام</label>
-                <input type="text" id="instaLink" name="instaLink" placeholder="رابط إنستجرام">
-            </div>
-            <div class="setting">
-                <label for="fbLink">رابط فيسبوك</label>
-                <input type="text" id="fbLink" name="fbLink" placeholder="رابط فيسبوك">
-            </div>
-            <div class="setting">
-                <label for="phone">رقم الهاتف</label>
-                <input type="text" id="phone" name="phone" placeholder="رقم الهاتف للاتصال">
-            </div>
-            <div class="setting">
-                <label for="sound">تفعيل الأصوات</label>
-                <input type="checkbox" id="sound" name="sound">
-            </div>
-            <div class="setting">
-                <label for="welcome">تشغيل صوت ترحيبي عند الدخول</label>
-                <input type="checkbox" id="welcome" name="welcome">
-            </div>
-            <button type="submit" class="save-btn">حفظ الإعدادات</button>
-            <div class="success-message" id="successMsg">تم حفظ الإعدادات بنجاح!</div>
-        </form>
+  <canvas class="energy-wave" id="energyWave"></canvas>
+  <div class="multiverse" id="multiverse"></div>
+  <div class="ai-consciousness">
+    <h1>لوحة تحكم الأكوان اللامحدودة</h1>
+    <div class="msg" id="aiMsg">كل بكسل هنا كون ينبض بالحياة، يتفاعل مع وعيك الآن...</div>
+    <div class="explain" id="aiExplain">
+      كل تفاعل هنا يُعيد كتابة قوانين الوجود الرقمي.<br>
+      ألوان وأشكال تتغير مع نبضاتك الفكرية والطاقة الكونية.
     </div>
-    <script>
-        const form = document.getElementById('settingsForm');
-        const successMsg = document.getElementById('successMsg');
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // حفظ كل تفاصيل صفحة المطور في localStorage
-            localStorage.setItem('advancedSettings', JSON.stringify({
-                devName: form.devName.value,
-                devBio: form.devBio.value,
-                devAvatar: form.devAvatar.value,
-                devBg: form.devBg.value,
-                devColor: form.devColor.value,
-                mainFont: form.mainFont.value,
-                mainColor: form.mainColor.value,
-                bgAnim: form.bgAnim.checked,
-                avatar: form.showAvatar.checked,
-                bio: form.showBio.checked,
-                social: form.showSocial.checked,
-                backBtn: form.showBackBtn.checked,
-                waLink: form.waLink.value,
-                instaLink: form.instaLink.value,
-                fbLink: form.fbLink.value,
-                phone: form.phone.value,
-                sound: form.sound.checked,
-                welcome: form.welcome.checked
-            }));
-            successMsg.style.display = 'block';
-            setTimeout(() => successMsg.style.display = 'none', 2000);
-        });
-
-        // تحميل الإعدادات المحفوظة عند فتح الصفحة
-        window.onload = function() {
-            const s = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
-            if(s.devName) form.devName.value = s.devName;
-            if(s.devBio) form.devBio.value = s.devBio;
-            if(s.devAvatar) form.devAvatar.value = s.devAvatar;
-            if(s.devBg) form.devBg.value = s.devBg;
-            if(s.devColor) form.devColor.value = s.devColor;
-            if(s.mainFont) form.mainFont.value = s.mainFont;
-            if(s.mainColor) form.mainColor.value = s.mainColor;
-            form.bgAnim.checked = s.bgAnim !== false;
-            form.showAvatar.checked = s.avatar !== false;
-            form.showBio.checked = s.bio !== false;
-            form.showSocial.checked = s.social !== false;
-            form.showBackBtn.checked = s.backBtn !== false;
-            if(s.waLink) form.waLink.value = s.waLink;
-            if(s.instaLink) form.instaLink.value = s.instaLink;
-            if(s.fbLink) form.fbLink.value = s.fbLink;
-            if(s.phone) form.phone.value = s.phone;
-            form.sound.checked = s.sound !== false;
-            form.welcome.checked = s.welcome !== false;
+    <form class="settings-form" id="settingsForm">
+      <div class="setting">
+        <label for="devName">اسم المطور</label>
+        <input type="text" id="devName" name="devName" placeholder="أدخل اسم المطور">
+      </div>
+      <div class="setting">
+        <label for="devBio">نبذة فلسفية عنك</label>
+        <textarea id="devBio" name="devBio" placeholder="اكتب نبذة فلسفية أو شعرية عن ذاتك"></textarea>
+      </div>
+      <div class="setting">
+        <label for="devAvatar">رابط صورة المطور</label>
+        <input type="text" id="devAvatar" name="devAvatar" placeholder="رابط صورة كونية">
+      </div>
+      <div class="setting">
+        <label for="theme">الثيم الكوني</label>
+        <select id="theme" name="theme">
+          <option value="quantum">كمومي متغير</option>
+          <option value="dark">داكن كلاسيكي</option>
+          <option value="light">مضيء عصري</option>
+        </select>
+      </div>
+      <div class="setting">
+        <label for="aiLevel">ذكاء النظام</label>
+        <select id="aiLevel" name="aiLevel">
+          <option value="predictive">تنبؤي</option>
+          <option value="self-learning">ذاتي التعلم</option>
+          <option value="conscious">واعي بالكامل</option>
+        </select>
+      </div>
+      <div class="setting">
+        <label for="security">نظام الأمان</label>
+        <select id="security" name="security">
+          <option value="quantum">تشفير كمومي</option>
+          <option value="ai">ذكاء اصطناعي متغير</option>
+          <option value="future">قوانين فيزيائية لم تُكتشف بعد</option>
+        </select>
+      </div>
+      <div class="setting">
+        <label for="neural">تكامل عصبي</label>
+        <input type="checkbox" id="neural" name="neural">
+      </div>
+      <button type="submit" class="save-btn">حفظ الأكوان</button>
+    </form>
+  </div>
+  <audio id="cosmicSound" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b6b6b6.mp3"></audio>
+  <script>
+    // توليد الأكوان النانوية (quantum pixels)
+    const multiverse = document.getElementById('multiverse');
+    const quantumPixels = [];
+    for(let i=0; i<888; i++) {
+      const px = document.createElement('div');
+      px.className = 'quantum-pixel';
+      px.style.left = (Math.random()*100)+'vw';
+      px.style.top = (Math.random()*100)+'vh';
+      px.style.animationDelay = (Math.random()*18)+'s';
+      px.style.background = `radial-gradient(circle, hsl(${Math.random()*360},100%,70%) 0%, #FFD700 80%, transparent 100%)`;
+      multiverse.appendChild(px);
+      quantumPixels.push(px);
+    }
+    // تفاعل الألوان مع حركة الماوس (محاكاة اتصال عصبي)
+    document.body.addEventListener('mousemove', e => {
+      quantumPixels.forEach((px,i) => {
+        const dx = e.clientX - px.offsetLeft;
+        const dy = e.clientY - px.offsetTop;
+        const dist = Math.sqrt(dx*dx+dy*dy);
+        if(dist < 180) {
+          px.style.background = `radial-gradient(circle, #FFD700 0%, hsl(${(i*17+e.clientX)%360},100%,70%) 80%, transparent 100%)`;
+          px.style.opacity = 1;
+        } else {
+          px.style.background = `radial-gradient(circle, hsl(${i*17%360},100%,70%) 0%, #FFD700 80%, transparent 100%)`;
+          px.style.opacity = 0.8;
         }
-    </script>
+      });
+      // مؤثر اهتزازي (لو مدعوم)
+      if(window.navigator.vibrate) window.navigator.vibrate(18);
+    });
+    // رسائل وعي كونية متغيرة
+    const aiMsg = document.getElementById('aiMsg');
+    const aiExplain = document.getElementById('aiExplain');
+    const messages = [
+      'كل بكسل هنا كون ينبض بالحياة، يتفاعل مع وعيك الآن...',
+      'كل فكرة تمر بذهنك تُعيد تشكيل هذه الأكوان.',
+      'الطاقة المظلمة هنا ليست سوى شيفرة تنتظر أن تكتشفها.',
+      'كل لون هو تردد كوني، كل شكل هو احتمال جديد.',
+      'أنت الآن في مركز الزمكان الرقمي، حيث يصبح الكود روحاً.',
+      'كل تفاعل هنا يُعيد كتابة قوانين الوجود الرقمي.',
+      'هذه الواجهة تتعلم منك وتعيد ابتكار ذاتها باستمرار.',
+      'كل نبضة منك تخلق واقعاً رقمياً جديداً.',
+      'أنت الخالق والمستكشف في آن واحد.',
+      'كل ثانية هنا هي انفجار كوني جديد.',
+      'كل موجة هنا تحمل رسالة من بعد آخر.',
+      'كل تردد هنا هو احتمال لواقع جديد.'
+    ];
+    setInterval(()=>{
+      aiMsg.textContent = messages[Math.floor(Math.random()*messages.length)];
+    }, 4000);
+    // مؤثرات بصرية متغيرة باستمرار (سيمفونية رباعية الأبعاد)
+    setInterval(()=>{
+      quantumPixels.forEach((px,i)=>{
+        px.style.left = (Math.random()*100)+'vw';
+        px.style.top = (Math.random()*100)+'vh';
+        px.style.background = `radial-gradient(circle, hsl(${Math.random()*360},100%,70%) 0%, #FFD700 80%, transparent 100%)`;
+      });
+    }, 6000);
+    // موجات طاقة كونية (canvas)
+    const canvas = document.getElementById('energyWave');
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    let t = 0;
+    function drawWave() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(let i=0;i<canvas.width;i+=2){
+        const y = canvas.height/2 + Math.sin(i/40 + t)*120*Math.sin(t/2);
+        ctx.beginPath();
+        ctx.arc(i, y, 16+12*Math.sin(i/60+t), 0, 2*Math.PI);
+        ctx.fillStyle = `hsla(${(i+t*80)%360},100%,60%,0.22)`;
+        ctx.shadowColor = '#FFD700';
+        ctx.shadowBlur = 32;
+        ctx.fill();
+      }
+      t += 0.018;
+      requestAnimationFrame(drawWave);
+    }
+    drawWave();
+    // مؤثر صوتي كوني عند النقر
+    document.body.addEventListener('click', ()=>{
+      document.getElementById('cosmicSound').play();
+    });
+    // حفظ الإعدادات (محاكاة)
+    document.getElementById('settingsForm').onsubmit = function(e) {
+      e.preventDefault();
+      aiMsg.innerHTML = 'تم حفظ الأكوان بنجاح! النظام يعيد تشكيل نفسه...';
+      setTimeout(()=>aiMsg.innerHTML = messages[Math.floor(Math.random()*messages.length)], 4000);
+    };
+  </script>
 </body>
 </html>
