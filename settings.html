@@ -82,6 +82,35 @@
       margin-top: 8px;
     }
     .btn:active { transform: scale(0.97); }
+    .hidden { display: none !important; }
+    .pages-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    .page-tile {
+      background: linear-gradient(120deg, #003366 0%, #181c24 100%);
+      border: 2px solid #FFD700;
+      border-radius: 18px;
+      box-shadow: 0 0 16px #00fff7cc;
+      color: #FFD700;
+      font-family: inherit;
+      font-size: 1.15rem;
+      padding: 22px 32px;
+      min-width: 120px;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+      text-align: center;
+      user-select: none;
+    }
+    .page-tile:hover {
+      background: #FFD70022;
+      color: #00fff7;
+      box-shadow: 0 0 32px #FFD700cc;
+      transform: scale(1.07);
+    }
     .settings-section { display: none; }
     .settings-section.active { display: block; }
     .settings-section.page-settings { display: none; }
@@ -111,40 +140,18 @@
       font-size: 1.1rem;
       display: none;
     }
-    .pages-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      justify-content: center;
-      margin-bottom: 32px;
-    }
-    .page-tile {
-      background: linear-gradient(120deg, #003366 0%, #181c24 100%);
-      border: 2px solid #FFD700;
-      border-radius: 18px;
-      box-shadow: 0 0 16px #00fff7cc;
-      color: #FFD700;
-      font-family: inherit;
-      font-size: 1.15rem;
-      padding: 22px 32px;
-      min-width: 120px;
-      cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
-      text-align: center;
-      user-select: none;
-    }
-    .page-tile:hover {
-      background: #FFD70022;
-      color: #00fff7;
-      box-shadow: 0 0 32px #FFD700cc;
-      transform: scale(1.07);
+    .page-settings-form input:disabled, .page-settings-form select:disabled, .page-settings-form textarea:disabled {
+      background: #222 !important;
+      color: #888 !important;
+      cursor: not-allowed;
+      opacity: 0.7;
     }
   </style>
 </head>
 <body>
   <div class="settings-card">
     <h2>إعدادات الموقع</h2>
-    <div class="settings-section" id="loginSection">
+    <div class="settings-section active" id="loginSection">
       <form id="loginForm">
         <div class="input-group">
           <label for="adminPass">كلمة المرور:</label>
@@ -153,7 +160,7 @@
         <button class="btn" type="submit">دخول</button>
       </form>
     </div>
-    <div class="settings-section active" id="pagesGridSection">
+    <div class="settings-section hidden" id="pagesGridSection">
       <div class="pages-grid">
         <div class="page-tile" data-page="main">إعدادات عامة</div>
         <div class="page-tile" data-page="index">الرئيسية</div>
@@ -165,7 +172,7 @@
         <div class="page-tile" data-page="developer-info">عن المطور</div>
       </div>
     </div>
-    <div class="settings-section" id="mainSettings">
+    <div class="settings-section hidden" id="mainSettings">
       <form id="settingsForm">
         <div class="setting-row">
           <label for="soundToggle">تشغيل الأصوات</label>
@@ -218,13 +225,96 @@
       </form>
     </div>
     <!-- إعدادات صفحات فرعية (تظهر عند اختيار صفحة) -->
-    <div class="settings-section page-settings" id="indexSettings">إعدادات صفحة الرئيسية (يمكنك إضافة إعدادات خاصة هنا)</div>
-    <div class="settings-section page-settings" id="aboutSettings">إعدادات صفحة من نحن</div>
-    <div class="settings-section page-settings" id="offersSettings">إعدادات صفحة العروض</div>
-    <div class="settings-section page-settings" id="gallerySettings">إعدادات صفحة صور الرحلات</div>
-    <div class="settings-section page-settings" id="contactSettings">إعدادات صفحة اتصل بنا</div>
-    <div class="settings-section page-settings" id="bookingSettings">إعدادات صفحة الحجز</div>
-    <div class="settings-section page-settings" id="developer-infoSettings">إعدادات صفحة عن المطور</div>
+    <div class="settings-section page-settings hidden" id="indexSettings">
+      <form class="page-settings-form" id="indexSettingsForm">
+        <h3>إعدادات صفحة الرئيسية</h3>
+        <div class="setting-row"><label>عنوان الصفحة</label><input type="text" id="indexTitle"></div>
+        <div class="setting-row"><label>وصف رئيسي</label><textarea id="indexMainDesc"></textarea></div>
+        <div class="setting-row"><label>وصف ثانوي</label><textarea id="indexSubDesc"></textarea></div>
+        <div class="setting-row"><label>تغيير صورة اللوجو</label><input type="file" id="indexLogo" accept="image/*"></div>
+        <div class="setting-row"><label>صورة خلفية</label><input type="file" id="indexBgImg" accept="image/*"></div>
+        <div class="setting-row"><label>لون الخلفية</label><input type="color" id="indexBg"></div>
+        <div class="setting-row"><label>لون النص</label><input type="color" id="indexTextColor"></div>
+        <div class="setting-row"><label>إظهار زر الواتساب</label><input type="checkbox" id="indexWhatsapp" checked></div>
+        <div class="setting-row"><label>إظهار قسم العروض</label><input type="checkbox" id="indexShowOffers" checked></div>
+        <div class="setting-row"><label>إظهار صورة المطور</label><input type="checkbox" id="indexShowDev" checked></div>
+        <button class="btn" type="submit">حفظ إعدادات الرئيسية</button>
+      </form>
+    </div>
+    <div class="settings-section page-settings hidden" id="aboutSettings">
+      <form class="page-settings-form" id="aboutSettingsForm">
+        <h3>إعدادات صفحة من نحن</h3>
+        <div class="setting-row"><label>عنوان الصفحة</label><input type="text" id="aboutTitle"></div>
+        <div class="setting-row"><label>النص التعريفي الرئيسي</label><textarea id="aboutMainDesc"></textarea></div>
+        <div class="setting-row"><label>نص إضافي</label><textarea id="aboutExtra"></textarea></div>
+        <div class="setting-row"><label>تغيير صورة اللوجو</label><input type="file" id="aboutLogo" accept="image/*"></div>
+        <div class="setting-row"><label>صورة خلفية</label><input type="file" id="aboutBgImg" accept="image/*"></div>
+        <div class="setting-row"><label>لون الخلفية</label><input type="color" id="aboutBg"></div>
+        <div class="setting-row"><label>لون النص</label><input type="color" id="aboutTextColor"></div>
+        <div class="setting-row"><label>إظهار وسائل التواصل</label><input type="checkbox" id="aboutShowSocial" checked></div>
+        <button class="btn" type="submit">حفظ إعدادات من نحن</button>
+      </form>
+    </div>
+    <div class="settings-section page-settings hidden" id="offersSettings">
+      <form class="page-settings-form" id="offersSettingsForm">
+        <h3>إعدادات صفحة العروض</h3>
+        <div class="setting-row"><label>عنوان الصفحة</label><input type="text" id="offersTitle"></div>
+        <div class="setting-row"><label>وصف العروض</label><textarea id="offersDesc"></textarea></div>
+        <div class="setting-row"><label>لون الخلفية</label><input type="color" id="offersBg"></div>
+        <div class="setting-row"><label>لون النص</label><input type="color" id="offersTextColor"></div>
+        <div class="setting-row"><label>إظهار العروض المميزة</label><input type="checkbox" id="offersShowFeatured" checked></div>
+        <button class="btn" type="submit">حفظ إعدادات العروض</button>
+      </form>
+    </div>
+    <div class="settings-section page-settings hidden" id="gallerySettings">
+      <form class="page-settings-form" id="gallerySettingsForm">
+        <h3>إعدادات صفحة صور الرحلات</h3>
+        <div class="setting-row"><label>عنوان الصفحة</label><input type="text" id="galleryTitle"></div>
+        <div class="setting-row"><label>وصف الصور</label><textarea id="galleryDesc"></textarea></div>
+        <div class="setting-row"><label>رفع صور إضافية</label><input type="file" id="galleryImages" accept="image/*" multiple></div>
+        <div class="setting-row"><label>لون الخلفية</label><input type="color" id="galleryBg"></div>
+        <div class="setting-row"><label>لون النص</label><input type="color" id="galleryTextColor"></div>
+        <div class="setting-row"><label>إظهار صور الرحلات السابقة</label><input type="checkbox" id="galleryShowOld" checked></div>
+        <button class="btn" type="submit">حفظ إعدادات صور الرحلات</button>
+      </form>
+    </div>
+    <div class="settings-section page-settings hidden" id="contactSettings">
+      <form class="page-settings-form" id="contactSettingsForm">
+        <h3>إعدادات صفحة اتصل بنا</h3>
+        <div class="setting-row"><label>عنوان الصفحة</label><input type="text" id="contactTitle"></div>
+        <div class="setting-row"><label>رقم الهاتف</label><input type="text" id="contactPhone"></div>
+        <div class="setting-row"><label>البريد الإلكتروني</label><input type="text" id="contactEmail"></div>
+        <div class="setting-row"><label>موقع الخريطة</label><input type="text" id="contactMap"></div>
+        <div class="setting-row"><label>لون الخلفية</label><input type="color" id="contactBg"></div>
+        <div class="setting-row"><label>لون النص</label><input type="color" id="contactTextColor"></div>
+        <div class="setting-row"><label>إظهار نموذج التواصل</label><input type="checkbox" id="contactShowForm" checked></div>
+        <button class="btn" type="submit">حفظ إعدادات اتصل بنا</button>
+      </form>
+    </div>
+    <div class="settings-section page-settings hidden" id="bookingSettings">
+      <form class="page-settings-form" id="bookingSettingsForm">
+        <h3>إعدادات صفحة الحجز</h3>
+        <div class="setting-row"><label>عنوان الصفحة</label><input type="text" id="bookingTitle"></div>
+        <div class="setting-row"><label>وصف الحجز</label><textarea id="bookingDesc"></textarea></div>
+        <div class="setting-row"><label>لون الخلفية</label><input type="color" id="bookingBg"></div>
+        <div class="setting-row"><label>لون النص</label><input type="color" id="bookingTextColor"></div>
+        <div class="setting-row"><label>إظهار نموذج الحجز</label><input type="checkbox" id="bookingShowForm" checked></div>
+        <button class="btn" type="submit">حفظ إعدادات الحجز</button>
+      </form>
+    </div>
+    <div class="settings-section page-settings hidden" id="developer-infoSettings">
+      <form class="page-settings-form" id="devSettingsForm">
+        <h3>إعدادات صفحة عن المطور</h3>
+        <div class="setting-row"><label>اسم المطور</label><input type="text" id="devName"></div>
+        <div class="setting-row"><label>السيرة الذاتية</label><textarea id="devBio"></textarea></div>
+        <div class="setting-row"><label>رابط حساب المطور</label><input type="text" id="devLink"></div>
+        <div class="setting-row"><label>تغيير صورة المطور</label><input type="file" id="devAvatar" accept="image/*"></div>
+        <div class="setting-row"><label>لون الخلفية</label><input type="color" id="devBg"></div>
+        <div class="setting-row"><label>لون النص</label><input type="color" id="devTextColor"></div>
+        <div class="setting-row"><label>إظهار وسائل التواصل</label><input type="checkbox" id="devShowSocial" checked></div>
+        <button class="btn" type="submit">حفظ إعدادات عن المطور</button>
+      </form>
+    </div>
   </div>
   <script>
     // دعم باسوردين: admin و guest
