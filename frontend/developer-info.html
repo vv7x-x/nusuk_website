@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عن المطور</title>
+</head>
+<body>
+  <h1 id="dev-name"></h1>
+  <p id="dev-bio"></p>
+  <img id="dev-photo" style="width:120px;display:none;"/>
+  <img id="dev-logo" style="width:80px;display:none;"/>
+  <script>
+    fetch('http://localhost:3001/api/developer')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('dev-name').textContent = data.developerName || '';
+        document.getElementById('dev-bio').textContent = data.developerBio || '';
+        if(data.developerPhoto) {
+          document.getElementById('dev-photo').src = data.developerPhoto;
+          document.getElementById('dev-photo').style.display = 'block';
+        }
+        if(data.logo) {
+          document.getElementById('dev-logo').src = data.logo;
+          document.getElementById('dev-logo').style.display = 'block';
+        }
+      });
+  </script>
+</body>
+</html>

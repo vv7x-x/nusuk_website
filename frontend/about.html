@@ -1,0 +1,21 @@
+<!-- صفحة من نحن (فرونت اند) -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>من نحن</title>
+</head>
+<body>
+  <h1 id="about-title"></h1>
+  <p id="about-description"></p>
+  <script>
+    fetch('http://localhost:3001/api/about')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('about-title').textContent = data.title || 'من نحن';
+        document.getElementById('about-description').textContent = data.description || '';
+      });
+  </script>
+</body>
+</html>

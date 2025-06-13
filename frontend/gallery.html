@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صور الرحلات</title>
+</head>
+<body>
+  <h1 id="gallery-title"></h1>
+  <p id="gallery-description"></p>
+  <script>
+    fetch('http://localhost:3001/api/gallery')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('gallery-title').textContent = data.title || 'صور الرحلات';
+        document.getElementById('gallery-description').textContent = data.description || '';
+      });
+  </script>
+</body>
+</html>

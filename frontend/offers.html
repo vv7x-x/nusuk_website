@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>العروض</title>
+</head>
+<body>
+  <h1 id="offers-title"></h1>
+  <p id="offers-description"></p>
+  <script>
+    fetch('http://localhost:3001/api/offers')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('offers-title').textContent = data.title || 'العروض';
+        document.getElementById('offers-description').textContent = data.description || '';
+      });
+  </script>
+</body>
+</html>
