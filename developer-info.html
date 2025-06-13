@@ -19,25 +19,29 @@
       height: 100%;
       margin: 0;
       padding: 0;
-      background: var(--main-bg);
+      /* خلفية فخمة: تدرج ألوان داكنة مع تأثير ضوء متحرك */
+      background: linear-gradient(120deg, #0a0f1a 0%, #181c24 60%, #003366 100%);
       min-height: 100vh;
       font-family: 'Share Tech Mono', 'VT323', monospace, 'Cairo', sans-serif;
       color: var(--hacker-green);
       overflow-x: hidden;
-    }
-    body {
       position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #0a0f1a 0%, #181c24 100%);
-      animation: bgmove 12s linear infinite alternate;
     }
-    @keyframes bgmove {
-      0% { background-position: 0 0; }
-      100% { background-position: 100vw 100vh; }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse at 60% 20%, #00fff733 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, #FFD70022 0%, transparent 70%),
+                  linear-gradient(120deg, #00336622 0%, #0a0f1a 100%);
+      animation: bgLightMove 12s ease-in-out infinite alternate;
+      opacity: 0.7;
+    }
+    @keyframes bgLightMove {
+      0% { background-position: 0 0, 0 0, 0 0; }
+      100% { background-position: 80px 60px, 120px 180px, 0 0; }
     }
     .hacker-card {
       background: rgba(24, 28, 36, 0.92);
@@ -245,6 +249,10 @@
       const audio = new Audio(src);
       audio.play();
     }
+    // تشغيل صوت ترحيبي عند الدخول للموقع
+    window.addEventListener('DOMContentLoaded', function() {
+      playSound('الأصوات/about dev2.mp3');
+    });
     document.getElementById('instaIcon').addEventListener('mouseenter', function() {
       playSound('الأصوات/insta.mp3');
     });
