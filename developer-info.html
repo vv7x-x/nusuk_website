@@ -419,6 +419,11 @@
         const bioDiv = document.querySelector('.dev-bio');
         if(bioDiv) bioDiv.textContent = settings.devBio;
       }
+      // صورة المطور
+      if(settings.devAvatar) {
+        const avatar = document.getElementById('devAvatar');
+        if(avatar) avatar.src = settings.devAvatar;
+      }
       // لون الخلفية
       if(settings.devBg) {
         document.body.style.background = settings.devBg;
@@ -428,6 +433,38 @@
         document.body.style.color = settings.devColor;
         const nameDiv = document.querySelector('.dev-name');
         if(nameDiv) nameDiv.style.color = settings.devColor;
+      }
+      // إظهار/إخفاء صورة المطور
+      const avatar = document.getElementById('devAvatar');
+      if(avatar) avatar.style.display = (settings.avatar === false) ? 'none' : '';
+      // إظهار/إخفاء النبذة
+      const bio = document.querySelector('.dev-bio');
+      if(bio) bio.style.display = (settings.bio === false) ? 'none' : '';
+      // إظهار/إخفاء وسائل التواصل
+      const social = document.querySelector('.social-icons');
+      if(social) social.style.display = (settings.social === false) ? 'none' : '';
+      // إظهار/إخفاء زر العودة
+      const backBtn = document.querySelector('.back-btn');
+      if(backBtn) backBtn.style.display = (settings.backBtn === false) ? 'none' : '';
+      // روابط التواصل
+      if(settings.waLink) {
+        const wa = document.getElementById('waIcon');
+        if(wa) wa.href = settings.waLink;
+      }
+      if(settings.instaLink) {
+        const insta = document.getElementById('instaIcon');
+        if(insta) insta.href = settings.instaLink;
+      }
+      if(settings.fbLink) {
+        const fb = document.getElementById('fbIcon');
+        if(fb) fb.href = settings.fbLink;
+      }
+      // رقم الهاتف
+      if(settings.phone) {
+        const phoneIcon = document.getElementById('phoneIcon');
+        const callBtn = document.querySelector('.call-btn');
+        if(phoneIcon) phoneIcon.href = 'tel:' + settings.phone;
+        if(callBtn) callBtn.href = 'tel:' + settings.phone;
       }
     });
   </script>
