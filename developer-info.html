@@ -246,27 +246,38 @@
       opacity: 0.22;
       filter: blur(0.5px);
     }
-    @media (max-width: 600px) {
+    @media (max-width: 900px) {
       .dev-card {
         max-width: 98vw;
-        padding: 18px 4vw 18px 4vw;
+        padding: 18px 2vw 18px 2vw;
+        border-radius: 32px;
       }
-      h1 {
-        font-size: 1.5rem;
-      }
-      .dev-title, .dev-bio, .contact {
-        font-size: 1rem;
-      }
-      .dev-avatar {
-        width: 70px;
-        height: 70px;
-      }
-      .social-icons img {
-        width: 36px;
-        height: 36px;
-        padding: 3px;
-      }
+      .cyber-border { display: none; }
     }
+    @media (max-width: 600px) {
+      .dev-card {
+        max-width: 100vw;
+        padding: 8px 0 8px 0;
+        border-radius: 18px;
+      }
+      h1, .glitch { font-size: 1.2rem; }
+      .dev-title, .dev-bio, .contact { font-size: 0.95rem; }
+      .dev-avatar { width: 60px; height: 60px; }
+      .social-icons img { width: 28px; height: 28px; padding: 2px; }
+      .theme-toggle { width: 44px; height: 44px; top: 8px; left: 8px; }
+      .theme-toggle svg { width: 28px; height: 28px; }
+      .cv-btn, .call-btn { font-size: 0.9rem; padding: 7px 16px; }
+      .visitors { font-size: 0.85rem; }
+      .dev-avatar-tooltip { font-size: 0.8rem; padding: 6px 10px; top: 60px; }
+    }
+    @media (min-width: 1200px) {
+      .dev-card { max-width: 520px; }
+      .dev-avatar { width: 140px; height: 140px; }
+      .social-icons img { width: 60px; height: 60px; }
+    }
+    /* إزالة glitch عن الاسم */
+    .glitch { animation: none !important; text-shadow: 0 0 18px #a020f0, 0 0 8px #FFD700, 0 0 12px #00ffea; cursor: default; }
+    .glitch:hover { animation: none !important; }
     /* تأثيرات إضافية باستخدام CSS متقدم */
     .dev-card::before {
       content: '';
@@ -417,24 +428,6 @@
     @keyframes scanMove {
       0% { background-position-y: 0; }
       100% { background-position-y: 40px; }
-    }
-    /* تأثير glitch على اسم المطور */
-    .glitch {
-      position: relative;
-      color: #00ffea;
-      animation: none;
-      cursor: pointer;
-    }
-    .glitch:hover {
-      animation: glitch 0.5s linear infinite;
-    }
-    @keyframes glitch {
-      0% { text-shadow: 2px 0 #FFD700, -2px 0 #00ffea; }
-      20% { text-shadow: -2px 2px #FFD700, 2px -2px #00ffea; }
-      40% { text-shadow: 2px -2px #FFD700, -2px 2px #00ffea; }
-      60% { text-shadow: -2px 0 #FFD700, 2px 0 #00ffea; }
-      80% { text-shadow: 2px 2px #FFD700, -2px -2px #00ffea; }
-      100% { text-shadow: 2px 0 #FFD700, -2px 0 #00ffea; }
     }
     /* Tooltip لصورة المطور */
     .dev-avatar-tooltip {
@@ -786,48 +779,26 @@
     const instaIcon = document.querySelector('a[title="إنستجرام"]');
     const fbIcon = document.querySelector('a[title="فيسبوك"]');
     if (whatsappIcon) {
-      whatsappIcon.addEventListener('mouseenter', () => playSound('الأصوات/welcome.mp3'));
+      whatsappIcon.addEventListener('mouseenter', () => playSound('الأصوات/whatsapp.mp3'));
     }
     if (instaIcon) {
-      instaIcon.addEventListener('mouseenter', () => playSound('الأصوات/about.mp3'));
+      instaIcon.addEventListener('mouseenter', () => playSound('الأصوات/insta.mp3'));
     }
     if (fbIcon) {
-      fbIcon.addEventListener('mouseenter', () => playSound('الأصوات/bb.mp3'));
-    }
-    // رقم الهاتف
-    const phoneLink = document.querySelector('a[href^="tel:"]');
-    if (phoneLink) {
-      phoneLink.addEventListener('mouseenter', () => playSound('الأصوات/call.mp3'));
+      fbIcon.addEventListener('mouseenter', () => playSound('الأصوات/ff.mp3'));
     }
     // صورة المطور
     const devAvatar = document.querySelector('.dev-avatar');
     if (devAvatar) {
-      devAvatar.addEventListener('mouseenter', () => playSound('الأصوات/vv.mp3'));
+      devAvatar.addEventListener('mouseenter', () => playSound('الأصوات/يحيى رضا.mp3'));
     }
-    // glitch name
-    const glitchName = document.querySelector('.glitch');
-    if (glitchName) {
-      glitchName.addEventListener('mouseenter', () => playSound('الأصوات/ff.mp3'));
-    }
-    // زر السيرة الذاتية
-    const cvBtn = document.querySelector('.cv-btn');
-    if (cvBtn) {
-      cvBtn.addEventListener('click', function() {
-        playSound('الأصوات/about dev.mp3');
-      });
-    }
-    // زر الوضع الليلي
-    const themeBtn = document.querySelector('.theme-toggle');
-    themeBtn.addEventListener('click', function() {
-      playSound('الأصوات/33.mp3');
-    });
-    // اهتزاز الكارت عند الاتصال
+    // زر الوضع الليلي/النهاري: بدون صوت
+    // زر السيرة الذاتية: بدون صوت
+    // زر الاتصال: بدون اهتزاز
     const callBtn = document.getElementById('callBtn');
     if (callBtn && devCard) {
       callBtn.addEventListener('click', function() {
-        devCard.style.animation = 'shake 0.4s';
-        setTimeout(() => devCard.style.animation = '', 400);
-        playSound('الأصوات/booking.mp3');
+        // لا شيء
       });
     }
     // كود اهتزاز
