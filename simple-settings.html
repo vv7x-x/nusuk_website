@@ -182,11 +182,91 @@
       .settings-card { padding: 16px 2vw; }
       .centered-container { padding: 0; }
     }
+    /* تنسيق كارت المعاينة الحية */
+    .live-preview-card {
+      background: rgba(24,28,36,0.93);
+      border-radius: 22px;
+      box-shadow: 0 8px 32px 0 #00ffb055, 0 2px 8px #00ffb022;
+      padding: 32px 18px 22px 18px;
+      max-width: 400px;
+      width: 98vw;
+      margin: 0 auto 32px auto;
+      position: relative;
+      transition: box-shadow 0.4s, background 0.4s, transform 0.5s cubic-bezier(.4,2,.6,1);
+      border: 1.5px solid #00ffb033;
+      color: #00ffb0;
+      font-family: 'Cairo', 'Montserrat', Arial, sans-serif;
+      animation: cardPopIn 1.2s cubic-bezier(.4,2,.6,1);
+      z-index: 2;
+      overflow: hidden;
+      min-height: 180px;
+    }
+    @keyframes cardPopIn {
+      from { opacity: 0; transform: scale(0.85) translateY(60px); }
+      60% { opacity: 1; transform: scale(1.04) translateY(-8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .live-preview-card .dev-avatar-preview {
+      margin-bottom: 10px;
+      box-shadow: 0 0 18px #00ffb099;
+      border: 2.5px solid #00ffb0;
+      background: #232526;
+    }
+    .live-preview-card .dev-name {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #00ffb0;
+      text-shadow: 0 2px 8px #00ffb055;
+      letter-spacing: 1.2px;
+    }
+    .live-preview-card .dev-bio {
+      font-size: 1.05rem;
+      color: #baffc9;
+      margin-bottom: 10px;
+      font-family: inherit;
+    }
+    .live-preview-card .dev-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+      justify-content: center;
+    }
+    .live-preview-card .dev-social a {
+      color: #00ffb0;
+      background: #232526;
+      border-radius: 50%;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2em;
+      box-shadow: 0 2px 8px #00ffb055;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      text-decoration: none;
+    }
+    .live-preview-card .dev-social a:hover {
+      background: #00ffb0;
+      color: #232526;
+      transform: scale(1.12);
+    }
+    .live-preview-card .dev-phone {
+      color: #baffc9;
+      font-size: 0.98em;
+      margin-top: 6px;
+      text-align: center;
+    }
+    /* أنيميشن للكارت عند التغيير */
+    .settings-card {
+      /* ...existing code... */
+      animation: cardPopIn 1.2s cubic-bezier(.4,2,.6,1);
+    }
   </style>
 </head>
 <body>
     <canvas id="matrix-canvas"></canvas>
     <div class="centered-container">
+    <div class="live-preview-card" id="livePreviewCard" style="margin-bottom:32px;display:none;">
+      <!-- محتوى المعاينة الحية سيظهر هنا -->
+    </div>
     <div class="settings-card">
       <h2>إعدادات صفحة المطور</h2>
       <img id="devAvatarPreview" class="dev-avatar-preview" src="" alt="صورة المطور" style="display:none;" />
@@ -411,6 +491,49 @@
       drops = Array(columns).fill(1).map(() => Math.random() * matrixCanvas.height / fontSize);
     });
     drawMatrix();
+    // معاينة حية لإعدادات صفحة المطور
+    const livePreview = document.getElementById('livePreviewCard');
+    const form = document.getElementById('settingsForm');
+    function updateLivePreview() {
+      livePreview.style.display = 'block';
+      const name = form.devName.value || 'اسم المطور';
+      const bio = form.devBio.value || 'نبذة مختصرة عن المطور تظهر هنا';
+      const img = devAvatarPreview.src || '';
+      const bg = form.devBg.value || '#181c24';
+      const color = form.devColor.value || '#00ffb0';
+      const font = form.mainFont.value || "'Cairo', Arial, sans-serif";
+      const mainColor = form.mainColor.value || '#00ffb0';
+      const showAvatar = form.showAvatar.checked !== false;
+      const showBio = form.showBio.checked !== false;
+      const showSocial = form.showSocial.checked !== false;
+      const wa = form.waLink.value;
+      const insta = form.instaLink.value;
+      const fb = form.fbLink.value;
+      const phone = form.phone.value;
+      livePreview.style.background = bg;
+      livePreview.style.color = color;
+      livePreview.style.fontFamily = font;
+      livePreview.innerHTML = `
+        ${showAvatar && img ? `<img class='dev-avatar-preview' src='${img}' style='display:block;' alt='صورة المطور' />` : ''}
+        <div class='dev-name' style='color:${mainColor};font-family:${font};'>${name}</div>
+        ${showBio ? `<div class='dev-bio'>${bio}</div>` : ''}
+        ${showSocial && (wa||insta||fb) ? `<div class='dev-social'>
+          ${wa?`<a href='${wa}' target='_blank' title='واتساب'>💬</a>`:''}
+          ${insta?`<a href='${insta}' target='_blank' title='إنستجرام'>📸</a>`:''}
+          ${fb?`<a href='${fb}' target='_blank' title='فيسبوك'>📘</a>`:''}
+        </div>` : ''}
+        ${phone?`<div class='dev-phone'>📞 ${phone}</div>`:''}
+      `;
+      // أنيميشن عند التغيير
+      livePreview.classList.remove('cardPopIn');
+      void livePreview.offsetWidth; // إعادة تفعيل الأنيميشن
+      livePreview.classList.add('cardPopIn');
+    }
+    // تفعيل المعاينة الحية عند أي تغيير
+    form.addEventListener('input', updateLivePreview);
+    devAvatarInput.addEventListener('change', updateLivePreview);
+    // تفعيل المعاينة عند تحميل الصفحة
+    window.addEventListener('DOMContentLoaded', updateLivePreview);
   </script>
 </body>
 </html>
