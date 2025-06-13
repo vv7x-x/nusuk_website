@@ -45,14 +45,13 @@
     }
     .hacker-card {
       background: rgba(24, 28, 36, 0.92);
-      border-radius: 32px;
+      border-radius: 36px;
       box-shadow: 0 0 32px 0 var(--hacker-cyan), 0 0 0 2px var(--hacker-green);
       border: 2px solid var(--hacker-cyan);
-      max-width: 3.5cm;
-      width: 90vw;
-      min-width: 2.5cm;
+      max-width: 420px;
+      width: 99vw;
+      padding: 44px 24px 36px 24px;
       margin: 48px auto 24px auto;
-      padding: 10px 2px 10px 2px;
       position: relative;
       z-index: 2;
       display: flex;
@@ -200,8 +199,8 @@
     @media (max-width: 600px) {
       .hacker-card {
         max-width: 99vw;
-        padding: 12px 2vw 18px 2vw;
-        border-radius: 18px;
+        padding: 18px 2vw 22px 2vw;
+        border-radius: 20px;
       }
       .avatar { width: 64px; height: 64px; }
       .dev-name { font-size: 1.2rem; }
@@ -210,7 +209,7 @@
       .call-btn, .back-btn { font-size: 0.9rem; padding: 7px 16px; }
     }
     @media (min-width: 1200px) {
-      .hacker-card { max-width: 520px; }
+      .hacker-card { max-width: 560px; }
       .avatar { width: 140px; height: 140px; }
       .social-icons img { width: 60px; height: 60px; }
     }
