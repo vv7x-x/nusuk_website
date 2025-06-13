@@ -406,6 +406,30 @@
     document.getElementById('devAvatar').addEventListener('mouseenter', function() {
       playSound('الأصوات/يحيى رضا.mp3');
     });
+    // ربط ديناميكي مع إعدادات advanced-settings.html
+    document.addEventListener('DOMContentLoaded', function() {
+      const settings = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
+      // الاسم
+      if(settings.devName) {
+        const nameDiv = document.querySelector('.dev-name');
+        if(nameDiv) nameDiv.textContent = settings.devName;
+      }
+      // النبذة
+      if(settings.devBio) {
+        const bioDiv = document.querySelector('.dev-bio');
+        if(bioDiv) bioDiv.textContent = settings.devBio;
+      }
+      // لون الخلفية
+      if(settings.devBg) {
+        document.body.style.background = settings.devBg;
+      }
+      // لون النص
+      if(settings.devColor) {
+        document.body.style.color = settings.devColor;
+        const nameDiv = document.querySelector('.dev-name');
+        if(nameDiv) nameDiv.style.color = settings.devColor;
+      }
+    });
   </script>
 </body>
 </html>
