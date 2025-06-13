@@ -49,27 +49,27 @@
       transform: translate(-50%,-50%) scale(1.08);
       background: linear-gradient(120deg, #181c24cc 60%, #00fff799 100%);
       border-radius: 60px;
-      box-shadow: 0 0 80px #FFD700cc, 0 0 160px #00fff7;
-      padding: 60px 40px;
+      box-shadow: 0 0 32px 8px #000c, 0 0 32px #FFD700cc, 0 0 64px #00fff7;
+      padding: 32px 12px;
       z-index: 10;
       min-width: 340px;
-      max-width: 99vw;
+      max-width: 420px;
       text-align: center;
       border: 6px double #00fff7;
       backdrop-filter: blur(18px) saturate(1.5);
       /* عزل الكارت عن الخلفية */
       isolation: isolate;
       background-clip: padding-box;
-      box-shadow: 0 0 80px 12px #000c, 0 0 80px #FFD700cc, 0 0 160px #00fff7;
+      box-shadow: 0 0 80px 12px #000c, 0 0 32px #FFD700cc, 0 0 64px #00fff7;
     }
     .dev-avatar-preview {
-      width: 120px;
-      height: 120px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid #FFD700;
-      margin: 0 auto 18px auto;
-      box-shadow: 0 0 24px #00fff7cc;
+      border: 2px solid #FFD700;
+      margin: 0 auto 12px auto;
+      box-shadow: 0 0 12px #00fff7cc;
       display: block;
       background: #fff;
     }
@@ -117,39 +117,39 @@
       margin-top: 32px;
       display: flex;
       flex-wrap: wrap;
-      gap: 32px;
+      gap: 10px;
       justify-content: center;
       z-index: 20;
       position: relative;
     }
     .setting {
       background: rgba(24, 28, 36, 0.92);
-      border-radius: 28px;
-      box-shadow: 0 0 44px #00fff7cc, 0 0 18px #FFD70088;
-      padding: 28px 18px 12px 18px;
-      min-width: 260px;
-      max-width: 380px;
-      flex: 1 1 260px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px #FFD70033;
+      padding: 8px 4px 4px 4px;
+      min-width: 120px;
+      max-width: 100%;
+      flex: 1 1 120px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       margin-bottom: 12px;
-      border: 3px solid #FFD70099;
+      border: 1px solid #FFD70033;
       transition: box-shadow 0.3s, border 0.3s;
     }
     .setting label {
-      font-size: 1.18rem;
-      margin-bottom: 8px;
+      font-size: 0.98rem;
+      margin-bottom: 4px;
       color: #FFD700;
     }
     .setting input, .setting textarea, .setting select {
       width: 100%;
-      padding: 14px;
-      border-radius: 12px;
+      padding: 6px;
+      border-radius: 6px;
       border: 2px solid #00fff799;
       background: rgba(255,255,255,0.13);
       color: #FFD700;
-      font-size: 1.18rem;
+      font-size: 0.98rem;
       outline: none;
       margin-bottom: 8px;
       transition: border 0.3s, box-shadow 0.3s;
@@ -163,12 +163,12 @@
     }
     .save-btn {
       width: 100%;
-      padding: 22px;
+      padding: 10px;
       background: linear-gradient(90deg, #FFD700 40%, #00fff7 100%);
       color: #18122B;
       border: none;
-      border-radius: 18px;
-      font-size: 1.4em;
+      border-radius: 8px;
+      font-size: 1.05em;
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s, color 0.3s, transform 0.2s;
@@ -204,42 +204,74 @@
         <input type="text" id="devName" name="devName" placeholder="أدخل اسم المطور">
       </div>
       <div class="setting">
-        <label for="devBio">نبذة فلسفية عنك</label>
-        <textarea id="devBio" name="devBio" placeholder="اكتب نبذة فلسفية أو شعرية عن ذاتك"></textarea>
+        <label for="devBio">نبذة عنك</label>
+        <textarea id="devBio" name="devBio" placeholder="نبذة مختصرة"></textarea>
       </div>
       <div class="setting">
         <label for="devAvatar">صورة المطور (من جهازك)</label>
         <input type="file" id="devAvatar" name="devAvatar" accept="image/*">
       </div>
       <div class="setting">
-        <label for="theme">الثيم الكوني</label>
-        <select id="theme" name="theme">
-          <option value="quantum">كمومي متغير</option>
-          <option value="dark">داكن كلاسيكي</option>
-          <option value="light">مضيء عصري</option>
-        </select>
+        <label for="devBg">لون خلفية صفحة المطور</label>
+        <input type="color" id="devBg" name="devBg">
       </div>
       <div class="setting">
-        <label for="aiLevel">ذكاء النظام</label>
-        <select id="aiLevel" name="aiLevel">
-          <option value="predictive">تنبؤي</option>
-          <option value="self-learning">ذاتي التعلم</option>
-          <option value="conscious">واعي بالكامل</option>
-        </select>
+        <label for="devColor">لون النص</label>
+        <input type="color" id="devColor" name="devColor">
       </div>
       <div class="setting">
-        <label for="security">نظام الأمان</label>
-        <select id="security" name="security">
-          <option value="quantum">تشفير كمومي</option>
-          <option value="ai">ذكاء اصطناعي متغير</option>
-          <option value="future">قوانين فيزيائية لم تُكتشف بعد</option>
-        </select>
+        <label for="mainFont">الخط الرئيسي</label>
+        <input type="text" id="mainFont" name="mainFont" placeholder="مثال: Cairo, Arial">
       </div>
       <div class="setting">
-        <label for="neural">تكامل عصبي</label>
-        <input type="checkbox" id="neural" name="neural">
+        <label for="mainColor">اللون الرئيسي للتأثيرات</label>
+        <input type="color" id="mainColor" name="mainColor">
       </div>
-      <button type="submit" class="save-btn">حفظ الأكوان</button>
+      <div class="setting">
+        <label for="bgAnim">تفعيل الخلفية المتحركة</label>
+        <input type="checkbox" id="bgAnim" name="bgAnim">
+      </div>
+      <div class="setting">
+        <label for="showAvatar">إظهار صورة المطور</label>
+        <input type="checkbox" id="showAvatar" name="showAvatar">
+      </div>
+      <div class="setting">
+        <label for="showBio">إظهار النبذة</label>
+        <input type="checkbox" id="showBio" name="showBio">
+      </div>
+      <div class="setting">
+        <label for="showSocial">إظهار وسائل التواصل</label>
+        <input type="checkbox" id="showSocial" name="showSocial">
+      </div>
+      <div class="setting">
+        <label for="showBackBtn">إظهار زر العودة</label>
+        <input type="checkbox" id="showBackBtn" name="showBackBtn">
+      </div>
+      <div class="setting">
+        <label for="waLink">رابط واتساب</label>
+        <input type="text" id="waLink" name="waLink" placeholder="رابط واتساب">
+      </div>
+      <div class="setting">
+        <label for="instaLink">رابط إنستجرام</label>
+        <input type="text" id="instaLink" name="instaLink" placeholder="رابط إنستجرام">
+      </div>
+      <div class="setting">
+        <label for="fbLink">رابط فيسبوك</label>
+        <input type="text" id="fbLink" name="fbLink" placeholder="رابط فيسبوك">
+      </div>
+      <div class="setting">
+        <label for="phone">رقم الهاتف</label>
+        <input type="text" id="phone" name="phone" placeholder="رقم الهاتف للاتصال">
+      </div>
+      <div class="setting">
+        <label for="sound">تفعيل الأصوات</label>
+        <input type="checkbox" id="sound" name="sound">
+      </div>
+      <div class="setting">
+        <label for="welcome">تشغيل صوت ترحيبي</label>
+        <input type="checkbox" id="welcome" name="welcome">
+      </div>
+      <button type="submit" class="save-btn">حفظ الإعدادات</button>
     </form>
   </div>
   <audio id="cosmicSound" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b6b6b6.mp3"></audio>
@@ -353,13 +385,11 @@
         reader.onload = function(evt) {
           devAvatarPreview.src = evt.target.result;
           devAvatarPreview.style.display = 'block';
-          // حفظ الصورة في localStorage (base64)
           localStorage.setItem('devAvatarImage', evt.target.result);
         };
         reader.readAsDataURL(file);
       }
     });
-    // عند تحميل الصفحة، عرض الصورة إذا كانت محفوظة
     window.addEventListener('DOMContentLoaded', function() {
       const savedImg = localStorage.getItem('devAvatarImage');
       if(savedImg) {
@@ -367,6 +397,31 @@
         devAvatarPreview.style.display = 'block';
       }
     });
+    // حفظ كل إعدادات صفحة المطور في localStorage
+    document.getElementById('settingsForm').onsubmit = function(e) {
+      e.preventDefault();
+      localStorage.setItem('advancedSettings', JSON.stringify({
+        devName: form.devName.value,
+        devBio: form.devBio.value,
+        devBg: form.devBg.value,
+        devColor: form.devColor.value,
+        mainFont: form.mainFont.value,
+        mainColor: form.mainColor.value,
+        bgAnim: form.bgAnim.checked,
+        avatar: form.showAvatar.checked,
+        bio: form.showBio.checked,
+        social: form.showSocial.checked,
+        backBtn: form.showBackBtn.checked,
+        waLink: form.waLink.value,
+        instaLink: form.instaLink.value,
+        fbLink: form.fbLink.value,
+        phone: form.phone.value,
+        sound: form.sound.checked,
+        welcome: form.welcome.checked
+      }));
+      aiMsg.innerHTML = 'تم حفظ الإعدادات!';
+      setTimeout(()=>aiMsg.innerHTML = messages[Math.floor(Math.random()*messages.length)], 3000);
+    };
   </script>
 </body>
 </html>
