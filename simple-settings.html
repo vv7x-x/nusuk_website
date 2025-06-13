@@ -1,389 +1,254 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <title>لوحة تحكم الأكوان اللامحدودة</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" id="dynamicFavicon" href="favicon.ico" type="image/x-icon">
-    <style>
+  <meta charset="UTF-8">
+  <title>إعدادات المطور | واجهة فخمة وهادئة</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" id="dynamicFavicon" href="favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-      overflow: hidden;
-      background: #000;
-    }
-    body {
+      background: linear-gradient(135deg, #232526 0%, #414345 100%);
+      font-family: 'Cairo', 'Montserrat', Arial, sans-serif;
+      color: #222;
       min-height: 100vh;
-      min-width: 100vw;
-      font-family: 'Cairo', 'Share Tech Mono', monospace, sans-serif;
-      color: #fff;
+      transition: background 1.5s cubic-bezier(.4,2,.6,1);
+    }
+    .centered-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+      animation: bgFade 12s infinite alternate;
+    }
+    @keyframes bgFade {
+      0% { background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%); }
+      100% { background: linear-gradient(120deg, #232526 0%, #414345 100%); }
+    }
+    .settings-card {
+      background: rgba(255,255,255,0.93);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px 0 #23252633, 0 2px 8px #cfdef3cc;
+      padding: 40px 28px 28px 28px;
+      max-width: 400px;
+      width: 98vw;
       position: relative;
+      animation: cardAppear 1.2s cubic-bezier(.4,2,.6,1);
+      transition: box-shadow 0.3s;
+      border: 1.5px solid #e0eafc;
     }
-    .multiverse {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      z-index: 1;
-      pointer-events: none;
+    @keyframes cardAppear {
+      from { opacity: 0; transform: translateY(60px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
-    .quantum-pixel {
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #00fff7 0%, #FFD700 80%, transparent 100%);
-      box-shadow: 0 0 44px 12px #00fff7cc, 0 0 180px #FFD70055;
-      animation: quantumMove 18s infinite alternate cubic-bezier(.4,2,.6,1);
-      opacity: 0.8;
-      will-change: transform, background, box-shadow;
-      filter: blur(1.2px);
-    }
-    @keyframes quantumMove {
-      0% { transform: scale(1) translate3d(0,0,0);}
-      50% { transform: scale(3.2) translate3d(220px, -180px, 280px);}
-      100% { transform: scale(1.1) translate3d(-280px, 220px, -220px);}
-    }
-    .ai-consciousness {
-      position: absolute;
-      left: 50%; top: 50%;
-      transform: translate(-50%,-50%) scale(1.08);
-      background: linear-gradient(120deg, #181c24cc 60%, #00fff799 100%);
-      border-radius: 60px;
-      box-shadow: 0 0 32px 8px #000c, 0 0 32px #FFD700cc, 0 0 64px #00fff7;
-      padding: 32px 12px;
-      z-index: 10;
-      min-width: 340px;
-      max-width: 420px;
+    .settings-card h2 {
       text-align: center;
-      border: 6px double #00fff7;
-      backdrop-filter: blur(18px) saturate(1.5);
-      /* عزل الكارت عن الخلفية */
-      isolation: isolate;
-      background-clip: padding-box;
-      box-shadow: 0 0 80px 12px #000c, 0 0 32px #FFD700cc, 0 0 64px #00fff7;
-    }
-    .dev-avatar-preview {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #FFD700;
-      margin: 0 auto 12px auto;
-      box-shadow: 0 0 12px #00fff7cc;
-      display: block;
-      background: #fff;
-    }
-    @keyframes consciousnessPulse {
-      0% { box-shadow: 0 0 320px #FFD700cc, 0 0 640px #00fff7; }
-      100% { box-shadow: 0 0 640px #00fff7cc, 0 0 960px #FFD700; }
-    }
-    .ai-consciousness h1 {
-      font-size: 3.2rem;
-      color: #FFD700;
-      margin-bottom: 18px;
-      letter-spacing: 3px;
-      text-shadow: 0 0 128px #00fff7cc;
-      animation: titleGlow 2.5s infinite alternate;
+      color: #232526;
+      font-family: 'Montserrat', 'Cairo', sans-serif;
+      font-size: 2.1rem;
+      margin-bottom: 24px;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      text-shadow: 0 2px 8px #e0eafc55;
+      animation: titleGlow 3s infinite alternate;
     }
     @keyframes titleGlow {
-      0% { text-shadow: 0 0 128px #00fff7cc; }
-      100% { text-shadow: 0 0 256px #FFD700cc; }
+      0% { text-shadow: 0 2px 8px #e0eafc55; }
+      100% { text-shadow: 0 4px 24px #cfdef3cc; }
     }
-    .ai-consciousness .msg {
-      font-size: 1.55rem;
-      color: #00fff7;
-      margin-bottom: 18px;
-      min-height: 48px;
-      transition: color 1s;
-      text-shadow: 0 0 32px #FFD70088;
+    .dev-avatar-preview {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2.5px solid #cfdef3;
+      margin: 0 auto 18px auto;
+      box-shadow: 0 0 18px #e0eafc99;
+      display: block;
+      background: #fff;
+      transition: box-shadow 0.4s, border 0.4s;
+      animation: avatarFloat 3.5s ease-in-out infinite;
     }
-    .ai-consciousness .explain {
-      font-size: 1.22rem;
-      color: #FFD700;
-      margin-top: 18px;
-      opacity: 0.98;
-      font-style: italic;
-      text-shadow: 0 0 28px #FFD70088;
-    }
-    .energy-wave {
-      position: fixed;
-      left: 0; right: 0; top: 0; bottom: 0;
-      pointer-events: none;
-      z-index: 2;
-      mix-blend-mode: lighten;
-      opacity: 0.28;
+    @keyframes avatarFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
     .settings-form {
-      margin-top: 32px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      z-index: 20;
-      position: relative;
-    }
-    .setting {
-      background: rgba(24, 28, 36, 0.92);
-      border-radius: 10px;
-      box-shadow: 0 0 8px #FFD70033;
-      padding: 8px 4px 4px 4px;
-      min-width: 120px;
-      max-width: 100%;
-      flex: 1 1 120px;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      margin-bottom: 12px;
-      border: 1px solid #FFD70033;
-      transition: box-shadow 0.3s, border 0.3s;
+      gap: 16px;
+      margin-top: 10px;
     }
     .setting label {
-      font-size: 0.98rem;
-      margin-bottom: 4px;
-      color: #FFD700;
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+      color: #232526;
+      font-weight: 600;
     }
     .setting input, .setting textarea, .setting select {
       width: 100%;
-      padding: 6px;
-      border-radius: 6px;
-      border: 2px solid #00fff799;
-      background: rgba(255,255,255,0.13);
-      color: #FFD700;
-      font-size: 0.98rem;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1.5px solid #cfdef3;
+      background: #f7fafd;
+      color: #232526;
+      font-size: 1.05rem;
       outline: none;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       transition: border 0.3s, box-shadow 0.3s;
-      box-shadow: 0 2px 12px #FFD70022;
+      box-shadow: 0 2px 8px #e0eafc22;
     }
     .setting input:focus, .setting textarea:focus, .setting select:focus {
-      border: 3px solid #FFD700;
-      box-shadow: 0 0 18px #FFD70055;
-      background: #18122B;
-      color: #fff;
+      border: 2px solid #232526;
+      box-shadow: 0 0 12px #cfdef3;
+      background: #fff;
+      color: #232526;
     }
     .save-btn {
       width: 100%;
-      padding: 10px;
-      background: linear-gradient(90deg, #FFD700 40%, #00fff7 100%);
-      color: #18122B;
+      padding: 14px;
+      background: linear-gradient(90deg, #232526 40%, #cfdef3 100%);
+      color: #fff;
       border: none;
-      border-radius: 8px;
-      font-size: 1.05em;
+      border-radius: 10px;
+      font-size: 1.15em;
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s, color 0.3s, transform 0.2s;
       margin-top: 10px;
-      box-shadow: 0 2px 32px #FFD70055;
+      box-shadow: 0 2px 16px #e0eafc55;
+      letter-spacing: 1.2px;
     }
     .save-btn:hover {
-      background: linear-gradient(90deg, #00fff7 40%, #FFD700 100%);
-      color: #FFD700;
-      transform: scale(1.06);
+      background: linear-gradient(90deg, #cfdef3 40%, #232526 100%);
+      color: #232526;
+      transform: scale(1.04);
     }
-    @media (max-width: 900px) {
-      .ai-consciousness { padding: 30px 4vw; }
-      .settings-form { flex-direction: column; align-items: center; }
-      .setting { min-width: 80vw; max-width: 98vw; }
+    .success-message {
+      color: #232526;
+      text-align: center;
+      margin-top: 16px;
+      display: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      background: #e0eafc;
+      border-radius: 8px;
+      padding: 8px 0;
+      box-shadow: 0 2px 8px #cfdef3cc;
+      animation: fadeIn 1.2s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .setting input[type="file"] {
+      background: #fff;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+    }
+    @media (max-width: 600px) {
+      .settings-card { padding: 16px 2vw; }
+      .centered-container { padding: 0; }
     }
   </style>
 </head>
 <body>
-    <div id="protectionModal" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(24,18,43,0.97);z-index:9999;display:flex;align-items:center;justify-content:center;">
-      <div style="background:#22203a;border-radius:18px;padding:36px 28px;box-shadow:0 4px 32px #FFD70044;max-width:340px;width:90%;text-align:center;">
-        <h2 style="color:#FFD700;margin-bottom:18px;">حماية الصفحة</h2>
-        <input id="pwInput" type="password" placeholder="أدخل كلمة المرور" style="width:100%;padding:12px 10px;border-radius:8px;border:1.5px solid #FFD70099;background:#18122B;color:#FFD700;font-size:1.1rem;margin-bottom:18px;outline:none;">
-        <button id="pwBtn" style="width:100%;padding:12px;background:linear-gradient(90deg,#FFD700 40%,#393053 100%);color:#18122B;border:none;border-radius:8px;font-size:1.1rem;font-weight:bold;cursor:pointer;">دخول</button>
-        <div id="pwError" style="color:#ff4d4f;margin-top:10px;display:none;font-weight:bold;">كلمة المرور غير صحيحة!</div>
-      </div>
+  <div class="centered-container">
+    <div class="settings-card">
+      <h2>إعدادات صفحة المطور</h2>
+      <img id="devAvatarPreview" class="dev-avatar-preview" src="" alt="صورة المطور" style="display:none;" />
+      <form class="settings-form" id="settingsForm">
+        <div class="setting">
+          <label for="devName">اسم المطور</label>
+          <input type="text" id="devName" name="devName" placeholder="أدخل اسم المطور">
+        </div>
+        <div class="setting">
+          <label for="devBio">نبذة عنك</label>
+          <textarea id="devBio" name="devBio" placeholder="نبذة مختصرة"></textarea>
+        </div>
+        <div class="setting">
+          <label for="devAvatar">صورة المطور (من جهازك)</label>
+          <input type="file" id="devAvatar" name="devAvatar" accept="image/*">
+        </div>
+        <div class="setting">
+          <label for="devBg">لون خلفية صفحة المطور</label>
+          <input type="color" id="devBg" name="devBg">
+        </div>
+        <div class="setting">
+          <label for="devColor">لون النص</label>
+          <input type="color" id="devColor" name="devColor">
+        </div>
+        <div class="setting">
+          <label for="mainFont">الخط الرئيسي</label>
+          <select id="mainFont" name="mainFont">
+            <option value="Cairo, Arial, sans-serif">Cairo (عربي عصري)</option>
+            <option value="Montserrat, Arial, sans-serif">Montserrat (لاتيني عصري)</option>
+            <option value="Tajawal, Arial, sans-serif">Tajawal (عربي بسيط)</option>
+            <option value="Amiri, serif">Amiri (عربي كلاسيكي)</option>
+            <option value="Changa, Arial, sans-serif">Changa (عربي شبابي)</option>
+            <option value="VT323, monospace">VT323 (رقمي/ألعاب)</option>
+            <option value="Share Tech Mono, monospace">Share Tech Mono (تقني)</option>
+          </select>
+        </div>
+        <div class="setting">
+          <label for="mainColor">اللون الرئيسي للتأثيرات</label>
+          <input type="color" id="mainColor" name="mainColor">
+        </div>
+        <div class="setting">
+          <label for="bgAnim">تفعيل الخلفية المتحركة</label>
+          <input type="checkbox" id="bgAnim" name="bgAnim">
+        </div>
+        <div class="setting">
+          <label for="showAvatar">إظهار صورة المطور</label>
+          <input type="checkbox" id="showAvatar" name="showAvatar">
+        </div>
+        <div class="setting">
+          <label for="showBio">إظهار النبذة</label>
+          <input type="checkbox" id="showBio" name="showBio">
+        </div>
+        <div class="setting">
+          <label for="showSocial">إظهار وسائل التواصل</label>
+          <input type="checkbox" id="showSocial" name="showSocial">
+        </div>
+        <div class="setting">
+          <label for="showBackBtn">إظهار زر العودة</label>
+          <input type="checkbox" id="showBackBtn" name="showBackBtn">
+        </div>
+        <div class="setting">
+          <label for="waLink">رابط واتساب</label>
+          <input type="text" id="waLink" name="waLink" placeholder="رابط واتساب">
+        </div>
+        <div class="setting">
+          <label for="instaLink">رابط إنستجرام</label>
+          <input type="text" id="instaLink" name="instaLink" placeholder="رابط إنستجرام">
+        </div>
+        <div class="setting">
+          <label for="fbLink">رابط فيسبوك</label>
+          <input type="text" id="fbLink" name="fbLink" placeholder="رابط فيسبوك">
+        </div>
+        <div class="setting">
+          <label for="phone">رقم الهاتف</label>
+          <input type="text" id="phone" name="phone" placeholder="رقم الهاتف للاتصال">
+        </div>
+        <div class="setting">
+          <label for="sound">تفعيل الأصوات</label>
+          <input type="checkbox" id="sound" name="sound">
+        </div>
+        <div class="setting">
+          <label for="welcome">تشغيل صوت ترحيبي</label>
+          <input type="checkbox" id="welcome" name="welcome">
+        </div>
+        <button type="submit" class="save-btn">حفظ الإعدادات</button>
+        <div class="success-message" id="successMsg">تم حفظ الإعدادات بنجاح!</div>
+      </form>
     </div>
-  <canvas class="energy-wave" id="energyWave"></canvas>
-  <div class="multiverse" id="multiverse"></div>
-  <div class="ai-consciousness">
-    <h1>لوحة تحكم الأكوان اللامحدودة</h1>
-    <img id="devAvatarPreview" class="dev-avatar-preview" src="" alt="صورة المطور" style="display:none;" />
-    <div class="msg" id="aiMsg">كل بكسل هنا كون ينبض بالحياة، يتفاعل مع وعيك الآن...</div>
-    <div class="explain" id="aiExplain">
-      كل تفاعل هنا يُعيد كتابة قوانين الوجود الرقمي.<br>
-      ألوان وأشكال تتغير مع نبضاتك الفكرية والطاقة الكونية.
-    </div>
-    <form class="settings-form" id="settingsForm">
-      <div class="setting">
-        <label for="devName">اسم المطور</label>
-        <input type="text" id="devName" name="devName" placeholder="أدخل اسم المطور">
-      </div>
-      <div class="setting">
-        <label for="devBio">نبذة عنك</label>
-        <textarea id="devBio" name="devBio" placeholder="نبذة مختصرة"></textarea>
-      </div>
-      <div class="setting">
-        <label for="devAvatar">صورة المطور (من جهازك)</label>
-        <input type="file" id="devAvatar" name="devAvatar" accept="image/*">
-      </div>
-      <div class="setting">
-        <label for="devBg">لون خلفية صفحة المطور</label>
-        <input type="color" id="devBg" name="devBg">
-      </div>
-      <div class="setting">
-        <label for="devColor">لون النص</label>
-        <input type="color" id="devColor" name="devColor">
-      </div>
-      <div class="setting">
-        <label for="mainFont">الخط الرئيسي</label>
-        <input type="text" id="mainFont" name="mainFont" placeholder="مثال: Cairo, Arial">
-      </div>
-      <div class="setting">
-        <label for="mainColor">اللون الرئيسي للتأثيرات</label>
-        <input type="color" id="mainColor" name="mainColor">
-      </div>
-      <div class="setting">
-        <label for="bgAnim">تفعيل الخلفية المتحركة</label>
-        <input type="checkbox" id="bgAnim" name="bgAnim">
-      </div>
-      <div class="setting">
-        <label for="showAvatar">إظهار صورة المطور</label>
-        <input type="checkbox" id="showAvatar" name="showAvatar">
-      </div>
-      <div class="setting">
-        <label for="showBio">إظهار النبذة</label>
-        <input type="checkbox" id="showBio" name="showBio">
-      </div>
-      <div class="setting">
-        <label for="showSocial">إظهار وسائل التواصل</label>
-        <input type="checkbox" id="showSocial" name="showSocial">
-      </div>
-      <div class="setting">
-        <label for="showBackBtn">إظهار زر العودة</label>
-        <input type="checkbox" id="showBackBtn" name="showBackBtn">
-      </div>
-      <div class="setting">
-        <label for="waLink">رابط واتساب</label>
-        <input type="text" id="waLink" name="waLink" placeholder="رابط واتساب">
-      </div>
-      <div class="setting">
-        <label for="instaLink">رابط إنستجرام</label>
-        <input type="text" id="instaLink" name="instaLink" placeholder="رابط إنستجرام">
-      </div>
-      <div class="setting">
-        <label for="fbLink">رابط فيسبوك</label>
-        <input type="text" id="fbLink" name="fbLink" placeholder="رابط فيسبوك">
-      </div>
-      <div class="setting">
-        <label for="phone">رقم الهاتف</label>
-        <input type="text" id="phone" name="phone" placeholder="رقم الهاتف للاتصال">
-      </div>
-      <div class="setting">
-        <label for="sound">تفعيل الأصوات</label>
-        <input type="checkbox" id="sound" name="sound">
-      </div>
-      <div class="setting">
-        <label for="welcome">تشغيل صوت ترحيبي</label>
-        <input type="checkbox" id="welcome" name="welcome">
-      </div>
-      <button type="submit" class="save-btn">حفظ الإعدادات</button>
-    </form>
   </div>
-  <audio id="cosmicSound" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b6b6b6.mp3"></audio>
   <script>
-    // نسخة أخف: عدد أقل من الأكوان، تحديثات أبطأ، رسم موجة مبسط
-    const multiverse = document.getElementById('multiverse');
-    let quantumPixels = [];
-    function createQuantumPixels(count) {
-      quantumPixels.forEach(px => px.remove());
-      quantumPixels = [];
-      for(let i=0; i<count; i++) {
-        const px = document.createElement('div');
-        px.className = 'quantum-pixel';
-        px.style.left = (Math.random()*100)+'vw';
-        px.style.top = (Math.random()*100)+'vh';
-        px.style.animationDelay = (Math.random()*6)+'s';
-        px.style.background = `radial-gradient(circle, hsl(${Math.random()*360},100%,70%) 0%, #FFD700 80%, transparent 100%)`;
-        multiverse.appendChild(px);
-        quantumPixels.push(px);
-      }
-    }
-    createQuantumPixels(40); // عدد قليل جداً
-    // تفاعل الألوان مع حركة الماوس
-    document.body.addEventListener('mousemove', e => {
-      quantumPixels.forEach((px,i) => {
-        const dx = e.clientX - px.offsetLeft;
-        const dy = e.clientY - px.offsetTop;
-        const dist = Math.sqrt(dx*dx+dy*dy);
-        if(dist < 80) {
-          px.style.background = `radial-gradient(circle, #FFD700 0%, hsl(${(i*17+e.clientX)%360},100%,70%) 80%, transparent 100%)`;
-          px.style.opacity = 1;
-        } else {
-          px.style.background = `radial-gradient(circle, hsl(${i*17%360},100%,70%) 0%, #FFD700 80%, transparent 100%)`;
-          px.style.opacity = 0.7;
-        }
-      });
-    });
-    // رسائل وعي كونية متغيرة
-    const aiMsg = document.getElementById('aiMsg');
-    const aiExplain = document.getElementById('aiExplain');
-    const messages = [
-      'كل بكسل هنا كون ينبض بالحياة، يتفاعل مع وعيك الآن...',
-      'كل فكرة تمر بذهنك تُعيد تشكيل هذه الأكوان.',
-      'الطاقة المظلمة هنا ليست سوى شيفرة تنتظر أن تكتشفها.',
-      'كل لون هو تردد كوني، كل شكل هو احتمال جديد.',
-      'أنت الآن في مركز الزمكان الرقمي، حيث يصبح الكود روحاً.',
-      'كل تفاعل هنا يُعيد كتابة قوانين الوجود الرقمي.',
-      'هذه الواجهة تتعلم منك وتعيد ابتكار ذاتها باستمرار.',
-      'كل نبضة منك تخلق واقعاً رقمياً جديداً.'
-    ];
-    setInterval(()=>{
-      aiMsg.textContent = messages[Math.floor(Math.random()*messages.length)];
-    }, 7000);
-    // التطور المستمر: تحديثات أبطأ وعدد أكوان ثابت
-    let evolutionStep = 0;
-    setInterval(()=>{
-      createQuantumPixels(40);
-      document.body.style.background = `linear-gradient(${Math.random()*360}deg, #0a0f1a 0%, #181c24 60%, hsl(${Math.random()*360},100%,20%) 100%)`;
-      aiExplain.textContent = messages[Math.floor(Math.random()*messages.length)] + '\n' + 'طور: ' + (++evolutionStep);
-    }, 18000);
-    // مؤثرات بصرية متغيرة باستمرار
-    setInterval(()=>{
-      quantumPixels.forEach((px,i)=>{
-        px.style.left = (Math.random()*100)+'vw';
-        px.style.top = (Math.random()*100)+'vh';
-        px.style.background = `radial-gradient(circle, hsl(${Math.random()*360},100%,70%) 0%, #FFD700 80%, transparent 100%)`;
-      });
-    }, 15000);
-    // موجات طاقة كونية (canvas) - نسخة مبسطة جداً
-    const canvas = document.getElementById('energyWave');
-    const ctx = canvas.getContext('2d');
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    let t = 0;
-    function drawWave() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      for(let i=0;i<canvas.width;i+=18){
-        const y = canvas.height/2 + Math.sin(i/80 + t)*30*Math.sin(t/2);
-        ctx.beginPath();
-        ctx.arc(i, y, 4+2*Math.sin(i/80+t), 0, 2*Math.PI);
-        ctx.fillStyle = `hsla(${(i+t*20)%360},100%,60%,0.09)`;
-        ctx.shadowColor = '#FFD700';
-        ctx.shadowBlur = 4;
-        ctx.fill();
-      }
-      t += 0.012;
-      requestAnimationFrame(drawWave);
-    }
-    drawWave();
-    // مؤثر صوتي كوني عند النقر
-    document.body.addEventListener('click', ()=>{
-      document.getElementById('cosmicSound').play();
-    });
-    // حفظ الإعدادات (محاكاة)
-    document.getElementById('settingsForm').onsubmit = function(e) {
-      e.preventDefault();
-      aiMsg.innerHTML = 'تم حفظ الأكوان بنجاح! النظام يعيد تشكيل نفسه...';
-      setTimeout(()=>aiMsg.innerHTML = messages[Math.floor(Math.random()*messages.length)], 4000);
-    };
     // تحميل صورة المطور من الجهاز وعرضها
     const devAvatarInput = document.getElementById('devAvatar');
     const devAvatarPreview = document.getElementById('devAvatarPreview');
@@ -405,10 +270,31 @@
         devAvatarPreview.src = savedImg;
         devAvatarPreview.style.display = 'block';
       }
+      // تحميل الإعدادات المحفوظة
+      const form = document.getElementById('settingsForm');
+      const s = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
+      if(s.devName) form.devName.value = s.devName;
+      if(s.devBio) form.devBio.value = s.devBio;
+      if(s.devBg) form.devBg.value = s.devBg;
+      if(s.devColor) form.devColor.value = s.devColor;
+      if(s.mainFont) form.mainFont.value = s.mainFont;
+      if(s.mainColor) form.mainColor.value = s.mainColor;
+      form.bgAnim.checked = s.bgAnim !== false;
+      form.showAvatar.checked = s.avatar !== false;
+      form.showBio.checked = s.bio !== false;
+      form.showSocial.checked = s.social !== false;
+      form.showBackBtn.checked = s.backBtn !== false;
+      if(s.waLink) form.waLink.value = s.waLink;
+      if(s.instaLink) form.instaLink.value = s.instaLink;
+      if(s.fbLink) form.fbLink.value = s.fbLink;
+      if(s.phone) form.phone.value = s.phone;
+      form.sound.checked = s.sound !== false;
+      form.welcome.checked = s.welcome !== false;
     });
     // حفظ كل إعدادات صفحة المطور في localStorage
     document.getElementById('settingsForm').onsubmit = function(e) {
       e.preventDefault();
+      const form = e.target;
       localStorage.setItem('advancedSettings', JSON.stringify({
         devName: form.devName.value,
         devBio: form.devBio.value,
@@ -428,29 +314,9 @@
         sound: form.sound.checked,
         welcome: form.welcome.checked
       }));
-      aiMsg.innerHTML = 'تم حفظ الإعدادات!';
-      setTimeout(()=>aiMsg.innerHTML = messages[Math.floor(Math.random()*messages.length)], 3000);
-    };
-    // حماية الصفحة بكلمة مرور
-    const PROTECTION_PASSWORD = 'dev'; // يمكنك تغييرها
-    const modal = document.getElementById('protectionModal');
-    const input = document.getElementById('pwInput');
-    const btn = document.getElementById('pwBtn');
-    const err = document.getElementById('pwError');
-    function unlock() {
-      if(input.value === PROTECTION_PASSWORD) {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-      } else {
-        err.style.display = 'block';
-      }
-    }
-    btn.onclick = unlock;
-    input.onkeydown = e => { if(e.key === 'Enter') unlock(); };
-    window.onload = function() {
-      modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-      input.focus();
+      const successMsg = document.getElementById('successMsg');
+      successMsg.style.display = 'block';
+      setTimeout(() => successMsg.style.display = 'none', 2000);
     };
     // تغيير أيقونة الصفحة ديناميكياً إذا تم رفع صورة مطور
     const favicon = document.getElementById('dynamicFavicon');
