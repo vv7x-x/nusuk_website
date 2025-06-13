@@ -399,17 +399,110 @@
       opacity: 0.32;
       transition: filter 0.7s, opacity 0.7s;
     }
+    /* تأثير scanline */
+    .scanline {
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 3;
+      border-radius: 50px;
+      opacity: 0.13;
+      background: repeating-linear-gradient(
+        to bottom,
+        #FFD70011 0px,
+        #FFD70011 1px,
+        transparent 1.5px,
+        transparent 4px
+      );
+      mix-blend-mode: lighten;
+      animation: scanMove 3.5s linear infinite;
+    }
+    @keyframes scanMove {
+      0% { background-position-y: 0; }
+      100% { background-position-y: 40px; }
+    }
+    /* تأثير glitch على اسم المطور */
+    .glitch {
+      position: relative;
+      color: #00ffea;
+      animation: none;
+      cursor: pointer;
+    }
+    .glitch:hover {
+      animation: glitch 0.5s linear infinite;
+    }
+    @keyframes glitch {
+      0% { text-shadow: 2px 0 #FFD700, -2px 0 #00ffea; }
+      20% { text-shadow: -2px 2px #FFD700, 2px -2px #00ffea; }
+      40% { text-shadow: 2px -2px #FFD700, -2px 2px #00ffea; }
+      60% { text-shadow: -2px 0 #FFD700, 2px 0 #00ffea; }
+      80% { text-shadow: 2px 2px #FFD700, -2px -2px #00ffea; }
+      100% { text-shadow: 2px 0 #FFD700, -2px 0 #00ffea; }
+    }
+    /* Tooltip لصورة المطور */
+    .dev-avatar-tooltip {
+      position: absolute;
+      top: 110px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.8);
+      background: #18122Bf2;
+      color: #FFD700;
+      padding: 10px 22px;
+      border-radius: 18px;
+      font-size: 1.01rem;
+      font-family: 'Fira Mono', monospace;
+      box-shadow: 0 0 18px #FFD70055;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 20;
+      white-space: nowrap;
+    }
+    .dev-avatar:hover + .dev-avatar-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.05);
+    }
+    /* عداد الزوار */
+    .visitors {
+      text-align: center;
+      color: #FFD700;
+      font-family: 'Fira Mono', monospace;
+      font-size: 1.01rem;
+      margin-top: 18px;
+      letter-spacing: 1.2px;
+      opacity: 0.85;
+      user-select: none;
+      text-shadow: 0 0 8px #FFD70088, 0 0 4px #00ffea88;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .visitors .eye {
+      font-size: 1.3rem;
+      margin-left: 4px;
+      filter: drop-shadow(0 0 4px #FFD700);
+    }
+    /* sparkles */
+    #sparkle-canvas {
+      position: absolute;
+      pointer-events: none;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 5;
+      border-radius: 50px;
+    }
   </style>
 </head>
 <body>
   <button class="theme-toggle" title="تبديل الوضع" aria-label="تبديل الوضع">🌙</button>
   <button class="mute-btn" title="كتم/تشغيل الصوت" aria-label="كتم الصوت">🔊</button>
   <canvas id="matrix-canvas"></canvas>
-  <div class="dev-card">
-    <div style="width: 100%; display: flex; justify-content: center;">
+  <div class="dev-card" id="devCard">
+    <div style="width: 100%; display: flex; justify-content: center; position: relative;">
       <img src="myphoto.JPG" alt="صورة المطور" class="dev-avatar" style="margin-bottom: 18px;" />
+      <div class="dev-avatar-tooltip">Full Stack | JavaScript | Linux | Ethical Hacking</div>
     </div>
-    <h1>يحيى رضا</h1>
+    <h1 class="glitch">يحيى رضا</h1>
     <div class="typewriter" id="typewriter"></div>
     <div class="dev-title">مبرمج ومطور مواقع ويب</div>
     <div class="dev-bio">
@@ -434,8 +527,11 @@
       <button class="copy-btn" id="copyEmail">نسخ البريد الإلكتروني</button>
     </div>
     <div class="contact">
-      <a href="tel:+201155528093" class="call-btn">اتصل الآن</a>
+      <a href="tel:+201155528093" class="call-btn" id="callBtn">اتصل الآن</a>
     </div>
+    <canvas id="sparkle-canvas"></canvas>
+    <div class="scanline"></div>
+    <div class="visitors"><span class="eye">👁️</span> <span id="visitorsCount">0</span> زائر للصفحة</div>
   </div>
   <div class="toast" id="toast"></div>
   <footer>
@@ -532,6 +628,111 @@
       setTimeout(typeTypewriter, twDir === 1 ? 70 : 30);
     }
     setTimeout(typeTypewriter, 1000);
+
+    // عداد الزوار
+    let visitorsCount = 0;
+    const visitorsElement = document.getElementById('visitorsCount');
+    function updateVisitors() {
+      visitorsCount++;
+      visitorsElement.textContent = visitorsCount.toLocaleString();
+    }
+    setInterval(updateVisitors, 1000);
+
+    // عداد زوار وهمي متحرك
+    let visitors = Math.floor(1000 + Math.random() * 9000);
+    const visitorsCountElem = document.getElementById('visitorsCount');
+    function animateVisitors() {
+      let displayed = 0;
+      const step = Math.ceil(visitors / 60);
+      function tick() {
+        if (displayed < visitors) {
+          displayed += step;
+          if (displayed > visitors) displayed = visitors;
+          visitorsCountElem.textContent = displayed.toLocaleString('ar-EG');
+          setTimeout(tick, 18);
+        } else {
+          visitorsCountElem.textContent = visitors.toLocaleString('ar-EG');
+        }
+      }
+      tick();
+    }
+    animateVisitors();
+
+    // تأثير Sparkle حول الكارت
+    const sparkleCanvas = document.getElementById('sparkle-canvas');
+    const devCard = document.getElementById('devCard');
+    if (sparkleCanvas && devCard) {
+      function resizeSparkle() {
+        sparkleCanvas.width = devCard.offsetWidth;
+        sparkleCanvas.height = devCard.offsetHeight;
+      }
+      resizeSparkle();
+      window.addEventListener('resize', resizeSparkle);
+      const sctx = sparkleCanvas.getContext('2d');
+      function drawSparkles() {
+        sctx.clearRect(0, 0, sparkleCanvas.width, sparkleCanvas.height);
+        for (let i = 0; i < 18; i++) {
+          const x = Math.random() * sparkleCanvas.width;
+          const y = Math.random() * sparkleCanvas.height;
+          const r = 1.2 + Math.random() * 2.2;
+          sctx.save();
+          sctx.globalAlpha = 0.5 + Math.random() * 0.5;
+          sctx.beginPath();
+          sctx.arc(x, y, r, 0, 2 * Math.PI);
+          sctx.fillStyle = Math.random() > 0.5 ? '#FFD700' : '#00ffea';
+          sctx.shadowColor = sctx.fillStyle;
+          sctx.shadowBlur = 8 + Math.random() * 8;
+          sctx.fill();
+          sctx.restore();
+        }
+      }
+      setInterval(drawSparkles, 600);
+    }
+
+    // تأثير Glitch صوتي عند المرور على الاسم
+    const glitchName = document.querySelector('.glitch');
+    if (glitchName) {
+      glitchName.addEventListener('mouseenter', () => playSound('الأصوات/vv.mp3'));
+    }
+    // Tooltip لصورة المطور (يظهر تلقائياً عبر CSS)
+    // تأثير صوتي عند نسخ البريد أو زر السيرة الذاتية أو زر الوضع
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function() {
+        navigator.clipboard.writeText('yahya.reda.dev@gmail.com');
+        showToast('تم نسخ البريد الإلكتروني!');
+        playSound('الأصوات/call.mp3');
+      });
+    }
+    const cvBtn = document.querySelector('.cv-btn');
+    if (cvBtn) {
+      cvBtn.addEventListener('click', function() {
+        playSound('الأصوات/about.mp3');
+      });
+    }
+    themeBtn.addEventListener('click', function() {
+      playSound('الأصوات/bb.mp3');
+    });
+    // اهتزاز الكارت عند الضغط على زر الاتصال
+    const callBtn = document.getElementById('callBtn');
+    if (callBtn && devCard) {
+      callBtn.addEventListener('click', function() {
+        devCard.style.animation = 'shake 0.4s';
+        setTimeout(() => devCard.style.animation = '', 400);
+      });
+    }
+    // كود اهتزاز
+    const shakeStyle = document.createElement('style');
+    shakeStyle.innerHTML = `
+      @keyframes shake {
+        0% { transform: translateX(0); }
+        20% { transform: translateX(-8px); }
+        40% { transform: translateX(8px); }
+        60% { transform: translateX(-6px); }
+        80% { transform: translateX(6px); }
+        100% { transform: translateX(0); }
+      }
+    `;
+    document.head.appendChild(shakeStyle);
   </script>
 </body>
 </html>
