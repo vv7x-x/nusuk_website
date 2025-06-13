@@ -7,64 +7,61 @@
     <link rel="stylesheet" href="styles.css">
     <style>
       body {
-        background: linear-gradient(120deg, #0a0f1a 0%, #003366 100%);
-        color: #FFD700;
-        font-family: 'Share Tech Mono', monospace;
-        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
         margin: 0;
+        padding: 0;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
+        height: 100vh;
       }
+
       h1 {
         text-align: center;
-        color: #FFD700;
-        margin-bottom: 24px;
-        font-size: 2rem;
+        color: #4CAF50;
       }
+
       form {
-        background: rgba(24, 28, 36, 0.97);
-        border-radius: 24px;
-        box-shadow: 0 0 32px #00fff7cc, 0 0 0 2px #FFD700;
-        padding: 36px 28px;
-        min-width: 320px;
-        max-width: 98vw;
-        width: 400px;
-        position: relative;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
       }
+
       label {
         display: block;
-        margin-bottom: 6px;
-        color: #00fff7;
-        font-size: 1.1rem;
-      }
-      input[type="text"], textarea, input[type="color"] {
-        width: 100%;
-        padding: 8px 12px;
-        border-radius: 8px;
-        border: 1.5px solid #FFD700;
-        background: #181c24;
-        color: #FFD700;
-        font-size: 1.1rem;
-        margin-bottom: 12px;
-        font-family: inherit;
-      }
-      button {
-        background: linear-gradient(90deg, #FFD700 40%, #00fff7 100%);
-        color: #0a0f1a;
-        border: none;
-        border-radius: 12px;
-        padding: 10px 28px;
-        font-size: 1.1rem;
-        font-family: inherit;
+        margin-bottom: 8px;
         font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 2px 12px #FFD70055, 0 2px 8px #00fff755;
-        transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
-        outline: none;
-        margin-top: 8px;
       }
-      button:active { transform: scale(0.97); }
+
+      input, textarea, button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+
+      button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      button:active {
+        transform: scale(0.98);
+      }
     </style>
 </head>
 <body>
@@ -104,7 +101,43 @@
         const form = document.getElementById('settings-form');
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+
+            // الحصول على القيم المدخلة
+            const backgroundColor = document.getElementById('background-color').value;
+            const textColor = document.getElementById('text-color').value;
+            const alertSound = document.getElementById('alert-sound').files[0];
+            const backgroundMusic = document.getElementById('background-music').files[0];
+
+            // تخزين الإعدادات في localStorage
+            localStorage.setItem('about-background-color', backgroundColor);
+            localStorage.setItem('about-text-color', textColor);
+            if (alertSound) {
+                localStorage.setItem('about-alert-sound', URL.createObjectURL(alertSound));
+            }
+            if (backgroundMusic) {
+                localStorage.setItem('about-background-music', URL.createObjectURL(backgroundMusic));
+            }
+
             alert('تم حفظ الإعدادات بنجاح!');
+        });
+
+        // تطبيق الإعدادات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            const backgroundColor = localStorage.getItem('about-background-color');
+            const textColor = localStorage.getItem('about-text-color');
+            const backgroundMusic = localStorage.getItem('about-background-music');
+
+            if (backgroundColor) {
+                document.body.style.backgroundColor = backgroundColor;
+            }
+            if (textColor) {
+                document.body.style.color = textColor;
+            }
+            if (backgroundMusic) {
+                const audio = new Audio(backgroundMusic);
+                audio.loop = true;
+                audio.play();
+            }
         });
     </script>
 </body>
