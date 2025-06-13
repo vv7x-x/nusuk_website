@@ -76,6 +76,11 @@
       text-shadow: 0 2px 8px #FFD70044;
       text-align: center;
       width: 100%;
+      animation: neonText 2.5s alternate infinite;
+    }
+    @keyframes neonText {
+      0% { text-shadow: 0 0 12px #00ffea, 0 0 8px #FFD700; }
+      100% { text-shadow: 0 0 32px #00ffea, 0 0 24px #FFD700; }
     }
     .dev-title {
       font-size: 1.3rem;
@@ -164,13 +169,11 @@
       display: inline-block;
       margin: 0 auto;
       text-shadow: 0 0 8px #FFD70088, 0 0 4px #00ffea88;
+      animation: callPulse 1.8s infinite alternate;
     }
-    .call-btn:hover, .call-btn:focus {
-      background: linear-gradient(90deg, #FFD700 40%, #00ffea 100%);
-      color: #000;
-      box-shadow: 0 0 32px #00ffea, 0 0 24px #FFD700;
-      transform: scale(1.07) rotate(-2deg);
-      text-shadow: 0 0 16px #FFD700, 0 0 8px #00ffea;
+    @keyframes callPulse {
+      0% { box-shadow: 0 0 16px #00ffea55, 0 2px 12px #FFD70033; }
+      100% { box-shadow: 0 0 48px #00ffea, 0 0 32px #FFD700; }
     }
     /* ستايل المطورين والهكرات */
     body {
@@ -206,6 +209,30 @@
       margin-bottom: 10px;
       letter-spacing: 2px;
     }
+    /* تأثير خلفية متحركة Matrix-style */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background: repeating-linear-gradient(120deg, #00ffea22 0 2px, transparent 2px 40px), repeating-linear-gradient(-120deg, #FFD70022 0 2px, transparent 2px 40px);
+      animation: bgMove 12s linear infinite;
+    }
+    @keyframes bgMove {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 120px 120px, -120px -120px; }
+    }
+    /* تأثير كود جافاسكريبت متساقط (Matrix rain) */
+    #matrix-canvas {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.22;
+      filter: blur(0.5px);
+    }
     @media (max-width: 600px) {
       .dev-card {
         max-width: 98vw;
@@ -240,14 +267,150 @@
       pointer-events: none;
       animation: devGlow 4s alternate infinite;
     }
+    /* زر الوضع الليلي/النهاري */
+    .theme-toggle {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      z-index: 10;
+      background: linear-gradient(120deg, #FFD700 40%, #00ffea 100%);
+      color: #18122B;
+      border: none;
+      border-radius: 50%;
+      width: 54px;
+      height: 54px;
+      box-shadow: 0 0 18px #FFD70088, 0 0 8px #00ffea88;
+      cursor: pointer;
+      font-size: 1.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+      outline: none;
+      opacity: 0.92;
+    }
+    .theme-toggle:active {
+      transform: scale(0.93) rotate(-10deg);
+    }
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: #18122Bcc;
+      color: #FFD700;
+      padding: 14px 28px;
+      border-radius: 24px;
+      font-size: 1.1rem;
+      box-shadow: 0 0 18px #FFD70055;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+      z-index: 100;
+      font-family: 'Cairo', monospace;
+    }
+    .toast.show { opacity: 1; pointer-events: auto; }
+    /* زر كتم الصوت */
+    .mute-btn {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 10;
+      background: linear-gradient(120deg, #00ffea 40%, #FFD700 100%);
+      color: #18122B;
+      border: none;
+      border-radius: 50%;
+      width: 54px;
+      height: 54px;
+      box-shadow: 0 0 18px #00ffea88, 0 0 8px #FFD70088;
+      cursor: pointer;
+      font-size: 1.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+      outline: none;
+      opacity: 0.92;
+    }
+    .mute-btn:active { transform: scale(0.93) rotate(10deg); }
+    /* تأثير typewriter */
+    .typewriter {
+      color: #FFD700;
+      font-family: 'Fira Mono', monospace;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 12px;
+      min-height: 32px;
+      letter-spacing: 1.2px;
+      text-shadow: 0 0 8px #FFD70088, 0 0 4px #00ffea88;
+      border-right: 2.5px solid #FFD700;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: blink-caret 0.8s step-end infinite;
+    }
+    @keyframes blink-caret {
+      0%, 100% { border-color: #FFD700; }
+      50% { border-color: transparent; }
+    }
+    /* زر السيرة الذاتية */
+    .cv-btn {
+      background: linear-gradient(90deg, #FFD700 40%, #00ffea 100%);
+      color: #18122B;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 32px;
+      font-size: 1.08rem;
+      font-family: 'Cairo', monospace;
+      font-weight: bold;
+      letter-spacing: 1.1px;
+      box-shadow: 0 2px 12px #FFD70033, 0 2px 8px #00ffea55;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+      outline: none;
+      margin: 0 8px;
+      text-shadow: 0 0 8px #FFD70088, 0 0 4px #00ffea88;
+      margin-bottom: 10px;
+      margin-top: 8px;
+    }
+    .cv-btn:active { transform: scale(0.97); }
+    /* زر نسخ البريد */
+    .copy-btn {
+      background: linear-gradient(90deg, #00ffea 40%, #FFD700 100%);
+      color: #18122B;
+      border: none;
+      border-radius: 30px;
+      padding: 8px 22px;
+      font-size: 1.01rem;
+      font-family: 'Cairo', monospace;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 8px #00ffea55, 0 2px 8px #FFD70033;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+      outline: none;
+      margin: 0 8px;
+      text-shadow: 0 0 8px #FFD70088, 0 0 4px #00ffea88;
+      margin-bottom: 10px;
+    }
+    .copy-btn:active { transform: scale(0.97); }
+    /* طبقة ضبابية متغيرة للخلفية */
+    #matrix-canvas.blur {
+      filter: blur(2.5px) brightness(1.1);
+      opacity: 0.32;
+      transition: filter 0.7s, opacity 0.7s;
+    }
   </style>
 </head>
 <body>
+  <button class="theme-toggle" title="تبديل الوضع" aria-label="تبديل الوضع">🌙</button>
+  <button class="mute-btn" title="كتم/تشغيل الصوت" aria-label="كتم الصوت">🔊</button>
+  <canvas id="matrix-canvas"></canvas>
   <div class="dev-card">
     <div style="width: 100%; display: flex; justify-content: center;">
       <img src="myphoto.JPG" alt="صورة المطور" class="dev-avatar" style="margin-bottom: 18px;" />
     </div>
     <h1>يحيى رضا</h1>
+    <div class="typewriter" id="typewriter"></div>
     <div class="dev-title">مبرمج ومطور مواقع ويب</div>
     <div class="dev-bio">
       يحيى رضا<br>
@@ -266,14 +429,58 @@
         <img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="فيسبوك">
       </a>
     </div>
+    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+      <button class="cv-btn" onclick="window.open('cv.pdf', '_blank')">عرض السيرة الذاتية</button>
+      <button class="copy-btn" id="copyEmail">نسخ البريد الإلكتروني</button>
+    </div>
     <div class="contact">
       <a href="tel:+201155528093" class="call-btn">اتصل الآن</a>
     </div>
   </div>
+  <div class="toast" id="toast"></div>
   <footer>
     &copy; 2025 نُسُك للحج والعمرة - جميع الحقوق محفوظة
   </footer>
   <script>
+    // Matrix rain effect
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    const letters = '01YHACKDEV'.split('');
+    const fontSize = 18;
+    const columns = Math.floor(width / fontSize);
+    const drops = Array(columns).fill(1);
+    let blurOn = false;
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(24,18,43,0.18)';
+      ctx.fillRect(0, 0, width, height);
+      ctx.font = fontSize + 'px Fira Mono, monospace';
+      ctx.fillStyle = '#00ffea';
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+    setInterval(drawMatrix, 55);
+    window.addEventListener('resize', () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    });
+    // طبقة ضبابية متغيرة للخلفية
+    setInterval(() => {
+      blurOn = !blurOn;
+      canvas.classList.toggle('blur', blurOn);
+    }, 4000);
+
     // تحديث عنوان الصفحة تلقائياً بناءً على اسم الصفحة بدون .html
     document.addEventListener('DOMContentLoaded', function() {
       const path = window.location.pathname;
@@ -290,43 +497,41 @@
         document.title = pageMap[path] + ' - نُسُك للحج والعمرة';
       }
     });
-    // تشغيل صوت عند المرور على أيقونات التواصل
-    function playSound(src) {
-      const audio = new Audio(src);
-      audio.play();
+
+    // تأثير typewriter
+    const typewriterTexts = [
+      'Full Stack Developer',
+      'هاكر أخلاقي مبتدئ',
+      'React, Node.js, Python',
+      'أعشق البرمجة والتحدي',
+      'مهووس بتقنيات الويب',
+      'Yahya Reda | 16 y.o.'
+    ];
+    let twIndex = 0, charIndex = 0, twDir = 1;
+    const typewriter = document.getElementById('typewriter');
+    function typeTypewriter() {
+      if (!typewriter) return;
+      const text = typewriterTexts[twIndex];
+      if (twDir === 1) {
+        charIndex++;
+        if (charIndex > text.length) {
+          twDir = -1;
+          setTimeout(typeTypewriter, 1200);
+          return;
+        }
+      } else {
+        charIndex--;
+        if (charIndex < 0) {
+          twDir = 1;
+          twIndex = (twIndex + 1) % typewriterTexts.length;
+          setTimeout(typeTypewriter, 400);
+          return;
+        }
+      }
+      typewriter.textContent = text.slice(0, charIndex);
+      setTimeout(typeTypewriter, twDir === 1 ? 70 : 30);
     }
-    // واتساب
-    const whatsappIcon = document.querySelector('.social-icons a[title="واتساب"] img');
-    if (whatsappIcon) {
-      whatsappIcon.addEventListener('mouseenter', () => playSound('الأصوات/whatsapp.mp3'));
-    }
-    // انستجرام
-    const instaIcon = document.querySelector('.social-icons a[title="إنستجرام"] img');
-    if (instaIcon) {
-      instaIcon.addEventListener('mouseenter', () => playSound('الأصوات/insta.mp3'));
-    }
-    // فيسبوك
-    const fbIcon = document.querySelector('.social-icons a[title="فيسبوك"] img');
-    if (fbIcon) {
-      fbIcon.addEventListener('mouseenter', () => playSound('الأصوات/ff.mp3'));
-    }
-    // رقم الهاتف
-    const phoneLink = document.querySelector('.contact a[href^="tel:"]');
-    if (phoneLink) {
-      phoneLink.addEventListener('mouseenter', () => playSound('الأصوات/رقمي.mp3'));
-    }
-    // صورة المطور
-    const devAvatar = document.querySelector('.dev-avatar');
-    if (devAvatar) {
-      devAvatar.addEventListener('mouseenter', () => playSound('الأصوات/يحيى رضا.mp3'));
-    }
-  </script>
-  <script>
-    // تشغيل صوت ترحيبي عند تحميل الصفحة
-    window.onload = function() {
-      const audio = new Audio('الأصوات/about dev.mp3');
-      audio.play();
-    };
+    setTimeout(typeTypewriter, 1000);
   </script>
 </body>
 </html>
