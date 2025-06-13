@@ -158,6 +158,7 @@
           <input type="password" id="adminPass" required autocomplete="current-password">
         </div>
         <button class="btn" type="submit">دخول</button>
+        <div style="color:#FFD700;text-align:center;margin-top:10px;font-size:1rem;">يرجى إدخال كلمة المرور للوصول إلى إعدادات الموقع</div>
       </form>
     </div>
     <div class="settings-section hidden" id="pagesGridSection">
@@ -330,12 +331,16 @@
     const allSettingsSections = document.querySelectorAll('.settings-section');
     // إظهار شاشة كلمة السر فقط عند التحميل
     function showLogin() {
-      allSettingsSections.forEach(sec => sec.classList.add('hidden'));
+      allSettingsSections.forEach(sec => {
+        sec.classList.add('hidden');
+        sec.classList.remove('active');
+      });
       loginSection.classList.remove('hidden');
       loginSection.classList.add('active');
       userRole = null;
     }
-    showLogin();
+    // عند التحميل، أظهر شاشة كلمة السر فقط
+    window.addEventListener('DOMContentLoaded', showLogin);
     // التحقق من كلمة السر
     document.getElementById('loginForm').onsubmit = function(e) {
       e.preventDefault();
