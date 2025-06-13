@@ -62,7 +62,7 @@
   <div class="overlay">
     <div class="headline-ar" id="headline-ar">مرحباً بك في عقل المطور
 بوابة المستقبل البرمجية</div>
-    <div class="explore-tip">مرر أو اضغط للاستكشاف والدخول إلى العالم السحري</div>
+    <div class="explore-tip" id="explore-tip">يتم الدخول تلقائياً... انتظر لحظات</div>
   </div>
   <audio id="ambient-audio" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b6b6b6.mp3" loop autoplay style="display:none"></audio>
   <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
@@ -213,7 +213,7 @@
         if(t < 1) requestAnimationFrame(anim);
         else {
           controls.autoRotate = true;
-          document.querySelector('.explore-tip').textContent = 'استكشف العالم بالماوس أو اللمس';
+          document.getElementById('explore-tip').style.display = 'none';
         }
       };
       anim();
