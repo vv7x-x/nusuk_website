@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعدادات العروض</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>إعدادات صفحة العروض</h1>
+    <form id="settings-form">
+        <label for="offer-title">عنوان العرض:</label>
+        <input type="text" id="offer-title" name="offer-title" placeholder="أدخل عنوان العرض">
+
+        <label for="offer-description">وصف العرض:</label>
+        <textarea id="offer-description" name="offer-description" placeholder="أدخل وصف العرض"></textarea>
+
+        <label for="offer-expiry">تاريخ انتهاء العرض:</label>
+        <input type="date" id="offer-expiry" name="offer-expiry">
+
+        <label for="offer-terms">شروط العرض:</label>
+        <textarea id="offer-terms" name="offer-terms" placeholder="أدخل شروط العرض"></textarea>
+
+        <label for="background-color">لون الخلفية:</label>
+        <input type="color" id="background-color" name="background-color">
+
+        <label for="text-color">لون النصوص:</label>
+        <input type="color" id="text-color" name="text-color">
+
+        <label for="alert-sound">صوت التنبيه:</label>
+        <input type="file" id="alert-sound" name="alert-sound" accept="audio/*">
+
+        <label for="background-music">الموسيقى الخلفية:</label>
+        <input type="file" id="background-music" name="background-music" accept="audio/*">
+
+        <button type="submit">حفظ الإعدادات</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('settings-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('تم حفظ الإعدادات بنجاح!');
+        });
+    </script>
+</body>
+</html>

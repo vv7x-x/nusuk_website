@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعدادات اتصل بنا</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>إعدادات صفحة اتصل بنا</h1>
+    <form id="settings-form">
+        <label for="phone">رقم الهاتف:</label>
+        <input type="text" id="phone" name="phone" placeholder="أدخل رقم الهاتف">
+
+        <label for="email">البريد الإلكتروني:</label>
+        <input type="email" id="email" name="email" placeholder="أدخل البريد الإلكتروني">
+
+        <label for="address">العنوان:</label>
+        <textarea id="address" name="address" placeholder="أدخل العنوان"></textarea>
+
+        <label for="working-hours">ساعات العمل:</label>
+        <input type="text" id="working-hours" name="working-hours" placeholder="أدخل ساعات العمل">
+
+        <label for="background-color">لون الخلفية:</label>
+        <input type="color" id="background-color" name="background-color">
+
+        <label for="text-color">لون النصوص:</label>
+        <input type="color" id="text-color" name="text-color">
+
+        <label for="alert-sound">صوت التنبيه:</label>
+        <input type="file" id="alert-sound" name="alert-sound" accept="audio/*">
+
+        <label for="background-music">الموسيقى الخلفية:</label>
+        <input type="file" id="background-music" name="background-music" accept="audio/*">
+
+        <button type="submit">حفظ الإعدادات</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('settings-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('تم حفظ الإعدادات بنجاح!');
+        });
+    </script>
+</body>
+</html>

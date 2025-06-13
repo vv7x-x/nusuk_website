@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعدادات الرئيسية</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>الإعدادات الرئيسية</h1>
+    <div>
+        <button onclick="location.href='about-settings.html'">إعدادات من نحن</button>
+        <button onclick="location.href='contact-settings.html'">إعدادات اتصل بنا</button>
+        <button onclick="location.href='booking-settings.html'">إعدادات الحجز</button>
+        <button onclick="location.href='gallery-settings.html'">إعدادات صور الرحلات</button>
+        <button onclick="location.href='offers-settings.html'">إعدادات العروض</button>
+    </div>
+
+    <div>
+        <h2>إعدادات عامة</h2>
+        <form id="general-settings-form">
+            <label for="background-color">لون الخلفية:</label>
+            <input type="color" id="background-color" name="background-color">
+
+            <label for="text-color">لون النصوص:</label>
+            <input type="color" id="text-color" name="text-color">
+
+            <label for="button-color">لون الأزرار:</label>
+            <input type="color" id="button-color" name="button-color">
+
+            <label for="alert-sound">صوت التنبيه:</label>
+            <input type="file" id="alert-sound" name="alert-sound" accept="audio/*">
+
+            <label for="background-music">الموسيقى الخلفية:</label>
+            <input type="file" id="background-music" name="background-music" accept="audio/*">
+
+            <button type="submit">حفظ الإعدادات</button>
+        </form>
+    </div>
+
+    <script>
+        const generalForm = document.getElementById('general-settings-form');
+        generalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('تم حفظ الإعدادات العامة بنجاح!');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعدادات من نحن</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      body {
+        background: linear-gradient(120deg, #0a0f1a 0%, #003366 100%);
+        color: #FFD700;
+        font-family: 'Share Tech Mono', monospace;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      h1 {
+        text-align: center;
+        color: #FFD700;
+        margin-bottom: 24px;
+        font-size: 2rem;
+      }
+      form {
+        background: rgba(24, 28, 36, 0.97);
+        border-radius: 24px;
+        box-shadow: 0 0 32px #00fff7cc, 0 0 0 2px #FFD700;
+        padding: 36px 28px;
+        min-width: 320px;
+        max-width: 98vw;
+        width: 400px;
+        position: relative;
+      }
+      label {
+        display: block;
+        margin-bottom: 6px;
+        color: #00fff7;
+        font-size: 1.1rem;
+      }
+      input[type="text"], textarea, input[type="color"] {
+        width: 100%;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1.5px solid #FFD700;
+        background: #181c24;
+        color: #FFD700;
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        font-family: inherit;
+      }
+      button {
+        background: linear-gradient(90deg, #FFD700 40%, #00fff7 100%);
+        color: #0a0f1a;
+        border: none;
+        border-radius: 12px;
+        padding: 10px 28px;
+        font-size: 1.1rem;
+        font-family: inherit;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 2px 12px #FFD70055, 0 2px 8px #00fff755;
+        transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+        outline: none;
+        margin-top: 8px;
+      }
+      button:active { transform: scale(0.97); }
+    </style>
+</head>
+<body>
+    <h1>إعدادات صفحة من نحن</h1>
+    <form id="settings-form">
+        <label for="title">عنوان الصفحة:</label>
+        <input type="text" id="title" name="title" placeholder="أدخل عنوان الصفحة">
+
+        <label for="description">وصف الصفحة:</label>
+        <textarea id="description" name="description" placeholder="أدخل وصف الصفحة"></textarea>
+
+        <label for="mission">مهمتنا:</label>
+        <textarea id="mission" name="mission" placeholder="أدخل مهمتنا"></textarea>
+
+        <label for="vision">رؤيتنا:</label>
+        <textarea id="vision" name="vision" placeholder="أدخل رؤيتنا"></textarea>
+
+        <label for="team">فريق العمل:</label>
+        <textarea id="team" name="team" placeholder="أدخل تفاصيل فريق العمل"></textarea>
+
+        <label for="background-color">لون الخلفية:</label>
+        <input type="color" id="background-color" name="background-color">
+
+        <label for="text-color">لون النصوص:</label>
+        <input type="color" id="text-color" name="text-color">
+
+        <label for="alert-sound">صوت التنبيه:</label>
+        <input type="file" id="alert-sound" name="alert-sound" accept="audio/*">
+
+        <label for="background-music">الموسيقى الخلفية:</label>
+        <input type="file" id="background-music" name="background-music" accept="audio/*">
+
+        <button type="submit">حفظ الإعدادات</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('settings-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('تم حفظ الإعدادات بنجاح!');
+        });
+    </script>
+</body>
+</html>

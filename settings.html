@@ -390,18 +390,22 @@
         }
       });
     }
-    // التنقل بين مربعات الصفحات
+    // التنقل بين مربعات الصفحات (تحويل لصفحة أخرى)
+    const pageLinks = {
+      main: 'settings.html',
+      index: 'index-settings.html',
+      about: 'about-settings.html',
+      offers: 'offers-settings.html',
+      gallery: 'gallery-settings.html',
+      contact: 'contact-settings.html',
+      booking: 'booking-settings.html',
+      'developer-info': 'developer-info-settings.html'
+    };
     document.querySelectorAll('.page-tile').forEach(tile => {
       tile.onclick = function() {
-        allSettingsSections.forEach(sec => sec.classList.remove('active'));
-        pagesGridSection.classList.add('hidden');
         const page = tile.getAttribute('data-page');
-        if(page === 'main') {
-          mainSettings.classList.add('active');
-          loadFormData('settingsForm');
-        } else {
-          document.getElementById(page+'Settings').classList.add('active');
-          loadFormData(page+'SettingsForm');
+        if(pageLinks[page]) {
+          window.location.href = pageLinks[page];
         }
       };
     });
