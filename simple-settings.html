@@ -229,26 +229,31 @@
   </div>
   <audio id="cosmicSound" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b6b6b6.mp3"></audio>
   <script>
-    // توليد الأكوان النانوية (quantum pixels)
+    // توليد الأكوان النانوية (quantum pixels) - نسخة خفيفة
     const multiverse = document.getElementById('multiverse');
-    const quantumPixels = [];
-    for(let i=0; i<888; i++) {
-      const px = document.createElement('div');
-      px.className = 'quantum-pixel';
-      px.style.left = (Math.random()*100)+'vw';
-      px.style.top = (Math.random()*100)+'vh';
-      px.style.animationDelay = (Math.random()*18)+'s';
-      px.style.background = `radial-gradient(circle, hsl(${Math.random()*360},100%,70%) 0%, #FFD700 80%, transparent 100%)`;
-      multiverse.appendChild(px);
-      quantumPixels.push(px);
+    let quantumPixels = [];
+    function createQuantumPixels(count) {
+      quantumPixels.forEach(px => px.remove());
+      quantumPixels = [];
+      for(let i=0; i<count; i++) {
+        const px = document.createElement('div');
+        px.className = 'quantum-pixel';
+        px.style.left = (Math.random()*100)+'vw';
+        px.style.top = (Math.random()*100)+'vh';
+        px.style.animationDelay = (Math.random()*10)+'s';
+        px.style.background = `radial-gradient(circle, hsl(${Math.random()*360},100%,70%) 0%, #FFD700 80%, transparent 100%)`;
+        multiverse.appendChild(px);
+        quantumPixels.push(px);
+      }
     }
-    // تفاعل الألوان مع حركة الماوس (محاكاة اتصال عصبي)
+    createQuantumPixels(120); // عدد أقل بكثير
+    // تفاعل الألوان مع حركة الماوس
     document.body.addEventListener('mousemove', e => {
       quantumPixels.forEach((px,i) => {
         const dx = e.clientX - px.offsetLeft;
         const dy = e.clientY - px.offsetTop;
         const dist = Math.sqrt(dx*dx+dy*dy);
-        if(dist < 180) {
+        if(dist < 120) {
           px.style.background = `radial-gradient(circle, #FFD700 0%, hsl(${(i*17+e.clientX)%360},100%,70%) 80%, transparent 100%)`;
           px.style.opacity = 1;
         } else {
@@ -256,8 +261,6 @@
           px.style.opacity = 0.8;
         }
       });
-      // مؤثر اهتزازي (لو مدعوم)
-      if(window.navigator.vibrate) window.navigator.vibrate(18);
     });
     // رسائل وعي كونية متغيرة
     const aiMsg = document.getElementById('aiMsg');
@@ -278,16 +281,24 @@
     ];
     setInterval(()=>{
       aiMsg.textContent = messages[Math.floor(Math.random()*messages.length)];
-    }, 4000);
-    // مؤثرات بصرية متغيرة باستمرار (سيمفونية رباعية الأبعاد)
+    }, 5000);
+    // التطور المستمر: تغيير عدد الأكوان، الألوان، الخلفية، الرسائل، كل فترة
+    let evolutionStep = 0;
+    setInterval(()=>{
+      // عدد الأكوان يبقى محدوداً وخفيفاً
+      createQuantumPixels(120);
+      document.body.style.background = `linear-gradient(${Math.random()*360}deg, #0a0f1a 0%, #181c24 60%, hsl(${Math.random()*360},100%,20%) 100%)`;
+      aiExplain.textContent = messages[Math.floor(Math.random()*messages.length)] + '\n' + 'طور: ' + (++evolutionStep);
+    }, 12000);
+    // مؤثرات بصرية متغيرة باستمرار
     setInterval(()=>{
       quantumPixels.forEach((px,i)=>{
         px.style.left = (Math.random()*100)+'vw';
         px.style.top = (Math.random()*100)+'vh';
         px.style.background = `radial-gradient(circle, hsl(${Math.random()*360},100%,70%) 0%, #FFD700 80%, transparent 100%)`;
       });
-    }, 6000);
-    // موجات طاقة كونية (canvas)
+    }, 9000);
+    // موجات طاقة كونية (canvas) - نسخة خفيفة
     const canvas = document.getElementById('energyWave');
     const ctx = canvas.getContext('2d');
     function resizeCanvas() {
@@ -299,13 +310,13 @@
     let t = 0;
     function drawWave() {
       ctx.clearRect(0,0,canvas.width,canvas.height);
-      for(let i=0;i<canvas.width;i+=2){
-        const y = canvas.height/2 + Math.sin(i/40 + t)*120*Math.sin(t/2);
+      for(let i=0;i<canvas.width;i+=8){
+        const y = canvas.height/2 + Math.sin(i/60 + t)*60*Math.sin(t/2);
         ctx.beginPath();
-        ctx.arc(i, y, 16+12*Math.sin(i/60+t), 0, 2*Math.PI);
-        ctx.fillStyle = `hsla(${(i+t*80)%360},100%,60%,0.22)`;
+        ctx.arc(i, y, 8+6*Math.sin(i/80+t), 0, 2*Math.PI);
+        ctx.fillStyle = `hsla(${(i+t*40)%360},100%,60%,0.13)`;
         ctx.shadowColor = '#FFD700';
-        ctx.shadowBlur = 32;
+        ctx.shadowBlur = 10;
         ctx.fill();
       }
       t += 0.018;
