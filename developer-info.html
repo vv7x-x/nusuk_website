@@ -18,13 +18,33 @@
       overflow-x: hidden;
     }
         .dev-card {
-      background: rgba(26, 0, 51, 0.98);
+      background: rgba(26, 0, 51, 0.55);
+      backdrop-filter: blur(18px) saturate(1.5) brightness(1.15);
       border-radius: 50px;
       border: 2.5px solid #39ff14;
-      box-shadow: 0 0 40px #00ffea55, 0 8px 32px 0 #FFD70033, 0 0 60px #a020f044;
+      box-shadow: 0 0 60px #00ffea99, 0 8px 32px 0 #FFD70033, 0 0 120px #a020f088, 0 0 0 8px #fff2  inset;
       color: #FFD700;
-      filter: drop-shadow(0 0 12px #00ffea88);
+      filter: drop-shadow(0 0 18px #00ffea88);
       animation: floatCard 3.5s ease-in-out infinite, devGlow 4s alternate infinite;
+      position: relative;
+      overflow: hidden;
+    }
+    .dev-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50px;
+      pointer-events: none;
+      background: linear-gradient(120deg, #a020f044 0%, #00ffea22 60%, #39ff1444 100%);
+      opacity: 0.25;
+      z-index: 2;
+      mix-blend-mode: lighten;
+      filter: blur(8px);
+      animation: glassGlow 6s alternate infinite;
+    }
+    @keyframes glassGlow {
+      0% { opacity: 0.18; }
+      100% { opacity: 0.38; }
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(40px); }
@@ -262,29 +282,28 @@
     }
     /* زر الوضع الليلي/النهاري */
     .theme-toggle {
-      position: fixed;
-      top: 24px;
-      left: 24px;
-      z-index: 10;
-      background: linear-gradient(120deg, #a020f0 40%, #00ffea 100%);
-      color: #39ff14;
+      background: transparent;
       border: none;
-      border-radius: 50%;
-      width: 54px;
-      height: 54px;
-      box-shadow: 0 0 18px #a020f088, 0 0 8px #00ffea88;
-      cursor: pointer;
-      font-size: 1.7rem;
+      width: 64px;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      z-index: 20;
+      cursor: pointer;
       outline: none;
-      opacity: 0.92;
+      transition: filter 0.3s, transform 0.2s;
+      filter: drop-shadow(0 0 12px #a020f0);
     }
-    .theme-toggle:active {
-      transform: scale(0.93) rotate(-10deg);
+    .theme-toggle svg {
+      width: 48px;
+      height: 48px;
+      transition: all 0.5s cubic-bezier(.4,2,.6,1);
     }
+    .theme-toggle:active { transform: scale(0.93) rotate(-10deg); }
     /* Toast */
     .toast {
       position: fixed;
@@ -305,27 +324,12 @@
     .toast.show { opacity: 1; pointer-events: auto; }
     /* زر كتم الصوت */
     .mute-btn {
-      position: fixed;
-      top: 24px;
-      right: 24px;
-      z-index: 10;
-      background: linear-gradient(120deg, #a020f0 40%, #00ffea 100%);
-      color: #39ff14;
-      border: none;
-      border-radius: 50%;
-      width: 54px;
-      height: 54px;
-      box-shadow: 0 0 18px #a020f088, 0 0 8px #FFD70088;
-      cursor: pointer;
-      font-size: 1.7rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
-      outline: none;
-      opacity: 0.92;
+      display: none !important;
     }
-    .mute-btn:active { transform: scale(0.93) rotate(10deg); }
+    /* إخفاء زر نسخ البريد */
+    .copy-btn {
+      display: none !important;
+    }
     /* تأثير typewriter */
     .typewriter {
       color: #FFD700;
@@ -484,13 +488,31 @@
       z-index: 5;
       border-radius: 50px;
     }
+    /* waves background */
+    #waves-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
-  <button class="theme-toggle" title="تبديل الوضع" aria-label="تبديل الوضع">🌙</button>
-  <button class="mute-btn" title="كتم/تشغيل الصوت" aria-label="كتم الصوت">🔊</button>
+  <canvas id="waves-bg"></canvas>
+  <button class="theme-toggle" title="تبديل الوضع" aria-label="تبديل الوضع">
+    <svg id="themeIcon" viewBox="0 0 64 64" fill="none">
+      <circle cx="32" cy="32" r="18" fill="#FFD700" id="sun"/>
+      <path id="moon" d="M44 32A12 12 0 1 1 32 20c0 6.627 5.373 12 12 12z" fill="#a020f0" opacity="0"/>
+    </svg>
+  </button>
   <canvas id="matrix-canvas"></canvas>
   <div class="dev-card" id="devCard">
+    <svg class="cyber-border" width="100%" height="100%" viewBox="0 0 420 520" fill="none">
+      <rect x="4" y="4" width="412" height="512" rx="48" stroke="#00ffea" stroke-width="4" stroke-dasharray="24 12"/>
+      <rect x="16" y="16" width="388" height="488" rx="40" stroke="#a020f0" stroke-width="2" stroke-dasharray="8 8"/>
+    </svg>
     <div style="width: 100%; display: flex; justify-content: center; position: relative;">
       <img src="myphoto.JPG" alt="صورة المطور" class="dev-avatar" style="margin-bottom: 18px;" />
       <div class="dev-avatar-tooltip">Full Stack | JavaScript | Linux | Ethical Hacking</div>
@@ -517,7 +539,6 @@
     </div>
     <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
       <button class="cv-btn" onclick="window.open('cv.pdf', '_blank')">عرض السيرة الذاتية</button>
-      <button class="copy-btn" id="copyEmail">نسخ البريد الإلكتروني</button>
     </div>
     <div class="contact">
       <a href="tel:+201155528093" class="call-btn" id="callBtn">اتصل الآن</a>
@@ -682,6 +703,83 @@
       setInterval(drawSparkles, 600);
     }
 
+    // waves 3D background
+    const waves = document.getElementById('waves-bg');
+    if (waves) {
+      const wctx = waves.getContext('2d');
+      function resizeWaves() {
+        waves.width = window.innerWidth;
+        waves.height = window.innerHeight;
+      }
+      resizeWaves();
+      window.addEventListener('resize', resizeWaves);
+      let t = 0;
+      function drawWaves() {
+        wctx.clearRect(0, 0, waves.width, waves.height);
+        for (let i = 0; i < 3; i++) {
+          wctx.beginPath();
+          for (let x = 0; x <= waves.width; x += 4) {
+            const y = waves.height/2 + Math.sin((x/120) + t + i) * (40 + i*18) + Math.cos((x/60) - t*1.2 - i) * (18 + i*8);
+            if (x === 0) wctx.moveTo(x, y);
+            else wctx.lineTo(x, y);
+          }
+          wctx.strokeStyle = i === 0 ? '#00ffea88' : (i === 1 ? '#a020f088' : '#39ff1488');
+          wctx.lineWidth = 2.5 + i*1.5;
+          wctx.shadowColor = wctx.strokeStyle;
+          wctx.shadowBlur = 16 + i*8;
+          wctx.stroke();
+        }
+        t += 0.012;
+        requestAnimationFrame(drawWaves);
+      }
+      drawWaves();
+    }
+
+    // عدد الزوار الحقيقي من CountAPI
+    async function updateVisitors() {
+      try {
+        const res = await fetch('https://api.countapi.xyz/hit/khutwa_website/visitors2040');
+        const data = await res.json();
+        const visitorsCountElem = document.getElementById('visitorsCount');
+        if (visitorsCountElem) {
+          visitorsCountElem.textContent = data.value.toLocaleString('ar-EG');
+        }
+      } catch (e) {
+        // fallback: عداد وهمي
+        const visitorsCountElem = document.getElementById('visitorsCount');
+        if (visitorsCountElem) {
+          visitorsCountElem.textContent = (10000 + Math.floor(Math.random()*9000)).toLocaleString('ar-EG');
+        }
+      }
+    }
+    updateVisitors();
+
+    // زر الوضع الليلي/النهاري SVG متحرك
+    const themeBtn = document.querySelector('.theme-toggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const sun = document.getElementById('sun');
+    const moon = document.getElementById('moon');
+    let darkMode = false;
+    themeBtn.addEventListener('click', function() {
+      darkMode = !darkMode;
+      document.body.classList.toggle('dark', darkMode);
+      // morph SVG sun/moon
+      if (darkMode) {
+        sun.setAttribute('opacity', '0');
+        moon.setAttribute('opacity', '1');
+      } else {
+        sun.setAttribute('opacity', '1');
+        moon.setAttribute('opacity', '0');
+      }
+      showToast(darkMode ? 'تم تفعيل الوضع الليلي' : 'تم تفعيل الوضع النهاري');
+    });
+    // عند التحميل: اضبط الأيقونة حسب الوضع
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.body.classList.add('dark');
+      sun.setAttribute('opacity', '0');
+      moon.setAttribute('opacity', '1');
+      darkMode = true;
+    }
     // أصوات جديدة لكل تفاعل
     // social icons
     const whatsappIcon = document.querySelector('a[title="واتساب"]');
@@ -711,15 +809,6 @@
     if (glitchName) {
       glitchName.addEventListener('mouseenter', () => playSound('الأصوات/ff.mp3'));
     }
-    // زر نسخ البريد
-    const copyBtn = document.getElementById('copyEmail');
-    if (copyBtn) {
-      copyBtn.addEventListener('click', function() {
-        navigator.clipboard.writeText('yahya.reda.dev@gmail.com');
-        showToast('تم نسخ البريد الإلكتروني!');
-        playSound('الأصوات/insta.mp3');
-      });
-    }
     // زر السيرة الذاتية
     const cvBtn = document.querySelector('.cv-btn');
     if (cvBtn) {
@@ -731,11 +820,6 @@
     const themeBtn = document.querySelector('.theme-toggle');
     themeBtn.addEventListener('click', function() {
       playSound('الأصوات/33.mp3');
-    });
-    // زر كتم الصوت
-    const muteBtn = document.querySelector('.mute-btn');
-    muteBtn.addEventListener('click', function() {
-      playSound('الأصوات/ff.mp3');
     });
     // اهتزاز الكارت عند الاتصال
     const callBtn = document.getElementById('callBtn');
