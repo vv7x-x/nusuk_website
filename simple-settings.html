@@ -11,12 +11,39 @@
       height: 100%;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #232526 0%, #414345 100%);
+      /* خلفية هكر محترف: خطوط Matrix + تدرجات داكنة + تأثير ضوء أخضر متحرك */
+      background: linear-gradient(135deg, #181c24 0%, #232526 100%);
       font-family: 'Cairo', 'Montserrat', Arial, sans-serif;
-      color: #222;
+      color: #00ffb0;
       min-height: 100vh;
-      transition: background 1.5s cubic-bezier(.4,2,.6,1);
+      position: relative;
+      overflow: hidden;
     }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(120deg, #00ffb022 0 2px, transparent 2px 80px),
+                  repeating-linear-gradient(-120deg, #00ffb011 0 2px, transparent 2px 80px);
+      opacity: 0.13;
+      animation: bgMove 18s linear infinite;
+    }
+    @keyframes bgMove {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 240px 240px, -240px -240px; }
+    }
+    /* تأثير Matrix */
+    #matrix-canvas {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.22;
+      filter: blur(0.5px);
+    }
+    .centered-container, .settings-card { z-index: 2; position: relative; }
     .centered-container {
       min-height: 100vh;
       display: flex;
@@ -158,7 +185,8 @@
   </style>
 </head>
 <body>
-  <div class="centered-container">
+    <canvas id="matrix-canvas"></canvas>
+    <div class="centered-container">
     <div class="settings-card">
       <h2>إعدادات صفحة المطور</h2>
       <img id="devAvatarPreview" class="dev-avatar-preview" src="" alt="صورة المطور" style="display:none;" />
@@ -326,6 +354,63 @@
         favicon.href = savedImg;
       }
     });
+    // رسم تأثير Matrix (أكواد هكر متساقطة متقدمة)
+    const matrixCanvas = document.getElementById('matrix-canvas');
+    const ctxMatrix = matrixCanvas.getContext('2d');
+    function resizeMatrix() {
+      matrixCanvas.width = window.innerWidth;
+      matrixCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeMatrix);
+    resizeMatrix();
+    // إعدادات Matrix
+    const letters = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&@'.split('');
+    const fontSize = 20;
+    let columns = Math.floor(window.innerWidth / fontSize);
+    let drops = Array(columns).fill(1).map(() => Math.random() * matrixCanvas.height / fontSize);
+    // إعدادات توهج وخلفية متحركة
+    let gradientOffset = 0;
+    function drawMatrix() {
+      // خلفية داكنة مع تدرج أخضر متحرك
+      const grad = ctxMatrix.createLinearGradient(0, 0, matrixCanvas.width, matrixCanvas.height);
+      grad.addColorStop(0, '#181c24');
+      grad.addColorStop(0.3 + 0.2*Math.sin(gradientOffset), '#003a1a');
+      grad.addColorStop(0.5 + 0.2*Math.cos(gradientOffset/2), '#00ffb033');
+      grad.addColorStop(1, '#232526');
+      ctxMatrix.fillStyle = grad;
+      ctxMatrix.globalAlpha = 0.22;
+      ctxMatrix.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+      ctxMatrix.globalAlpha = 1;
+      ctxMatrix.font = fontSize + "px 'Share Tech Mono', 'VT323', monospace";
+      for(let i = 0; i < drops.length; i++) {
+        // تأثير توهج أخضر
+        ctxMatrix.save();
+        ctxMatrix.shadowColor = '#00ffb0';
+        ctxMatrix.shadowBlur = 16;
+        // بعض الحروف أكثر سطوعاً (وميض)
+        let isBright = Math.random() > 0.92;
+        ctxMatrix.fillStyle = isBright ? '#baffc9' : '#00ffb0';
+        // تأثير blur خفيف
+        if(isBright) ctxMatrix.globalAlpha = 0.95; else ctxMatrix.globalAlpha = 0.7 + 0.2*Math.random();
+        const text = letters[Math.floor(Math.random()*letters.length)];
+        ctxMatrix.fillText(text, i*fontSize, drops[i]*fontSize);
+        ctxMatrix.restore();
+        ctxMatrix.globalAlpha = 1;
+        // إعادة تعيين السقوط
+        if(drops[i]*fontSize > matrixCanvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i] += 0.9 + Math.random()*0.7; // سرعات متباينة
+      }
+      gradientOffset += 0.008;
+      requestAnimationFrame(drawMatrix);
+    }
+    // إعادة تهيئة الأعمدة عند تغيير الحجم
+    window.addEventListener('resize', () => {
+      columns = Math.floor(window.innerWidth / fontSize);
+      drops = Array(columns).fill(1).map(() => Math.random() * matrixCanvas.height / fontSize);
+    });
+    drawMatrix();
   </script>
 </body>
 </html>
