@@ -11,13 +11,13 @@
       height: 100%;
       margin: 0;
       padding: 0;
-      /* خلفية هكر محترف: خطوط Matrix + تدرجات داكنة + تأثير ضوء أخضر متحرك */
-      background: linear-gradient(135deg, #181c24 0%, #232526 100%);
-      font-family: 'Cairo', 'Montserrat', Arial, sans-serif;
-      color: #00ffb0;
+      background: #101618;
+      font-family: 'Share Tech Mono', 'VT323', monospace;
+      color: #00ff41;
       min-height: 100vh;
       position: relative;
       overflow: hidden;
+      letter-spacing: 0.5px;
     }
     body::before {
       content: '';
@@ -25,14 +25,8 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background: repeating-linear-gradient(120deg, #00ffb022 0 2px, transparent 2px 80px),
-                  repeating-linear-gradient(-120deg, #00ffb011 0 2px, transparent 2px 80px);
-      opacity: 0.13;
-      animation: bgMove 18s linear infinite;
-    }
-    @keyframes bgMove {
-      0% { background-position: 0 0, 0 0; }
-      100% { background-position: 240px 240px, -240px -240px; }
+      background: none;
+      opacity: 0;
     }
     /* تأثير Matrix */
     #matrix-canvas {
@@ -40,188 +34,166 @@
       top: 0; left: 0; width: 100vw; height: 100vh;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.22;
+      opacity: 0.33;
       filter: blur(0.5px);
     }
-    .centered-container, .settings-card { z-index: 2; position: relative; }
+    .centered-container, .settings-card, .live-preview-card { z-index: 2; position: relative; }
     .centered-container {
       min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
-      animation: bgFade 12s infinite alternate;
+      background: none;
+      animation: none;
+      padding-top: 32px;
     }
-    @keyframes bgFade {
-      0% { background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%); }
-      100% { background: linear-gradient(120deg, #232526 0%, #414345 100%); }
-    }
-    .settings-card {
-      background: rgba(255,255,255,0.93);
-      border-radius: 24px;
-      box-shadow: 0 8px 32px 0 #23252633, 0 2px 8px #cfdef3cc;
-      padding: 40px 28px 28px 28px;
-      max-width: 400px;
-      width: 98vw;
-      position: relative;
-      animation: cardAppear 1.2s cubic-bezier(.4,2,.6,1);
-      transition: box-shadow 0.3s;
-      border: 1.5px solid #e0eafc;
-    }
-    @keyframes cardAppear {
-      from { opacity: 0; transform: translateY(60px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .settings-card h2 {
-      text-align: center;
-      color: #232526;
-      font-family: 'Montserrat', 'Cairo', sans-serif;
-      font-size: 2.1rem;
-      margin-bottom: 24px;
-      letter-spacing: 1.5px;
-      font-weight: 700;
-      text-shadow: 0 2px 8px #e0eafc55;
-      animation: titleGlow 3s infinite alternate;
-    }
-    @keyframes titleGlow {
-      0% { text-shadow: 0 2px 8px #e0eafc55; }
-      100% { text-shadow: 0 4px 24px #cfdef3cc; }
-    }
-    .dev-avatar-preview {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2.5px solid #cfdef3;
-      margin: 0 auto 18px auto;
-      box-shadow: 0 0 18px #e0eafc99;
-      display: block;
-      background: #fff;
-      transition: box-shadow 0.4s, border 0.4s;
-      animation: avatarFloat 3.5s ease-in-out infinite;
-    }
-    @keyframes avatarFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    .settings-form {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-top: 10px;
-    }
-    .setting label {
-      font-size: 1.05rem;
-      margin-bottom: 6px;
-      color: #232526;
-      font-weight: 600;
-    }
-    .setting input, .setting textarea, .setting select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1.5px solid #cfdef3;
-      background: #f7fafd;
-      color: #232526;
-      font-size: 1.05rem;
-      outline: none;
-      margin-bottom: 4px;
-      transition: border 0.3s, box-shadow 0.3s;
-      box-shadow: 0 2px 8px #e0eafc22;
-    }
-    .setting input:focus, .setting textarea:focus, .setting select:focus {
-      border: 2px solid #232526;
-      box-shadow: 0 0 12px #cfdef3;
-      background: #fff;
-      color: #232526;
-    }
-    .save-btn {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(90deg, #232526 40%, #cfdef3 100%);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 1.15em;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s, transform 0.2s;
-      margin-top: 10px;
-      box-shadow: 0 2px 16px #e0eafc55;
-      letter-spacing: 1.2px;
-    }
-    .save-btn:hover {
-      background: linear-gradient(90deg, #cfdef3 40%, #232526 100%);
-      color: #232526;
-      transform: scale(1.04);
-    }
-    .success-message {
-      color: #232526;
-      text-align: center;
-      margin-top: 16px;
-      display: none;
-      font-weight: bold;
-      font-size: 1.1rem;
-      background: #e0eafc;
-      border-radius: 8px;
-      padding: 8px 0;
-      box-shadow: 0 2px 8px #cfdef3cc;
-      animation: fadeIn 1.2s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .setting input[type="file"] {
-      background: #fff;
-      border: none;
-      box-shadow: none;
-      padding: 0;
-    }
-    @media (max-width: 600px) {
-      .settings-card { padding: 16px 2vw; }
-      .centered-container { padding: 0; }
-    }
-    /* تنسيق كارت المعاينة الحية */
-    .live-preview-card {
-      background: rgba(24,28,36,0.93);
-      border-radius: 22px;
-      box-shadow: 0 8px 32px 0 #00ffb055, 0 2px 8px #00ffb022;
+    .settings-card, .live-preview-card {
+      background: rgba(10,18,12,0.82);
+      border-radius: 18px;
+      box-shadow: 0 0 32px 0 #00ff4166, 0 2px 8px #00ff4122;
       padding: 32px 18px 22px 18px;
       max-width: 400px;
       width: 98vw;
-      margin: 0 auto 32px auto;
       position: relative;
-      transition: box-shadow 0.4s, background 0.4s, transform 0.5s cubic-bezier(.4,2,.6,1);
-      border: 1.5px solid #00ffb033;
-      color: #00ffb0;
-      font-family: 'Cairo', 'Montserrat', Arial, sans-serif;
+      border: 1.5px solid #00ff41;
+      color: #00ff41;
+      font-family: 'Share Tech Mono', 'VT323', monospace;
       animation: cardPopIn 1.2s cubic-bezier(.4,2,.6,1);
       z-index: 2;
       overflow: hidden;
       min-height: 180px;
+      margin-bottom: 32px;
+      transition: box-shadow 0.4s, background 0.4s, transform 0.5s cubic-bezier(.4,2,.6,1);
     }
     @keyframes cardPopIn {
       from { opacity: 0; transform: scale(0.85) translateY(60px); }
       60% { opacity: 1; transform: scale(1.04) translateY(-8px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
-    .live-preview-card .dev-avatar-preview {
-      margin-bottom: 10px;
-      box-shadow: 0 0 18px #00ffb099;
-      border: 2.5px solid #00ffb0;
-      background: #232526;
+    .settings-card h2 {
+      text-align: center;
+      color: #00ff41;
+      font-family: 'Share Tech Mono', 'VT323', monospace;
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      text-shadow: 0 0 16px #00ff41cc, 0 2px 8px #00ff4166;
+      animation: titleGlow 2.5s infinite alternate;
+    }
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 8px #00ff41cc; }
+      100% { text-shadow: 0 0 24px #00ff41cc, 0 2px 16px #00ff4166; }
+    }
+    .dev-avatar-preview {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2.5px solid #00ff41;
+      margin: 0 auto 14px auto;
+      box-shadow: 0 0 18px #00ff4199;
+      display: block;
+      background: #101618;
+      transition: box-shadow 0.4s, border 0.4s;
+      animation: avatarFloat 3.5s ease-in-out infinite;
+    }
+    @keyframes avatarFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .settings-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .setting label {
+      font-size: 1.01rem;
+      margin-bottom: 4px;
+      color: #00ff41;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-shadow: 0 0 8px #00ff4166;
+    }
+    .setting input, .setting textarea, .setting select {
+      width: 100%;
+      padding: 9px;
+      border-radius: 7px;
+      border: 1.5px solid #00ff41;
+      background: #101618;
+      color: #00ff41;
+      font-size: 1.01rem;
+      outline: none;
+      margin-bottom: 2px;
+      transition: border 0.3s, box-shadow 0.3s, background 0.3s;
+      box-shadow: 0 2px 8px #00ff4122;
+      font-family: 'Share Tech Mono', 'VT323', monospace;
+    }
+    .setting input:focus, .setting textarea:focus, .setting select:focus {
+      border: 2px solid #00ff41;
+      box-shadow: 0 0 12px #00ff41;
+      background: #181c24;
+      color: #00ff41;
+    }
+    .setting input[type="file"] {
+      background: #181c24;
+      border: 1.5px solid #00ff41;
+      box-shadow: none;
+      padding: 0;
+      color: #00ff41;
+    }
+    .save-btn {
+      width: 100%;
+      padding: 13px;
+      background: #101618;
+      color: #00ff41;
+      border: 2px solid #00ff41;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
+      margin-top: 8px;
+      box-shadow: 0 2px 16px #00ff4166;
+      letter-spacing: 1.2px;
+      text-shadow: 0 0 8px #00ff41cc;
+    }
+    .save-btn:hover {
+      background: #00ff41;
+      color: #101618;
+      transform: scale(1.04);
+      box-shadow: 0 0 24px #00ff41cc;
+    }
+    .success-message {
+      color: #00ff41;
+      text-align: center;
+      margin-top: 14px;
+      display: none;
+      font-weight: bold;
+      font-size: 1.05rem;
+      background: #101618;
+      border-radius: 7px;
+      padding: 7px 0;
+      box-shadow: 0 2px 8px #00ff41cc;
+      animation: fadeIn 1.2s;
+      border: 1.2px solid #00ff41;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     .live-preview-card .dev-name {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: bold;
       margin-bottom: 8px;
-      color: #00ffb0;
-      text-shadow: 0 2px 8px #00ffb055;
+      color: #00ff41;
+      text-shadow: 0 0 8px #00ff41cc;
       letter-spacing: 1.2px;
+      font-family: 'Share Tech Mono', 'VT323', monospace;
     }
     .live-preview-card .dev-bio {
-      font-size: 1.05rem;
+      font-size: 1.01rem;
       color: #baffc9;
       margin-bottom: 10px;
       font-family: inherit;
@@ -233,19 +205,20 @@
       justify-content: center;
     }
     .live-preview-card .dev-social a {
-      color: #00ffb0;
-      background: #232526;
+      color: #00ff41;
+      background: #101618;
       border-radius: 50%;
       width: 32px; height: 32px;
       display: flex; align-items: center; justify-content: center;
       font-size: 1.2em;
-      box-shadow: 0 2px 8px #00ffb055;
+      box-shadow: 0 2px 8px #00ff4166;
       transition: background 0.2s, color 0.2s, transform 0.2s;
       text-decoration: none;
+      border: 1.2px solid #00ff41;
     }
     .live-preview-card .dev-social a:hover {
-      background: #00ffb0;
-      color: #232526;
+      background: #00ff41;
+      color: #101618;
       transform: scale(1.12);
     }
     .live-preview-card .dev-phone {
@@ -254,10 +227,9 @@
       margin-top: 6px;
       text-align: center;
     }
-    /* أنيميشن للكارت عند التغيير */
-    .settings-card {
-      /* ...existing code... */
-      animation: cardPopIn 1.2s cubic-bezier(.4,2,.6,1);
+    @media (max-width: 600px) {
+      .settings-card, .live-preview-card { padding: 10px 2vw; }
+      .centered-container { padding: 0; }
     }
   </style>
 </head>
@@ -496,13 +468,13 @@
     const form = document.getElementById('settingsForm');
     function updateLivePreview() {
       livePreview.style.display = 'block';
-      const name = form.devName.value || 'اسم المطور';
-      const bio = form.devBio.value || 'نبذة مختصرة عن المطور تظهر هنا';
+      const name = form.devName.value || 'HACKER_NAME';
+      const bio = form.devBio.value || 'نبذة مختصرة عن الهكر تظهر هنا';
       const img = devAvatarPreview.src || '';
-      const bg = form.devBg.value || '#181c24';
-      const color = form.devColor.value || '#00ffb0';
-      const font = form.mainFont.value || "'Cairo', Arial, sans-serif";
-      const mainColor = form.mainColor.value || '#00ffb0';
+      const bg = '#101618';
+      const color = '#00ff41';
+      const font = "'Share Tech Mono', 'VT323', monospace";
+      const mainColor = '#00ff41';
       const showAvatar = form.showAvatar.checked !== false;
       const showBio = form.showBio.checked !== false;
       const showSocial = form.showSocial.checked !== false;
@@ -514,7 +486,7 @@
       livePreview.style.color = color;
       livePreview.style.fontFamily = font;
       livePreview.innerHTML = `
-        ${showAvatar && img ? `<img class='dev-avatar-preview' src='${img}' style='display:block;' alt='صورة المطور' />` : ''}
+        ${showAvatar && img ? `<img class='dev-avatar-preview' src='${img}' style='display:block;' alt='صورة الهكر' />` : ''}
         <div class='dev-name' style='color:${mainColor};font-family:${font};'>${name}</div>
         ${showBio ? `<div class='dev-bio'>${bio}</div>` : ''}
         ${showSocial && (wa||insta||fb) ? `<div class='dev-social'>
@@ -524,9 +496,8 @@
         </div>` : ''}
         ${phone?`<div class='dev-phone'>📞 ${phone}</div>`:''}
       `;
-      // أنيميشن عند التغيير
       livePreview.classList.remove('cardPopIn');
-      void livePreview.offsetWidth; // إعادة تفعيل الأنيميشن
+      void livePreview.offsetWidth;
       livePreview.classList.add('cardPopIn');
     }
     // تفعيل المعاينة الحية عند أي تغيير
