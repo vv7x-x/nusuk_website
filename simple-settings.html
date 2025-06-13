@@ -227,9 +227,71 @@
       margin-top: 6px;
       text-align: center;
     }
+    @media (max-width: 900px) {
+      .centered-container {
+        flex-direction: column;
+        align-items: stretch;
+        padding-top: 12px;
+      }
+      .settings-card, .live-preview-card {
+        max-width: 98vw;
+        min-width: 0;
+        margin-bottom: 18px;
+        padding: 12px 2vw 14px 2vw;
+      }
+    }
     @media (max-width: 600px) {
-      .settings-card, .live-preview-card { padding: 10px 2vw; }
-      .centered-container { padding: 0; }
+      .settings-card, .live-preview-card {
+        padding: 7px 1vw 10px 1vw;
+        border-radius: 10px;
+        min-height: 120px;
+      }
+      .dev-avatar-preview {
+        width: 54px;
+        height: 54px;
+        margin-bottom: 8px;
+      }
+      .settings-card h2 {
+        font-size: 1.05rem;
+        margin-bottom: 12px;
+      }
+      .live-preview-card .dev-name {
+        font-size: 1.01rem;
+      }
+      .live-preview-card .dev-bio {
+        font-size: 0.93rem;
+      }
+      .setting label, .setting input, .setting textarea, .setting select {
+        font-size: 0.93rem;
+      }
+      .save-btn {
+        font-size: 0.98em;
+        padding: 8px;
+      }
+    }
+    @media (max-width: 400px) {
+      .settings-card, .live-preview-card {
+        padding: 2px 0 4px 0;
+        border-radius: 6px;
+      }
+      .dev-avatar-preview {
+        width: 38px;
+        height: 38px;
+      }
+    }
+    .settings-form, .setting, .save-btn, .success-message {
+      box-sizing: border-box;
+    }
+    .settings-card, .live-preview-card, .centered-container {
+      width: 100%;
+      max-width: 400px;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .setting input, .setting textarea, .setting select {
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
     }
   </style>
 </head>
@@ -323,6 +385,10 @@
           <label for="welcome">تشغيل صوت ترحيبي</label>
           <input type="checkbox" id="welcome" name="welcome">
         </div>
+        <div class="setting">
+          <label for="devMsg">رسالة مخصصة تظهر في صفحة المطور</label>
+          <textarea id="devMsg" name="devMsg" placeholder="اكتب رسالة أو تنبيه أو كود سيظهر في صفحة المطور"></textarea>
+        </div>
         <button type="submit" class="save-btn">حفظ الإعدادات</button>
         <div class="success-message" id="successMsg">تم حفظ الإعدادات بنجاح!</div>
       </form>
@@ -392,7 +458,9 @@
         fbLink: form.fbLink.value,
         phone: form.phone.value,
         sound: form.sound.checked,
-        welcome: form.welcome.checked
+        welcome: form.welcome.checked,
+        devAvatar: localStorage.getItem('devAvatarImage') || '',
+        devMsg: form.devMsg.value
       }));
       const successMsg = document.getElementById('successMsg');
       successMsg.style.display = 'block';
@@ -482,6 +550,7 @@
       const insta = form.instaLink.value;
       const fb = form.fbLink.value;
       const phone = form.phone.value;
+      const devMsg = form.devMsg.value || 'مرحباً بك في صفحتي الشخصية كمطور!';
       livePreview.style.background = bg;
       livePreview.style.color = color;
       livePreview.style.fontFamily = font;
@@ -495,7 +564,23 @@
           ${fb?`<a href='${fb}' target='_blank' title='فيسبوك'>📘</a>`:''}
         </div>` : ''}
         ${phone?`<div class='dev-phone'>📞 ${phone}</div>`:''}
+        <div class='dev-msg' style='margin-top:8px;font-size:0.9rem;color:#baffc9;'>${devMsg}</div>
       `;
+      // رسالة مخصصة
+      const msg = form.devMsg.value;
+      let msgBox = document.getElementById('devMsgPreview');
+      if(msg) {
+        if(!msgBox) {
+          msgBox = document.createElement('div');
+          msgBox.id = 'devMsgPreview';
+          msgBox.style = 'background:#101618;border:2px solid #00ff41;color:#00ff41;padding:12px 10px;margin:18px 0 0 0;border-radius:10px;box-shadow:0 0 18px #00ff4166;font-family:Share Tech Mono,VT323,monospace;font-size:1.08em;text-align:center;letter-spacing:1px;';
+          livePreview.insertBefore(msgBox, livePreview.firstChild);
+        }
+        msgBox.textContent = msg;
+        msgBox.style.display = 'block';
+      } else if(msgBox) {
+        msgBox.style.display = 'none';
+      }
       livePreview.classList.remove('cardPopIn');
       void livePreview.offsetWidth;
       livePreview.classList.add('cardPopIn');

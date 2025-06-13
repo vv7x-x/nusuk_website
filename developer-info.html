@@ -466,6 +466,22 @@
         if(phoneIcon) phoneIcon.href = 'tel:' + settings.phone;
         if(callBtn) callBtn.href = 'tel:' + settings.phone;
       }
+      // رسالة مخصصة
+      if(settings.devMsg) {
+        let msgBox = document.getElementById('devMsgBox');
+        if(!msgBox) {
+          msgBox = document.createElement('div');
+          msgBox.id = 'devMsgBox';
+          msgBox.style = 'background:#101618;border:2px solid #00ff41;color:#00ff41;padding:12px 10px;margin:18px 0 0 0;border-radius:10px;box-shadow:0 0 18px #00ff4166;font-family:Share Tech Mono,VT323,monospace;font-size:1.08em;text-align:center;letter-spacing:1px;';
+          const card = document.querySelector('.hacker-card');
+          if(card) card.insertBefore(msgBox, card.children[1]);
+        }
+        msgBox.textContent = settings.devMsg;
+        msgBox.style.display = 'block';
+      } else {
+        const msgBox = document.getElementById('devMsgBox');
+        if(msgBox) msgBox.style.display = 'none';
+      }
     });
   </script>
 </body>
