@@ -154,6 +154,66 @@
       <h3>معاينة حية لصفحة المطور</h3>
       <iframe id="devPreview" src="developer-info.html" style="width:100%;height:400px;border:2px solid #00ff41;background:#181c24;"></iframe>
     </div>
+    <div class="panel-section" id="pagesSection">
+      <h3>إدارة الصفحات الفرعية</h3>
+      <div id="pagesList"></div>
+      <div class="row">
+        <input type="text" id="newPageName" placeholder="اسم الصفحة الجديدة">
+        <button id="addPageBtn">إضافة صفحة</button>
+      </div>
+    </div>
+    <div class="panel-section" id="componentsSection">
+      <h3>إدارة المكونات الديناميكية</h3>
+      <div id="componentsList"></div>
+      <div class="row">
+        <select id="componentType">
+          <option value="card">كارت</option>
+          <option value="section">قسم</option>
+          <option value="button">زر</option>
+          <option value="input">حقل إدخال</option>
+        </select>
+        <input type="text" id="componentLabel" placeholder="عنوان المكون">
+        <button id="addComponentBtn">إضافة مكون</button>
+      </div>
+    </div>
+    <div class="panel-section" id="filesSection">
+      <h3>إدارة الملفات (صور/أصوات/أكواد)</h3>
+      <div class="row">
+        <input type="file" id="fileUpload" multiple>
+        <button id="uploadFilesBtn">رفع الملفات</button>
+      </div>
+      <div id="filesList"></div>
+    </div>
+    <div class="panel-section" id="animationSection">
+      <h3>إدارة الأنيميشن والمؤثرات البصرية</h3>
+      <label>تفعيل مؤثر Matrix <input type="checkbox" id="enableMatrix" checked></label>
+      <label>تفعيل انفجار هكر عند الحفظ <input type="checkbox" id="enableExplosion" checked></label>
+      <label>تفعيل وميض عند التغيير <input type="checkbox" id="enableFlash"></label>
+      <div class="actions">
+        <button id="testExplosionBtn">تجربة الانفجار الآن</button>
+        <button id="testFlashBtn">تجربة الوميض الآن</button>
+      </div>
+    </div>
+    <div class="panel-section" id="securitySection">
+      <h3>الحماية والصلاحيات</h3>
+      <label>تفعيل كلمة مرور للوحة التحكم <input type="checkbox" id="enablePassword"></label>
+      <div class="row">
+        <input type="password" id="panelPassword" placeholder="كلمة المرور الجديدة">
+        <button id="setPasswordBtn">حفظ كلمة المرور</button>
+      </div>
+      <label>تفعيل التحقق الثنائي (OTP) <input type="checkbox" id="enableOTP"></label>
+      <div class="actions">
+        <button id="testOTPBtn">تجربة التحقق الثنائي</button>
+      </div>
+    </div>
+    <div class="panel-section" id="notificationsSection">
+      <h3>الإشعارات والتنبيهات</h3>
+      <label>تفعيل إشعارات بصرية <input type="checkbox" id="enableVisualNotif" checked></label>
+      <label>تفعيل إشعارات صوتية <input type="checkbox" id="enableSoundNotif"></label>
+      <div class="actions">
+        <button id="testNotifBtn">تجربة إشعار الآن</button>
+      </div>
+    </div>
   </div>
   <script>
     // تأثير Matrix متحرك للخلفية
@@ -339,6 +399,200 @@
       }
     }
     window.addEventListener('DOMContentLoaded', applyCustomCode);
+    // إدارة الصفحات الفرعية
+    function renderPages() {
+      const pages = JSON.parse(localStorage.getItem('devPages')||'[]');
+      const list = document.getElementById('pagesList');
+      list.innerHTML = '';
+      pages.forEach((p,i)=>{
+        const div = document.createElement('div');
+        div.className = 'row';
+        div.innerHTML = `<span style='flex:2;'>${p}</span><button data-i='${i}' class='delPageBtn'>حذف</button>`;
+        list.appendChild(div);
+      });
+      document.querySelectorAll('.delPageBtn').forEach(btn=>{
+        btn.onclick = function(){
+          pages.splice(+this.dataset.i,1);
+          localStorage.setItem('devPages',JSON.stringify(pages));
+          renderPages();
+        };
+      });
+    }
+    document.getElementById('addPageBtn').onclick = function(){
+      const val = document.getElementById('newPageName').value.trim();
+      if(val){
+        const pages = JSON.parse(localStorage.getItem('devPages')||'[]');
+        pages.push(val);
+        localStorage.setItem('devPages',JSON.stringify(pages));
+        document.getElementById('newPageName').value = '';
+        renderPages();
+      }
+    };
+    renderPages();
+    // إدارة المكونات الديناميكية
+    function renderComponents() {
+      const comps = JSON.parse(localStorage.getItem('devComponents')||'[]');
+      const list = document.getElementById('componentsList');
+      list.innerHTML = '';
+      comps.forEach((c,i)=>{
+        const div = document.createElement('div');
+        div.className = 'row';
+        div.innerHTML = `<span style='flex:2;'>[${c.type}] ${c.label}</span><button data-i='${i}' class='delCompBtn'>حذف</button>`;
+        list.appendChild(div);
+      });
+      document.querySelectorAll('.delCompBtn').forEach(btn=>{
+        btn.onclick = function(){
+          comps.splice(+this.dataset.i,1);
+          localStorage.setItem('devComponents',JSON.stringify(comps));
+          renderComponents();
+        };
+      });
+    }
+    document.getElementById('addComponentBtn').onclick = function(){
+      const type = document.getElementById('componentType').value;
+      const label = document.getElementById('componentLabel').value.trim();
+      if(label){
+        const comps = JSON.parse(localStorage.getItem('devComponents')||'[]');
+        comps.push({type,label});
+        localStorage.setItem('devComponents',JSON.stringify(comps));
+        document.getElementById('componentLabel').value = '';
+        renderComponents();
+      }
+    };
+    renderComponents();
+    // إدارة الملفات
+    function renderFiles() {
+      const files = JSON.parse(localStorage.getItem('devFiles')||'[]');
+      const list = document.getElementById('filesList');
+      list.innerHTML = '';
+      files.forEach((f,i)=>{
+        const div = document.createElement('div');
+        div.className = 'row';
+        let preview = '';
+        if(f.type.startsWith('image/')) preview = `<img src='${f.data}' style='width:40px;height:40px;border-radius:6px;border:1px solid #00ff41;margin-left:8px;'>`;
+        if(f.type.startsWith('audio/')) preview = `<audio src='${f.data}' controls style='height:28px;margin-left:8px;'></audio>`;
+        if(f.type.startsWith('text/')) preview = `<span style='color:#baffc9;font-size:0.9em;'>كود نصي</span>`;
+        div.innerHTML = `${preview}<span style='flex:2;'>${f.name}</span><button data-i='${i}' class='delFileBtn'>حذف</button>`;
+        list.appendChild(div);
+      });
+      document.querySelectorAll('.delFileBtn').forEach(btn=>{
+        btn.onclick = function(){
+          files.splice(+this.dataset.i,1);
+          localStorage.setItem('devFiles',JSON.stringify(files));
+          renderFiles();
+        };
+      });
+    }
+    document.getElementById('uploadFilesBtn').onclick = function(){
+      const inp = document.getElementById('fileUpload');
+      const files = Array.from(inp.files);
+      if(!files.length) return;
+      const stored = JSON.parse(localStorage.getItem('devFiles')||'[]');
+      let count = 0;
+      files.forEach(file=>{
+        const reader = new FileReader();
+        reader.onload = function(evt){
+          stored.push({name:file.name,type:file.type,data:evt.target.result});
+          count++;
+          if(count===files.length){
+            localStorage.setItem('devFiles',JSON.stringify(stored));
+            renderFiles();
+            inp.value = '';
+          }
+        };
+        if(file.type.startsWith('image/')||file.type.startsWith('audio/'))
+          reader.readAsDataURL(file);
+        else
+          reader.readAsText(file);
+      });
+    };
+    renderFiles();
+    // إدارة الأنيميشن والمؤثرات
+    function triggerExplosion(x, y) {
+      let canvas = document.getElementById('explosion-canvas');
+      if(!canvas){
+        canvas = document.createElement('canvas');
+        canvas.id = 'explosion-canvas';
+        canvas.style = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;pointer-events:none;display:none;';
+        document.body.appendChild(canvas);
+      }
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      canvas.style.display = 'block';
+      const particles = [];
+      const colors = ['#00ff41','#baffc9','#00fff7','#39ff14','#00bfff','#fff'];
+      for(let i=0;i<120;i++){
+        const angle = Math.random()*2*Math.PI;
+        const speed = 6+Math.random()*8;
+        particles.push({
+          x:x||window.innerWidth/2,
+          y:y||window.innerHeight/2,
+          vx:Math.cos(angle)*speed,
+          vy:Math.sin(angle)*speed,
+          r:2+Math.random()*3,
+          color:colors[Math.floor(Math.random()*colors.length)],
+          alpha:1
+        });
+      }
+      let frame=0;
+      function animate(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        for(const p of particles){
+          ctx.save();
+          ctx.globalAlpha = p.alpha;
+          ctx.shadowColor = p.color;
+          ctx.shadowBlur = 18;
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+          ctx.restore();
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vx *= 0.93;
+          p.vy *= 0.93;
+          p.alpha -= 0.018+Math.random()*0.01;
+        }
+        frame++;
+        if(frame<60) requestAnimationFrame(animate);
+        else canvas.style.display = 'none';
+      }
+      animate();
+    }
+    document.getElementById('testExplosionBtn').onclick = function(){ triggerExplosion(); };
+    // وميض
+    function triggerFlash(){
+      const flash = document.createElement('div');
+      flash.style = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9998;background:#00ff41aa;pointer-events:none;animation:flashAnim 0.4s;';
+      document.body.appendChild(flash);
+      setTimeout(()=>flash.remove(),400);
+    }
+    document.getElementById('testFlashBtn').onclick = function(){ triggerFlash(); };
+    // إشعارات
+    function showNotif(msg){
+      const notif = document.createElement('div');
+      notif.textContent = msg;
+      notif.style = 'position:fixed;bottom:32px;right:32px;z-index:10000;background:#101618cc;color:#00ff41;padding:18px 32px;border-radius:12px;font-size:1.2em;box-shadow:0 0 18px #00ff4166;border:2px solid #00ff41;animation:fadeInNotif 0.7s;';
+      document.body.appendChild(notif);
+      setTimeout(()=>notif.remove(),3000);
+    }
+    document.getElementById('testNotifBtn').onclick = function(){ showNotif('تم تفعيل الإشعار بنجاح!'); };
+    // حماية كلمة المرور (تجريبي)
+    document.getElementById('setPasswordBtn').onclick = function(){
+      const pass = document.getElementById('panelPassword').value;
+      if(pass.length>=4){
+        localStorage.setItem('panelPassword',pass);
+        showNotif('تم حفظ كلمة المرور!');
+      }else{
+        showNotif('كلمة المرور قصيرة جداً');
+      }
+    };
+    // تحقق ثنائي (OTP) تجريبي
+    document.getElementById('testOTPBtn').onclick = function(){
+      const code = Math.floor(100000+Math.random()*900000);
+      showNotif('رمز التحقق: '+code);
+    };
   </script>
 </body>
 </html>
