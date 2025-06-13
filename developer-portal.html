@@ -207,7 +207,7 @@
       const startZ = camera.position.z;
       const endZ = 2.5;
       const anim = () => {
-        t += 0.018;
+        t += 0.045; // تسريع الحركة
         camera.position.z = startZ + (endZ-startZ)*Math.sin(Math.PI/2*t);
         camera.lookAt(0,0,0);
         if(t < 1) requestAnimationFrame(anim);
@@ -273,10 +273,9 @@
       }
       initScene();
       setTimeout(()=>{
-        document.querySelector('.explore-tip').textContent = 'اضغط أو مرر للدخول عبر البوابة';
-        // تشغيل حركة الدخول تلقائياً بعد ثانية
-        setTimeout(()=>{ enterPortal(); }, 1000);
-      }, 1200);
+        document.querySelector('.explore-tip').textContent = 'يتم الدخول تلقائياً...';
+        setTimeout(()=>{ enterPortal(); }, 400);
+      }, 600);
     });
     document.body.addEventListener('click', enterPortal);
     document.body.addEventListener('touchstart', enterPortal);
