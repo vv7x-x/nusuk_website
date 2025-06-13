@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>لوحة تحكم الأكوان اللامحدودة</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
+    <meta charset="UTF-8">
+    <title>لوحة تحكم الأكوان اللامحدودة</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" id="dynamicFavicon" href="favicon.ico" type="image/x-icon">
+    <style>
     html, body {
       height: 100%;
       margin: 0;
@@ -188,6 +189,14 @@
   </style>
 </head>
 <body>
+    <div id="protectionModal" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(24,18,43,0.97);z-index:9999;display:flex;align-items:center;justify-content:center;">
+      <div style="background:#22203a;border-radius:18px;padding:36px 28px;box-shadow:0 4px 32px #FFD70044;max-width:340px;width:90%;text-align:center;">
+        <h2 style="color:#FFD700;margin-bottom:18px;">حماية الصفحة</h2>
+        <input id="pwInput" type="password" placeholder="أدخل كلمة المرور" style="width:100%;padding:12px 10px;border-radius:8px;border:1.5px solid #FFD70099;background:#18122B;color:#FFD700;font-size:1.1rem;margin-bottom:18px;outline:none;">
+        <button id="pwBtn" style="width:100%;padding:12px;background:linear-gradient(90deg,#FFD700 40%,#393053 100%);color:#18122B;border:none;border-radius:8px;font-size:1.1rem;font-weight:bold;cursor:pointer;">دخول</button>
+        <div id="pwError" style="color:#ff4d4f;margin-top:10px;display:none;font-weight:bold;">كلمة المرور غير صحيحة!</div>
+      </div>
+    </div>
   <canvas class="energy-wave" id="energyWave"></canvas>
   <div class="multiverse" id="multiverse"></div>
   <div class="ai-consciousness">
@@ -422,6 +431,35 @@
       aiMsg.innerHTML = 'تم حفظ الإعدادات!';
       setTimeout(()=>aiMsg.innerHTML = messages[Math.floor(Math.random()*messages.length)], 3000);
     };
+    // حماية الصفحة بكلمة مرور
+    const PROTECTION_PASSWORD = 'dev'; // يمكنك تغييرها
+    const modal = document.getElementById('protectionModal');
+    const input = document.getElementById('pwInput');
+    const btn = document.getElementById('pwBtn');
+    const err = document.getElementById('pwError');
+    function unlock() {
+      if(input.value === PROTECTION_PASSWORD) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      } else {
+        err.style.display = 'block';
+      }
+    }
+    btn.onclick = unlock;
+    input.onkeydown = e => { if(e.key === 'Enter') unlock(); };
+    window.onload = function() {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      input.focus();
+    };
+    // تغيير أيقونة الصفحة ديناميكياً إذا تم رفع صورة مطور
+    const favicon = document.getElementById('dynamicFavicon');
+    window.addEventListener('DOMContentLoaded', function() {
+      const savedImg = localStorage.getItem('devAvatarImage');
+      if(savedImg && favicon) {
+        favicon.href = savedImg;
+      }
+    });
   </script>
 </body>
 </html>
