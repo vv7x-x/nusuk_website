@@ -332,5 +332,38 @@
       audio.play();
     }
   </script>
+  <script>
+    // ربط ديناميكي مع إعدادات advanced-settings.html
+    document.addEventListener('DOMContentLoaded', function() {
+      const settings = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
+      // العنوان
+      if(settings.bookingTitle) {
+        const h2 = document.querySelector('section h2');
+        if(h2) h2.textContent = settings.bookingTitle;
+      }
+      // الوصف
+      if(settings.bookingDesc) {
+        let desc = document.querySelector('section p');
+        if(!desc) {
+          desc = document.createElement('p');
+          const form = document.getElementById('bookingForm');
+          form.parentNode.insertBefore(desc, form);
+        }
+        desc.textContent = settings.bookingDesc;
+      }
+      // لون الخلفية
+      if(settings.bookingBg) {
+        const section = document.querySelector('section');
+        if(section) section.style.background = settings.bookingBg;
+      }
+      // لون النص
+      if(settings.bookingColor) {
+        const section = document.querySelector('section');
+        if(section) section.style.color = settings.bookingColor;
+        const h2 = document.querySelector('section h2');
+        if(h2) h2.style.color = settings.bookingColor;
+      }
+    });
+  </script>
 </body>
 </html>

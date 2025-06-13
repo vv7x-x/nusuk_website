@@ -330,5 +330,38 @@
       audio.play();
     }
   </script>
+  <script>
+    // ربط ديناميكي مع إعدادات advanced-settings.html
+    document.addEventListener('DOMContentLoaded', function() {
+      const settings = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
+      // العنوان
+      if(settings.offersTitle) {
+        const h2 = document.querySelector('section h2');
+        if(h2) h2.textContent = settings.offersTitle;
+      }
+      // الوصف (إذا كان هناك عنصر p أو div مناسب)
+      if(settings.offersDesc) {
+        const offersSection = document.querySelector('section');
+        let desc = offersSection.querySelector('p');
+        if(!desc) {
+          desc = document.createElement('p');
+          offersSection.insertBefore(desc, offersSection.querySelector('.offers'));
+        }
+        desc.textContent = settings.offersDesc;
+      }
+      // لون الخلفية
+      if(settings.offersBg) {
+        const section = document.querySelector('section');
+        if(section) section.style.background = settings.offersBg;
+      }
+      // لون النص
+      if(settings.offersColor) {
+        const section = document.querySelector('section');
+        if(section) section.style.color = settings.offersColor;
+        const h2 = document.querySelector('section h2');
+        if(h2) h2.style.color = settings.offersColor;
+      }
+    });
+  </script>
 </body>
 </html>

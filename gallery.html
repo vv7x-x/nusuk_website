@@ -332,5 +332,38 @@
       audio.play();
     }
   </script>
+  <script>
+    // ربط ديناميكي مع إعدادات advanced-settings.html
+    document.addEventListener('DOMContentLoaded', function() {
+      const settings = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
+      // العنوان
+      if(settings.galleryTitle) {
+        const h2 = document.querySelector('section h2');
+        if(h2) h2.textContent = settings.galleryTitle;
+      }
+      // الوصف
+      if(settings.galleryDesc) {
+        let desc = document.querySelector('section p');
+        if(!desc) {
+          desc = document.createElement('p');
+          const galleryDiv = document.querySelector('section .gallery');
+          galleryDiv.parentNode.insertBefore(desc, galleryDiv);
+        }
+        desc.textContent = settings.galleryDesc;
+      }
+      // لون الخلفية
+      if(settings.galleryBg) {
+        const section = document.querySelector('section');
+        if(section) section.style.background = settings.galleryBg;
+      }
+      // لون النص
+      if(settings.galleryColor) {
+        const section = document.querySelector('section');
+        if(section) section.style.color = settings.galleryColor;
+        const h2 = document.querySelector('section h2');
+        if(h2) h2.style.color = settings.galleryColor;
+      }
+    });
+  </script>
 </body>
 </html>

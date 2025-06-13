@@ -348,5 +348,33 @@
       audio.play();
     }
   </script>
+  <script>
+    // ربط ديناميكي مع إعدادات advanced-settings.html
+    document.addEventListener('DOMContentLoaded', function() {
+      const settings = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
+      // العنوان
+      if(settings.aboutTitle) {
+        const h2 = document.querySelector('section h2');
+        if(h2) h2.textContent = settings.aboutTitle;
+      }
+      // النص
+      if(settings.aboutDesc) {
+        const p = document.querySelector('section p');
+        if(p) p.textContent = settings.aboutDesc;
+      }
+      // لون الخلفية
+      if(settings.aboutBg) {
+        const section = document.querySelector('section');
+        if(section) section.style.background = settings.aboutBg;
+      }
+      // لون النص
+      if(settings.aboutColor) {
+        const section = document.querySelector('section');
+        if(section) section.style.color = settings.aboutColor;
+        const h2 = document.querySelector('section h2');
+        if(h2) h2.style.color = settings.aboutColor;
+      }
+    });
+  </script>
 </body>
 </html>

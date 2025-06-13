@@ -333,5 +333,33 @@
       audio.play();
     }
   </script>
+  <script>
+    // ربط ديناميكي مع إعدادات advanced-settings.html
+    document.addEventListener('DOMContentLoaded', function() {
+      const settings = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
+      // العنوان
+      if(settings.contactTitle) {
+        const h2 = document.querySelector('section h2');
+        if(h2) h2.textContent = settings.contactTitle;
+      }
+      // الوصف
+      if(settings.contactDesc) {
+        const p = document.querySelector('section p');
+        if(p) p.textContent = settings.contactDesc;
+      }
+      // لون الخلفية
+      if(settings.contactBg) {
+        const section = document.querySelector('section');
+        if(section) section.style.background = settings.contactBg;
+      }
+      // لون النص
+      if(settings.contactColor) {
+        const section = document.querySelector('section');
+        if(section) section.style.color = settings.contactColor;
+        const h2 = document.querySelector('section h2');
+        if(h2) h2.style.color = settings.contactColor;
+      }
+    });
+  </script>
 </body>
 </html>
