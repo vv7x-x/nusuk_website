@@ -294,5 +294,43 @@
   <script>
     AOS.init({ duration: 1000 });
   </script>
+  <script>
+    function applySettings() {
+      const settings = JSON.parse(localStorage.getItem('khutwa_settings')||'{}');
+      if(settings.logo) {
+        let favicon = document.querySelector('link[rel="icon"]');
+        if(!favicon) { favicon = document.createElement('link'); favicon.rel = 'icon'; document.head.appendChild(favicon); }
+        favicon.href = settings.logo;
+        document.querySelectorAll('img[src*="logo"]').forEach(img=>img.src=settings.logo);
+      }
+      if(settings.mainColor) {
+        document.documentElement.style.setProperty('--hacker-cyan', settings.mainColor);
+      }
+      if(settings.font) {
+        document.body.style.fontFamily = settings.font + ", 'Share Tech Mono', 'VT323', monospace, 'Cairo', sans-serif";
+      }
+      if(settings.bgAnim === false) {
+        document.body.style.setProperty('animation', 'none');
+        document.body.style.setProperty('background', '#181c24');
+        document.body.style.setProperty('backgroundImage', 'none');
+        document.body.style.setProperty('backgroundColor', '#181c24');
+        document.body.classList.add('no-bg-anim');
+      } else {
+        document.body.classList.remove('no-bg-anim');
+      }
+      const social = document.querySelector('.social-icons');
+      if(social) social.style.display = (settings.social === false) ? 'none' : '';
+      const bio = document.querySelector('.dev-bio');
+      if(bio) bio.style.display = (settings.bio === false) ? 'none' : '';
+      window.KHUTWA_SOUND_ENABLED = (settings.sound !== false);
+      window.KHUTWA_WELCOME_ENABLED = (settings.welcome !== false);
+    }
+    applySettings();
+    function playSound(src) {
+      if(window.KHUTWA_SOUND_ENABLED === false) return;
+      const audio = new Audio(src);
+      audio.play();
+    }
+  </script>
 </body>
 </html>

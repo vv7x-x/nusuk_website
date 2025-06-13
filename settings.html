@@ -84,6 +84,8 @@
     .btn:active { transform: scale(0.97); }
     .settings-section { display: none; }
     .settings-section.active { display: block; }
+    .settings-section.page-settings { display: none; }
+    .settings-section.page-settings.active { display: block; }
     .setting-row {
       display: flex;
       align-items: center;
@@ -109,6 +111,34 @@
       font-size: 1.1rem;
       display: none;
     }
+    .pages-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    .page-tile {
+      background: linear-gradient(120deg, #003366 0%, #181c24 100%);
+      border: 2px solid #FFD700;
+      border-radius: 18px;
+      box-shadow: 0 0 16px #00fff7cc;
+      color: #FFD700;
+      font-family: inherit;
+      font-size: 1.15rem;
+      padding: 22px 32px;
+      min-width: 120px;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+      text-align: center;
+      user-select: none;
+    }
+    .page-tile:hover {
+      background: #FFD70022;
+      color: #00fff7;
+      box-shadow: 0 0 32px #FFD700cc;
+      transform: scale(1.07);
+    }
   </style>
 </head>
 <body>
@@ -122,6 +152,18 @@
         </div>
         <button class="btn" type="submit">دخول</button>
       </form>
+    </div>
+    <div class="settings-section active" id="pagesGridSection">
+      <div class="pages-grid">
+        <div class="page-tile" data-page="main">إعدادات عامة</div>
+        <div class="page-tile" data-page="index">الرئيسية</div>
+        <div class="page-tile" data-page="about">من نحن</div>
+        <div class="page-tile" data-page="offers">العروض</div>
+        <div class="page-tile" data-page="gallery">صور الرحلات</div>
+        <div class="page-tile" data-page="contact">اتصل بنا</div>
+        <div class="page-tile" data-page="booking">الحجز</div>
+        <div class="page-tile" data-page="developer-info">عن المطور</div>
+      </div>
     </div>
     <div class="settings-section" id="mainSettings">
       <form id="settingsForm">
@@ -175,23 +217,68 @@
         <div class="save-msg" id="saveMsg">تم حفظ الإعدادات!</div>
       </form>
     </div>
+    <!-- إعدادات صفحات فرعية (تظهر عند اختيار صفحة) -->
+    <div class="settings-section page-settings" id="indexSettings">إعدادات صفحة الرئيسية (يمكنك إضافة إعدادات خاصة هنا)</div>
+    <div class="settings-section page-settings" id="aboutSettings">إعدادات صفحة من نحن</div>
+    <div class="settings-section page-settings" id="offersSettings">إعدادات صفحة العروض</div>
+    <div class="settings-section page-settings" id="gallerySettings">إعدادات صفحة صور الرحلات</div>
+    <div class="settings-section page-settings" id="contactSettings">إعدادات صفحة اتصل بنا</div>
+    <div class="settings-section page-settings" id="bookingSettings">إعدادات صفحة الحجز</div>
+    <div class="settings-section page-settings" id="developer-infoSettings">إعدادات صفحة عن المطور</div>
   </div>
   <script>
-    // كلمة مرور بسيطة (يمكنك تغييرها)
+    // دعم باسوردين: admin و guest
     const ADMIN_PASSWORD = 'yahya2009';
+    const GUEST_PASSWORD = 'guest2040'; // يمكنك تغييره
+    let userRole = null; // 'admin' أو 'guest'
     const loginSection = document.getElementById('loginSection');
     const mainSettings = document.getElementById('mainSettings');
+    const pageSettingsSection = document.getElementById('pageSettingsSection');
+    const pagesGrid = document.getElementById('pagesGrid');
     loginSection.classList.add('active');
     document.getElementById('loginForm').onsubmit = function(e) {
       e.preventDefault();
       const pass = document.getElementById('adminPass').value;
       if (pass === ADMIN_PASSWORD) {
+        userRole = 'admin';
         loginSection.classList.remove('active');
-        mainSettings.classList.add('active');
+        document.getElementById('pagesGridSection').classList.add('active');
+      } else if (pass === GUEST_PASSWORD) {
+        userRole = 'guest';
+        loginSection.classList.remove('active');
+        document.getElementById('pagesGridSection').classList.add('active');
       } else {
         alert('كلمة المرور غير صحيحة!');
       }
     };
+    // التنقل بين مربعات الصفحات
+    document.querySelectorAll('.page-tile').forEach(tile => {
+      tile.onclick = function() {
+        document.querySelectorAll('.settings-section').forEach(sec => sec.classList.remove('active'));
+        const page = tile.getAttribute('data-page');
+        if(page === 'main') {
+          document.getElementById('mainSettings').classList.add('active');
+        } else {
+          document.getElementById(page+'Settings').classList.add('active');
+        }
+      };
+    });
+    // زر العودة من إعدادات صفحة فرعية
+    // (يمكنك إضافة زر "رجوع" في كل إعدادات صفحة فرعية لاحقًا)
+    // إخفاء الحقول الخاصة بالإدارة إذا كان المستخدم guest
+    function applyRole() {
+      if(userRole === 'guest') {
+        document.querySelectorAll('#mainSettings input, #mainSettings select, #mainSettings button').forEach(el => {
+          el.disabled = true;
+        });
+      } else {
+        document.querySelectorAll('#mainSettings input, #mainSettings select, #mainSettings button').forEach(el => {
+          el.disabled = false;
+        });
+      }
+    }
+    // عند الدخول كـ guest أو admin
+    document.getElementById('pagesGridSection').addEventListener('transitionend', applyRole);
     // حفظ الإعدادات في localStorage
     const settingsForm = document.getElementById('settingsForm');
     const saveMsg = document.getElementById('saveMsg');
@@ -238,6 +325,49 @@
       if(settings.avatar!==undefined) document.getElementById('showAvatar').checked = settings.avatar;
       if(settings.backBtn!==undefined) document.getElementById('showBackBtn').checked = settings.backBtn;
     });
+    // إعدادات الصفحات
+    function loadPageSettings() {
+      const pages = [
+        { id: 'home', title: 'الصفحة الرئيسية' },
+        { id: 'about', title: 'من نحن' },
+        { id: 'services', title: 'خدماتنا' },
+        { id: 'contact', title: 'اتصل بنا' }
+      ];
+      pagesGrid.innerHTML = '';
+      pages.forEach(page => {
+        const tile = document.createElement('div');
+        tile.className = 'page-tile';
+        tile.id = `pageTile_${page.id}`;
+        tile.innerHTML = `
+          <strong>${page.title}</strong>
+          <div>
+            <label><input type="checkbox" class="page-setting-checkbox" data-page="${page.id}" checked> تفعيل</label>
+          </div>
+        `;
+        pagesGrid.appendChild(tile);
+      });
+    }
+    document.getElementById('savePageSettings').onclick = function() {
+      const pageSettings = {};
+      document.querySelectorAll('.page-setting-checkbox').forEach(checkbox => {
+        pageSettings[checkbox.getAttribute('data-page')] = checkbox.checked;
+      });
+      localStorage.setItem('khutwa_page_settings', JSON.stringify(pageSettings));
+      const msg = document.getElementById('pageSaveMsg');
+      msg.style.display = 'block';
+      setTimeout(() => msg.style.display = 'none', 1800);
+    };
+    // تحميل إعدادات الصفحات من localStorage
+    function applyPageSettings() {
+      const pageSettings = JSON.parse(localStorage.getItem('khutwa_page_settings') || '{}');
+      for (const [key, value] of Object.entries(pageSettings)) {
+        const checkbox = document.querySelector(`.page-setting-checkbox[data-page="${key}"]`);
+        if (checkbox) {
+          checkbox.checked = value;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', applyPageSettings);
   </script>
 </body>
 </html>

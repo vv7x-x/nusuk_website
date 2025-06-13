@@ -273,5 +273,58 @@
     AOS.init({ duration: 1000 });
   </script>
 
+  <script>
+    // تطبيق إعدادات لوحة التحكم على الصفحة
+    function applySettings() {
+      const settings = JSON.parse(localStorage.getItem('khutwa_settings')||'{}');
+      // اللوجو (لو تم رفعه)
+      if(settings.logo) {
+        let favicon = document.querySelector('link[rel="icon"]');
+        if(!favicon) {
+          favicon = document.createElement('link');
+          favicon.rel = 'icon';
+          document.head.appendChild(favicon);
+        }
+        favicon.href = settings.logo;
+        // تغيير كل صور اللوجو
+        document.querySelectorAll('img[src*="logo"]').forEach(img=>img.src=settings.logo);
+      }
+      // اللون الرئيسي
+      if(settings.mainColor) {
+        document.documentElement.style.setProperty('--hacker-cyan', settings.mainColor);
+      }
+      // الخط
+      if(settings.font) {
+        document.body.style.fontFamily = settings.font + ", 'Share Tech Mono', 'VT323', monospace, 'Cairo', sans-serif";
+      }
+      // الخلفية المتحركة
+      if(settings.bgAnim === false) {
+        document.body.style.setProperty('animation', 'none');
+        document.body.style.setProperty('background', '#181c24');
+        document.body.style.setProperty('backgroundImage', 'none');
+        document.body.style.setProperty('backgroundColor', '#181c24');
+        document.body.classList.add('no-bg-anim');
+      } else {
+        document.body.classList.remove('no-bg-anim');
+      }
+      // إظهار/إخفاء وسائل التواصل
+      const social = document.querySelector('.social-icons');
+      if(social) social.style.display = (settings.social === false) ? 'none' : '';
+      // إظهار/إخفاء السيرة الذاتية
+      const bio = document.querySelector('.dev-bio');
+      if(bio) bio.style.display = (settings.bio === false) ? 'none' : '';
+      // الأصوات
+      window.KHUTWA_SOUND_ENABLED = (settings.sound !== false);
+      // صوت الترحيب
+      window.KHUTWA_WELCOME_ENABLED = (settings.welcome !== false);
+    }
+    applySettings();
+    // الأصوات حسب الإعدادات (مثال)
+    function playSound(src) {
+      if(window.KHUTWA_SOUND_ENABLED === false) return;
+      const audio = new Audio(src);
+      audio.play();
+    }
+  </script>
 </body>
 </html>
