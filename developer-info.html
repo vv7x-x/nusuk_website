@@ -344,6 +344,44 @@
       window.KHUTWA_WELCOME_ENABLED = (settings.welcome !== false);
     }
     applySettings();
+    // جلب إعدادات صفحة المطور من localStorage وتطبيقها
+    function applyDeveloperSettings() {
+      const name = localStorage.getItem('developer-name');
+      const bio = localStorage.getItem('developer-bio');
+      const photo = localStorage.getItem('developer-photo');
+      const bgColor = localStorage.getItem('developer-background-color');
+      const textColor = localStorage.getItem('developer-text-color');
+      const logo = localStorage.getItem('developer-logo');
+
+      if (name) {
+        const nameDiv = document.querySelector('.dev-name');
+        if (nameDiv) nameDiv.textContent = name;
+      }
+      if (bio) {
+        const bioDiv = document.querySelector('.dev-bio');
+        if (bioDiv) bioDiv.textContent = bio;
+      }
+      if (photo) {
+        const avatar = document.getElementById('devAvatar');
+        if (avatar) avatar.src = photo;
+      }
+      if (bgColor) {
+        document.body.style.backgroundColor = bgColor;
+      }
+      if (textColor) {
+        document.body.style.color = textColor;
+      }
+      if (logo) {
+        let favicon = document.querySelector('link[rel="icon"]');
+        if (!favicon) {
+          favicon = document.createElement('link');
+          favicon.rel = 'icon';
+          document.head.appendChild(favicon);
+        }
+        favicon.href = logo;
+      }
+    }
+    applyDeveloperSettings();
     // الأصوات حسب الإعدادات
     function playSound(src) {
       if(window.KHUTWA_SOUND_ENABLED === false) return;
