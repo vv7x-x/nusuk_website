@@ -445,7 +445,7 @@
     document.getElementById('settingsForm').onsubmit = function(e) {
       e.preventDefault();
       const form = e.target;
-      localStorage.setItem('advancedSettings', JSON.stringify({
+      const settingsObj = {
         devName: form.devName.value,
         devBio: form.devBio.value,
         devBg: form.devBg.value,
@@ -465,7 +465,10 @@
         welcome: form.welcome.checked,
         devAvatar: localStorage.getItem('devAvatarImage') || '',
         devMsg: form.devMsg.value
-      }));
+      };
+      localStorage.setItem('advancedSettings', JSON.stringify(settingsObj));
+      // إرسال رسالة تحديث عبر localStorage event
+      localStorage.setItem('advancedSettings_update', Date.now().toString());
       const successMsg = document.getElementById('successMsg');
       successMsg.style.display = 'block';
       setTimeout(() => successMsg.style.display = 'none', 2000);
