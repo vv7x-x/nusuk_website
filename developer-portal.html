@@ -272,10 +272,7 @@
         return;
       }
       initScene();
-      setTimeout(()=>{
-        document.querySelector('.explore-tip').textContent = 'يتم الدخول تلقائياً...';
-        setTimeout(()=>{ enterPortal(); }, 400);
-      }, 600);
+      enterPortal();
     });
     document.body.addEventListener('click', enterPortal);
     document.body.addEventListener('touchstart', enterPortal);
