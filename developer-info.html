@@ -25,6 +25,7 @@
       font-family: 'Share Tech Mono', 'VT323', monospace, 'Cairo', sans-serif;
       color: var(--hacker-green);
       overflow-x: hidden;
+      overflow-y: auto;
       position: relative;
     }
     body::before {
@@ -263,10 +264,37 @@
       .avatar { width: 140px; height: 140px; }
       .social-icons img { width: 60px; height: 60px; }
     }
+    #devMsgBox {
+      display: none;
+      background: rgba(57, 255, 20, 0.9);
+      color: #0a0f1a;
+      padding: 12px 18px;
+      border-radius: 12px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      font-size: 1.1rem;
+      font-family: 'Share Tech Mono', monospace;
+      text-align: center;
+      position: relative;
+      z-index: 3;
+      overflow: hidden;
+      animation: slideIn 0.8s ease-out forwards;
+    }
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
   <div class="hacker-card">
+    <div id="devMsgBox" style="display:none;"></div>
     <img src="myphoto.JPG" alt="صورة المطور" class="avatar" id="devAvatar" />
     <div class="dev-name">يحيى رضا</div>
     <div class="dev-bio">
@@ -406,6 +434,7 @@
     document.getElementById('devAvatar').addEventListener('mouseenter', function() {
       playSound('الأصوات/يحيى رضا.mp3');
     });
+    
     // ربط ديناميكي مع إعدادات advanced-settings.html
     document.addEventListener('DOMContentLoaded', function() {
       const settings = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
@@ -467,20 +496,23 @@
         if(callBtn) callBtn.href = 'tel:' + settings.phone;
       }
       // رسالة مخصصة
-      if(settings.devMsg) {
-        let msgBox = document.getElementById('devMsgBox');
-        if(!msgBox) {
-          msgBox = document.createElement('div');
-          msgBox.id = 'devMsgBox';
-          msgBox.style = 'background:#101618;border:2px solid #00ff41;color:#00ff41;padding:12px 10px;margin:18px 0 0 0;border-radius:10px;box-shadow:0 0 18px #00ff4166;font-family:Share Tech Mono,VT323,monospace;font-size:1.08em;text-align:center;letter-spacing:1px;';
-          const card = document.querySelector('.hacker-card');
-          if(card) card.insertBefore(msgBox, card.children[1]);
-        }
+      const msgBox = document.getElementById('devMsgBox');
+      if(settings.devMsg && msgBox) {
         msgBox.textContent = settings.devMsg;
         msgBox.style.display = 'block';
-      } else {
-        const msgBox = document.getElementById('devMsgBox');
-        if(msgBox) msgBox.style.display = 'none';
+        msgBox.style.background = '#101618';
+        msgBox.style.border = '2px solid #00ff41';
+        msgBox.style.color = '#00ff41';
+        msgBox.style.padding = '12px 10px';
+        msgBox.style.margin = '18px 0 18px 0';
+        msgBox.style.borderRadius = '10px';
+        msgBox.style.boxShadow = '0 0 18px #00ff4166';
+        msgBox.style.fontFamily = 'Share Tech Mono,VT323,monospace';
+        msgBox.style.fontSize = '1.08em';
+        msgBox.style.textAlign = 'center';
+        msgBox.style.letterSpacing = '1px';
+      } else if(msgBox) {
+        msgBox.style.display = 'none';
       }
     });
   </script>
