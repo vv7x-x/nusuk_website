@@ -62,7 +62,8 @@
   <div class="overlay">
     <div class="headline-ar" id="headline-ar">مرحباً بك في عقل المطور
 بوابة المستقبل البرمجية</div>
-    <div class="explore-tip" id="explore-tip">يتم الدخول تلقائياً... انتظر لحظات</div>
+    <button id="enter-btn" style="position:absolute;top:48vh;left:50%;transform:translateX(-50%);z-index:50;font-size:1.3rem;padding:18px 44px;background:linear-gradient(90deg,#00fff7 40%,#a020f0 100%);color:#18122B;border:none;border-radius:18px;box-shadow:0 0 24px #00fff7,0 0 8px #a020f0;cursor:pointer;transition:background 0.2s,transform 0.1s;">دخول البوابة</button>
+    <div class="explore-tip" id="explore-tip" style="display:none;">يتم الدخول تلقائياً... انتظر لحظات</div>
   </div>
   <audio id="ambient-audio" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b6b6b6.mp3" loop autoplay style="display:none"></audio>
   <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
@@ -266,14 +267,21 @@
       } catch(e) { return false; }
     }
     // دخول البوابة عند التحميل أو التفاعل
+    let portalReady = false;
     window.addEventListener('DOMContentLoaded', ()=>{
       if(!checkWebGL()) {
         document.getElementById('webgl-error').style.display = 'flex';
         return;
       }
       initScene();
-      enterPortal();
+      portalReady = true;
+      document.getElementById('enter-btn').style.display = 'block';
     });
+    document.getElementById('enter-btn').onclick = function() {
+      this.style.display = 'none';
+      document.getElementById('explore-tip').style.display = 'block';
+      enterPortal();
+    };
     document.body.addEventListener('click', enterPortal);
     document.body.addEventListener('touchstart', enterPortal);
     document.body.addEventListener('wheel', enterPortal);
