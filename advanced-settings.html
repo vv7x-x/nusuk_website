@@ -227,7 +227,12 @@
           <input type="color" name="devColor" id="devColor">
         </div>
       </div>
-      <button type="submit">حفظ جميع الإعدادات</button>
+      <div class="actions">
+        <button type="submit">حفظ وتطبيق الإعدادات</button>
+        <button type="button" id="exportBtn" style="background:#38bdf8;margin-right:12px;">تصدير الإعدادات</button>
+        <button type="button" id="importBtn" style="background:#f59e42;margin-right:12px;">استيراد الإعدادات</button>
+        <button type="button" id="resetBtn" style="background:#e11d48;margin-right:12px;">إعادة الإعدادات الافتراضية</button>
+      </div>
       <div class="success" id="successMsg">تم حفظ جميع الإعدادات بنجاح!</div>
     </form>
   </div>
@@ -281,6 +286,40 @@
       const msg = document.getElementById('successMsg');
       msg.style.display = 'block';
       setTimeout(()=>msg.style.display='none', 2000);
+    };
+    // زر إعادة الإعدادات الافتراضية
+    document.getElementById('resetBtn').onclick = function() {
+      const defaults = {
+        siteTitle: '',
+        siteLogoUrl: '',
+        mainColor: '#2563eb',
+        bgColor: '#f8fafc',
+        homeTitle: '',
+        homeDesc: '',
+        aboutTitle: '',
+        aboutText: '',
+        offersTitle: '',
+        offersDesc: '',
+        bookingTitle: '',
+        bookingDesc: '',
+        contactTitle: '',
+        contactDesc: '',
+        whatsapp: '',
+        instagram: '',
+        twitter: '',
+        facebook: '',
+        galleryTitle: '',
+        galleryDesc: '',
+        welcomeAudio: ''
+      };
+      localStorage.setItem('advancedSettings', JSON.stringify(defaults));
+      loadSettings();
+      document.getElementById('successMsg').textContent = 'تمت إعادة الإعدادات الافتراضية!';
+      document.getElementById('successMsg').classList.add('show');
+      setTimeout(()=>{
+        document.getElementById('successMsg').classList.remove('show');
+        document.getElementById('successMsg').textContent = 'تم حفظ وتطبيق الإعدادات بنجاح!';
+      }, 2000);
     };
     // Accordion functionality
     document.querySelectorAll('.settings-card h2').forEach(h2 => {
