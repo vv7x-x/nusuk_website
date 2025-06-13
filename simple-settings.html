@@ -89,6 +89,18 @@
                 <input type="color" id="devColor" name="devColor">
             </div>
             <div class="setting">
+                <label for="mainFont">الخط الرئيسي</label>
+                <input type="text" id="mainFont" name="mainFont" placeholder="مثال: Cairo, Arial, sans-serif">
+            </div>
+            <div class="setting">
+                <label for="mainColor">اللون الرئيسي (للتأثيرات)</label>
+                <input type="color" id="mainColor" name="mainColor">
+            </div>
+            <div class="setting">
+                <label for="bgAnim">تفعيل الخلفية المتحركة</label>
+                <input type="checkbox" id="bgAnim" name="bgAnim">
+            </div>
+            <div class="setting">
                 <label for="showAvatar">إظهار صورة المطور</label>
                 <input type="checkbox" id="showAvatar" name="showAvatar">
             </div>
@@ -120,6 +132,14 @@
                 <label for="phone">رقم الهاتف</label>
                 <input type="text" id="phone" name="phone" placeholder="رقم الهاتف للاتصال">
             </div>
+            <div class="setting">
+                <label for="sound">تفعيل الأصوات</label>
+                <input type="checkbox" id="sound" name="sound">
+            </div>
+            <div class="setting">
+                <label for="welcome">تشغيل صوت ترحيبي عند الدخول</label>
+                <input type="checkbox" id="welcome" name="welcome">
+            </div>
             <button type="submit" class="save-btn">حفظ الإعدادات</button>
             <div class="success-message" id="successMsg">تم حفظ الإعدادات بنجاح!</div>
         </form>
@@ -137,6 +157,9 @@
                 devAvatar: form.devAvatar.value,
                 devBg: form.devBg.value,
                 devColor: form.devColor.value,
+                mainFont: form.mainFont.value,
+                mainColor: form.mainColor.value,
+                bgAnim: form.bgAnim.checked,
                 avatar: form.showAvatar.checked,
                 bio: form.showBio.checked,
                 social: form.showSocial.checked,
@@ -144,7 +167,9 @@
                 waLink: form.waLink.value,
                 instaLink: form.instaLink.value,
                 fbLink: form.fbLink.value,
-                phone: form.phone.value
+                phone: form.phone.value,
+                sound: form.sound.checked,
+                welcome: form.welcome.checked
             }));
             successMsg.style.display = 'block';
             setTimeout(() => successMsg.style.display = 'none', 2000);
@@ -158,6 +183,9 @@
             if(s.devAvatar) form.devAvatar.value = s.devAvatar;
             if(s.devBg) form.devBg.value = s.devBg;
             if(s.devColor) form.devColor.value = s.devColor;
+            if(s.mainFont) form.mainFont.value = s.mainFont;
+            if(s.mainColor) form.mainColor.value = s.mainColor;
+            form.bgAnim.checked = s.bgAnim !== false;
             form.showAvatar.checked = s.avatar !== false;
             form.showBio.checked = s.bio !== false;
             form.showSocial.checked = s.social !== false;
@@ -166,6 +194,8 @@
             if(s.instaLink) form.instaLink.value = s.instaLink;
             if(s.fbLink) form.fbLink.value = s.fbLink;
             if(s.phone) form.phone.value = s.phone;
+            form.sound.checked = s.sound !== false;
+            form.welcome.checked = s.welcome !== false;
         }
     </script>
 </body>
