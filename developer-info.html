@@ -295,13 +295,64 @@
     <button class="back-btn" onclick="window.location.href='index.html'">العودة للرئيسية</button>
   </div>
   <script>
+    // تطبيق إعدادات لوحة التحكم على الصفحة
+    function applySettings() {
+      const settings = JSON.parse(localStorage.getItem('khutwa_settings')||'{}');
+      // اللوجو (لو تم رفعه)
+      if(settings.logo) {
+        let favicon = document.querySelector('link[rel="icon"]');
+        if(!favicon) {
+          favicon = document.createElement('link');
+          favicon.rel = 'icon';
+          document.head.appendChild(favicon);
+        }
+        favicon.href = settings.logo;
+      }
+      // اللون الرئيسي
+      if(settings.mainColor) {
+        document.documentElement.style.setProperty('--hacker-cyan', settings.mainColor);
+      }
+      // الخط
+      if(settings.font) {
+        document.body.style.fontFamily = settings.font + ", 'Share Tech Mono', 'VT323', monospace, 'Cairo', sans-serif";
+      }
+      // الخلفية المتحركة
+      if(settings.bgAnim === false) {
+        document.body.style.setProperty('animation', 'none');
+        document.body.style.setProperty('background', '#181c24');
+        document.body.style.setProperty('backgroundImage', 'none');
+        document.body.style.setProperty('backgroundColor', '#181c24');
+        document.body.classList.add('no-bg-anim');
+      } else {
+        document.body.classList.remove('no-bg-anim');
+      }
+      // إظهار/إخفاء صورة المطور
+      const avatar = document.getElementById('devAvatar');
+      if(avatar) avatar.style.display = (settings.avatar === false) ? 'none' : '';
+      // إظهار/إخفاء زر العودة
+      const backBtn = document.querySelector('.back-btn');
+      if(backBtn) backBtn.style.display = (settings.backBtn === false) ? 'none' : '';
+      // إظهار/إخفاء وسائل التواصل
+      const social = document.querySelector('.social-icons');
+      if(social) social.style.display = (settings.social === false) ? 'none' : '';
+      // إظهار/إخفاء السيرة الذاتية
+      const bio = document.querySelector('.dev-bio');
+      if(bio) bio.style.display = (settings.bio === false) ? 'none' : '';
+      // الأصوات
+      window.KHUTWA_SOUND_ENABLED = (settings.sound !== false);
+      // صوت الترحيب
+      window.KHUTWA_WELCOME_ENABLED = (settings.welcome !== false);
+    }
+    applySettings();
+    // الأصوات حسب الإعدادات
     function playSound(src) {
+      if(window.KHUTWA_SOUND_ENABLED === false) return;
       const audio = new Audio(src);
       audio.play();
     }
     // تشغيل صوت ترحيبي عند الدخول للموقع
     window.addEventListener('DOMContentLoaded', function() {
-      playSound('الأصوات/about dev2.mp3');
+      if(window.KHUTWA_WELCOME_ENABLED !== false) playSound('الأصوات/about dev2.mp3');
     });
     document.getElementById('instaIcon').addEventListener('mouseenter', function() {
       playSound('الأصوات/insta.mp3');

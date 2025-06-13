@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إعدادات الموقع</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(120deg, #0a0f1a 0%, #003366 100%);
+      color: #FFD700;
+      font-family: 'Share Tech Mono', monospace;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .settings-card {
+      background: rgba(24, 28, 36, 0.97);
+      border-radius: 24px;
+      box-shadow: 0 0 32px #00fff7cc, 0 0 0 2px #FFD700;
+      padding: 36px 28px;
+      min-width: 320px;
+      max-width: 98vw;
+      width: 400px;
+      position: relative;
+    }
+    h2 {
+      text-align: center;
+      color: #FFD700;
+      margin-bottom: 24px;
+      font-size: 2rem;
+    }
+    .input-group {
+      margin-bottom: 18px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #00fff7;
+      font-size: 1.1rem;
+    }
+    input[type="password"] {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1.5px solid #FFD700;
+      background: #181c24;
+      color: #FFD700;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      font-family: inherit;
+    }
+    input[type="file"],
+    input[type="color"],
+    select {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1.5px solid #FFD700;
+      background: #181c24;
+      color: #FFD700;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      font-family: inherit;
+    }
+    .btn {
+      background: linear-gradient(90deg, #FFD700 40%, #00fff7 100%);
+      color: #0a0f1a;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 28px;
+      font-size: 1.1rem;
+      font-family: inherit;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #FFD70055, 0 2px 8px #00fff755;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+      outline: none;
+      margin-bottom: 10px;
+      margin-top: 8px;
+    }
+    .btn:active { transform: scale(0.97); }
+    .settings-section { display: none; }
+    .settings-section.active { display: block; }
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #00336644;
+    }
+    .setting-row label {
+      margin: 0;
+      color: #FFD700;
+      font-size: 1.08rem;
+    }
+    .setting-row input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      accent-color: #FFD700;
+    }
+    .save-msg {
+      color: #00fff7;
+      text-align: center;
+      margin-top: 12px;
+      font-size: 1.1rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="settings-card">
+    <h2>إعدادات الموقع</h2>
+    <div class="settings-section" id="loginSection">
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="adminPass">كلمة المرور:</label>
+          <input type="password" id="adminPass" required autocomplete="current-password">
+        </div>
+        <button class="btn" type="submit">دخول</button>
+      </form>
+    </div>
+    <div class="settings-section" id="mainSettings">
+      <form id="settingsForm">
+        <div class="setting-row">
+          <label for="soundToggle">تشغيل الأصوات</label>
+          <input type="checkbox" id="soundToggle" checked>
+        </div>
+        <div class="setting-row">
+          <label for="welcomeToggle">تشغيل صوت الترحيب عند الدخول</label>
+          <input type="checkbox" id="welcomeToggle" checked>
+        </div>
+        <div class="setting-row">
+          <label for="showSocial">إظهار وسائل التواصل</label>
+          <input type="checkbox" id="showSocial" checked>
+        </div>
+        <div class="setting-row">
+          <label for="showBio">إظهار السيرة الذاتية</label>
+          <input type="checkbox" id="showBio" checked>
+        </div>
+        <div class="setting-row">
+          <label for="logoInput">تغيير اللوجو الرئيسي</label>
+          <input type="file" id="logoInput" accept="image/*">
+        </div>
+        <div class="setting-row">
+          <label for="mainColor">لون الموقع الرئيسي</label>
+          <input type="color" id="mainColor" value="#00fff7">
+        </div>
+        <div class="setting-row">
+          <label for="fontSelect">نوع الخط الرئيسي</label>
+          <select id="fontSelect">
+            <option value="Share Tech Mono">Share Tech Mono</option>
+            <option value="VT323">VT323</option>
+            <option value="Cairo">Cairo</option>
+            <option value="Tajawal">Tajawal</option>
+            <option value="monospace">monospace</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <label for="bgAnim">خلفية متحركة</label>
+          <input type="checkbox" id="bgAnim" checked>
+        </div>
+        <div class="setting-row">
+          <label for="showAvatar">إظهار صورة المطور</label>
+          <input type="checkbox" id="showAvatar" checked>
+        </div>
+        <div class="setting-row">
+          <label for="showBackBtn">إظهار زر العودة للرئيسية</label>
+          <input type="checkbox" id="showBackBtn" checked>
+        </div>
+        <button class="btn" type="submit">حفظ التغييرات</button>
+        <div class="save-msg" id="saveMsg">تم حفظ الإعدادات!</div>
+      </form>
+    </div>
+  </div>
+  <script>
+    // كلمة مرور بسيطة (يمكنك تغييرها)
+    const ADMIN_PASSWORD = 'yahya2009';
+    const loginSection = document.getElementById('loginSection');
+    const mainSettings = document.getElementById('mainSettings');
+    loginSection.classList.add('active');
+    document.getElementById('loginForm').onsubmit = function(e) {
+      e.preventDefault();
+      const pass = document.getElementById('adminPass').value;
+      if (pass === ADMIN_PASSWORD) {
+        loginSection.classList.remove('active');
+        mainSettings.classList.add('active');
+      } else {
+        alert('كلمة المرور غير صحيحة!');
+      }
+    };
+    // حفظ الإعدادات في localStorage
+    const settingsForm = document.getElementById('settingsForm');
+    const saveMsg = document.getElementById('saveMsg');
+    settingsForm.onsubmit = function(e) {
+      e.preventDefault();
+      const settings = {
+        sound: document.getElementById('soundToggle').checked,
+        welcome: document.getElementById('welcomeToggle').checked,
+        social: document.getElementById('showSocial').checked,
+        bio: document.getElementById('showBio').checked,
+        mainColor: document.getElementById('mainColor').value,
+        font: document.getElementById('fontSelect').value,
+        bgAnim: document.getElementById('bgAnim').checked,
+        avatar: document.getElementById('showAvatar').checked,
+        backBtn: document.getElementById('showBackBtn').checked
+      };
+      // حفظ اللوجو في localStorage (base64)
+      const logoInput = document.getElementById('logoInput');
+      if (logoInput.files && logoInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          settings.logo = ev.target.result;
+          localStorage.setItem('khutwa_settings', JSON.stringify(settings));
+          saveMsg.style.display = 'block';
+          setTimeout(()=>saveMsg.style.display='none', 1800);
+        };
+        reader.readAsDataURL(logoInput.files[0]);
+        return;
+      }
+      localStorage.setItem('khutwa_settings', JSON.stringify(settings));
+      saveMsg.style.display = 'block';
+      setTimeout(()=>saveMsg.style.display='none', 1800);
+    };
+    // تحميل الإعدادات عند الدخول
+    window.addEventListener('DOMContentLoaded', function() {
+      const settings = JSON.parse(localStorage.getItem('khutwa_settings')||'{}');
+      if(settings.sound!==undefined) document.getElementById('soundToggle').checked = settings.sound;
+      if(settings.welcome!==undefined) document.getElementById('welcomeToggle').checked = settings.welcome;
+      if(settings.social!==undefined) document.getElementById('showSocial').checked = settings.social;
+      if(settings.bio!==undefined) document.getElementById('showBio').checked = settings.bio;
+      if(settings.mainColor) document.getElementById('mainColor').value = settings.mainColor;
+      if(settings.font) document.getElementById('fontSelect').value = settings.font;
+      if(settings.bgAnim!==undefined) document.getElementById('bgAnim').checked = settings.bgAnim;
+      if(settings.avatar!==undefined) document.getElementById('showAvatar').checked = settings.avatar;
+      if(settings.backBtn!==undefined) document.getElementById('showBackBtn').checked = settings.backBtn;
+    });
+  </script>
+</body>
+</html>
