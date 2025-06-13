@@ -370,6 +370,26 @@
       document.querySelectorAll('.settings-section').forEach(sec => sec.classList.remove('active'));
       loginSection.classList.add('active');
     };
+    // دالة لتحميل بيانات النموذج عند فتح الإعدادات
+    function loadFormData(formId) {
+      const form = document.getElementById(formId);
+      if (!form) return;
+      const data = JSON.parse(localStorage.getItem(formId)||'{}');
+      form.querySelectorAll('input, select, textarea').forEach(input => {
+        if (data[input.id] !== undefined) {
+          if (input.type === 'checkbox') {
+            input.checked = data[input.id];
+          } else if (input.type === 'file') {
+            // لا يمكن تعيين قيمة مباشرة
+          } else {
+            input.value = data[input.id];
+          }
+        } else {
+          if (input.type === 'checkbox') input.checked = false;
+          else if (input.type !== 'file') input.value = '';
+        }
+      });
+    }
     // التنقل بين مربعات الصفحات
     document.querySelectorAll('.page-tile').forEach(tile => {
       tile.onclick = function() {
@@ -378,8 +398,10 @@
         const page = tile.getAttribute('data-page');
         if(page === 'main') {
           mainSettings.classList.add('active');
+          loadFormData('settingsForm');
         } else {
           document.getElementById(page+'Settings').classList.add('active');
+          loadFormData(page+'SettingsForm');
         }
       };
     });
