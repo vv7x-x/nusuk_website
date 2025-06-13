@@ -171,6 +171,7 @@
         <div class="page-tile" data-page="booking">الحجز</div>
         <div class="page-tile" data-page="developer-info">عن المطور</div>
       </div>
+      <button class="btn" id="logoutBtn" style="width:100%;margin-top:18px;">تسجيل الخروج</button>
     </div>
     <div class="settings-section hidden" id="mainSettings">
       <form id="settingsForm">
@@ -316,148 +317,162 @@
       </form>
     </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
   <script>
-    // دعم باسوردين: admin و guest
-    const ADMIN_PASSWORD = 'yahya2009';
-    const GUEST_PASSWORD = 'guest2040'; // يمكنك تغييره
-    let userRole = null; // 'admin' أو 'guest'
+    // كلمات السر (hash)
+    const ADMIN_HASH = "21232f297a57a5a743894a0e4a801fc3"; // md5('admin')
+    const GUEST_HASH = "084e0343a0486ff05530df6c705c8bb4"; // md5('guest')
+    let userRole = null;
+    // عناصر الواجهة
     const loginSection = document.getElementById('loginSection');
+    const pagesGridSection = document.getElementById('pagesGridSection');
     const mainSettings = document.getElementById('mainSettings');
-    const pageSettingsSection = document.getElementById('pageSettingsSection');
-    const pagesGrid = document.getElementById('pagesGrid');
-    loginSection.classList.add('active');
+    const allSettingsSections = document.querySelectorAll('.settings-section');
+    // إظهار شاشة كلمة السر فقط عند التحميل
+    function showLogin() {
+      allSettingsSections.forEach(sec => sec.classList.add('hidden'));
+      loginSection.classList.remove('hidden');
+      loginSection.classList.add('active');
+      userRole = null;
+    }
+    showLogin();
+    // التحقق من كلمة السر
     document.getElementById('loginForm').onsubmit = function(e) {
       e.preventDefault();
       const pass = document.getElementById('adminPass').value;
-      if (pass === ADMIN_PASSWORD) {
+      const hash = md5(pass);
+      if (hash === ADMIN_HASH) {
         userRole = 'admin';
-        loginSection.classList.remove('active');
-        document.getElementById('pagesGridSection').classList.add('active');
-      } else if (pass === GUEST_PASSWORD) {
+      } else if (hash === GUEST_HASH) {
         userRole = 'guest';
-        loginSection.classList.remove('active');
-        document.getElementById('pagesGridSection').classList.add('active');
       } else {
         alert('كلمة المرور غير صحيحة!');
+        return;
       }
+      loginSection.classList.remove('active');
+      loginSection.classList.add('hidden');
+      pagesGridSection.classList.remove('hidden');
+      pagesGridSection.classList.add('active');
+      applyRole();
+    };
+    // زر تسجيل الخروج
+    document.getElementById('logoutBtn').onclick = function() {
+      showLogin();
+      pagesGridSection.classList.remove('active');
+      pagesGridSection.classList.add('hidden');
+      document.getElementById('adminPass').value = '';
+      // إخفاء كل النماذج
+      document.querySelectorAll('.settings-section').forEach(sec => sec.classList.remove('active'));
+      loginSection.classList.add('active');
     };
     // التنقل بين مربعات الصفحات
     document.querySelectorAll('.page-tile').forEach(tile => {
       tile.onclick = function() {
-        document.querySelectorAll('.settings-section').forEach(sec => sec.classList.remove('active'));
+        allSettingsSections.forEach(sec => sec.classList.remove('active'));
+        pagesGridSection.classList.add('hidden');
         const page = tile.getAttribute('data-page');
         if(page === 'main') {
-          document.getElementById('mainSettings').classList.add('active');
+          mainSettings.classList.add('active');
         } else {
           document.getElementById(page+'Settings').classList.add('active');
         }
       };
     });
-    // زر العودة من إعدادات صفحة فرعية
-    // (يمكنك إضافة زر "رجوع" في كل إعدادات صفحة فرعية لاحقًا)
-    // إخفاء الحقول الخاصة بالإدارة إذا كان المستخدم guest
-    function applyRole() {
-      if(userRole === 'guest') {
-        document.querySelectorAll('#mainSettings input, #mainSettings select, #mainSettings button').forEach(el => {
-          el.disabled = true;
-        });
-      } else {
-        document.querySelectorAll('#mainSettings input, #mainSettings select, #mainSettings button').forEach(el => {
-          el.disabled = false;
-        });
-      }
-    }
-    // عند الدخول كـ guest أو admin
-    document.getElementById('pagesGridSection').addEventListener('transitionend', applyRole);
-    // حفظ الإعدادات في localStorage
-    const settingsForm = document.getElementById('settingsForm');
-    const saveMsg = document.getElementById('saveMsg');
-    settingsForm.onsubmit = function(e) {
-      e.preventDefault();
-      const settings = {
-        sound: document.getElementById('soundToggle').checked,
-        welcome: document.getElementById('welcomeToggle').checked,
-        social: document.getElementById('showSocial').checked,
-        bio: document.getElementById('showBio').checked,
-        mainColor: document.getElementById('mainColor').value,
-        font: document.getElementById('fontSelect').value,
-        bgAnim: document.getElementById('bgAnim').checked,
-        avatar: document.getElementById('showAvatar').checked,
-        backBtn: document.getElementById('showBackBtn').checked
-      };
-      // حفظ اللوجو في localStorage (base64)
-      const logoInput = document.getElementById('logoInput');
-      if (logoInput.files && logoInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-          settings.logo = ev.target.result;
-          localStorage.setItem('khutwa_settings', JSON.stringify(settings));
-          saveMsg.style.display = 'block';
-          setTimeout(()=>saveMsg.style.display='none', 1800);
+    // إضافة زر رجوع لكل نموذج إعدادات صفحة فرعية
+    document.querySelectorAll('.page-settings').forEach(section => {
+      if (!section.querySelector('.back-btn')) {
+        const backBtn = document.createElement('button');
+        backBtn.className = 'btn back-btn';
+        backBtn.type = 'button';
+        backBtn.style.marginTop = '18px';
+        backBtn.textContent = 'رجوع';
+        backBtn.onclick = function() {
+          section.classList.remove('active');
+          pagesGridSection.classList.remove('hidden');
+          pagesGridSection.classList.add('active');
         };
-        reader.readAsDataURL(logoInput.files[0]);
-        return;
+        section.appendChild(backBtn);
       }
-      localStorage.setItem('khutwa_settings', JSON.stringify(settings));
-      saveMsg.style.display = 'block';
-      setTimeout(()=>saveMsg.style.display='none', 1800);
-    };
+    });
+    // تفعيل وتعطيل الحقول حسب الصلاحية
+    function applyRole() {
+      const isGuest = userRole === 'guest';
+      document.querySelectorAll('form input, form select, form textarea, form button').forEach(el => {
+        if (el.type === 'button' || el.classList.contains('back-btn')) return;
+        if (isGuest) {
+          el.disabled = true;
+        } else {
+          el.disabled = false;
+        }
+      });
+      // إظهار أو إخفاء أزرار الحفظ
+      document.querySelectorAll('form button[type="submit"]').forEach(btn => {
+        btn.style.display = isGuest ? 'none' : '';
+      });
+    }
+    // حفظ الإعدادات في localStorage مع إشعار
+    document.querySelectorAll('form').forEach(form => {
+      if (form.id && form.id.endsWith('Form')) {
+        form.onsubmit = function(e) {
+          e.preventDefault();
+          if (userRole === 'guest') return false;
+          // حفظ الإعدادات (مثال عام)
+          const data = {};
+          form.querySelectorAll('input, select, textarea').forEach(input => {
+            if (input.type === 'file') {
+              if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                  data[input.id] = ev.target.result;
+                  localStorage.setItem(form.id, JSON.stringify(data));
+                  showSaveMsg(form);
+                };
+                reader.readAsDataURL(input.files[0]);
+              }
+            } else if (input.type === 'checkbox') {
+              data[input.id] = input.checked;
+            } else {
+              data[input.id] = input.value;
+            }
+          });
+          // إذا لم يكن هناك ملفات
+          if (!Object.values(data).some(v => typeof v === 'undefined')) {
+            localStorage.setItem(form.id, JSON.stringify(data));
+            showSaveMsg(form);
+          }
+        };
+      }
+    });
+    function showSaveMsg(form) {
+      let msg = form.querySelector('.save-msg');
+      if (!msg) {
+        msg = document.createElement('div');
+        msg.className = 'save-msg';
+        msg.textContent = 'تم حفظ الإعدادات!';
+        form.appendChild(msg);
+      }
+      msg.style.display = 'block';
+      setTimeout(()=>msg.style.display='none', 1800);
+    }
     // تحميل الإعدادات عند الدخول
     window.addEventListener('DOMContentLoaded', function() {
-      const settings = JSON.parse(localStorage.getItem('khutwa_settings')||'{}');
-      if(settings.sound!==undefined) document.getElementById('soundToggle').checked = settings.sound;
-      if(settings.welcome!==undefined) document.getElementById('welcomeToggle').checked = settings.welcome;
-      if(settings.social!==undefined) document.getElementById('showSocial').checked = settings.social;
-      if(settings.bio!==undefined) document.getElementById('showBio').checked = settings.bio;
-      if(settings.mainColor) document.getElementById('mainColor').value = settings.mainColor;
-      if(settings.font) document.getElementById('fontSelect').value = settings.font;
-      if(settings.bgAnim!==undefined) document.getElementById('bgAnim').checked = settings.bgAnim;
-      if(settings.avatar!==undefined) document.getElementById('showAvatar').checked = settings.avatar;
-      if(settings.backBtn!==undefined) document.getElementById('showBackBtn').checked = settings.backBtn;
-    });
-    // إعدادات الصفحات
-    function loadPageSettings() {
-      const pages = [
-        { id: 'home', title: 'الصفحة الرئيسية' },
-        { id: 'about', title: 'من نحن' },
-        { id: 'services', title: 'خدماتنا' },
-        { id: 'contact', title: 'اتصل بنا' }
-      ];
-      pagesGrid.innerHTML = '';
-      pages.forEach(page => {
-        const tile = document.createElement('div');
-        tile.className = 'page-tile';
-        tile.id = `pageTile_${page.id}`;
-        tile.innerHTML = `
-          <strong>${page.title}</strong>
-          <div>
-            <label><input type="checkbox" class="page-setting-checkbox" data-page="${page.id}" checked> تفعيل</label>
-          </div>
-        `;
-        pagesGrid.appendChild(tile);
-      });
-    }
-    document.getElementById('savePageSettings').onclick = function() {
-      const pageSettings = {};
-      document.querySelectorAll('.page-setting-checkbox').forEach(checkbox => {
-        pageSettings[checkbox.getAttribute('data-page')] = checkbox.checked;
-      });
-      localStorage.setItem('khutwa_page_settings', JSON.stringify(pageSettings));
-      const msg = document.getElementById('pageSaveMsg');
-      msg.style.display = 'block';
-      setTimeout(() => msg.style.display = 'none', 1800);
-    };
-    // تحميل إعدادات الصفحات من localStorage
-    function applyPageSettings() {
-      const pageSettings = JSON.parse(localStorage.getItem('khutwa_page_settings') || '{}');
-      for (const [key, value] of Object.entries(pageSettings)) {
-        const checkbox = document.querySelector(`.page-setting-checkbox[data-page="${key}"]`);
-        if (checkbox) {
-          checkbox.checked = value;
+      document.querySelectorAll('form').forEach(form => {
+        if (form.id && form.id.endsWith('Form')) {
+          const data = JSON.parse(localStorage.getItem(form.id)||'{}');
+          form.querySelectorAll('input, select, textarea').forEach(input => {
+            if (data[input.id] !== undefined) {
+              if (input.type === 'checkbox') {
+                input.checked = data[input.id];
+              } else if (input.type === 'file') {
+                // لا يمكن تعيين قيمة مباشرة
+              } else {
+                input.value = data[input.id];
+              }
+            }
+          });
         }
-      }
-    }
-    window.addEventListener('DOMContentLoaded', applyPageSettings);
+      });
+    });
   </script>
 </body>
 </html>
