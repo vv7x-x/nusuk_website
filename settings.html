@@ -448,6 +448,25 @@
         };
       }
     });
+    // ربط دالة تسجيل الدخول بشكل منفصل بعد كل شيء
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const pass = document.getElementById('adminPass').value;
+      const hash = md5(pass);
+      if (hash === ADMIN_HASH) {
+        userRole = 'admin';
+      } else if (hash === GUEST_HASH) {
+        userRole = 'guest';
+      } else {
+        alert('كلمة المرور غير صحيحة!');
+        return;
+      }
+      loginSection.classList.remove('active');
+      loginSection.classList.add('hidden');
+      pagesGridSection.classList.remove('hidden');
+      pagesGridSection.classList.add('active');
+      applyRole();
+    });
     function showSaveMsg(form) {
       let msg = form.querySelector('.save-msg');
       if (!msg) {
