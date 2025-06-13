@@ -17,23 +17,18 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-    .dev-card {
+        .dev-card {
       background: rgba(30, 30, 40, 0.98);
-      border-radius: 32px !important;
-      box-shadow: 0 16px 60px 0 #FFD70033, 0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 0 40px 0 #FFD70044;
+      border-radius: 32px;
+      box-shadow: 0 16px 60px 0 #FFD70033, 0 8px 32px 0 rgba(31, 38, 135, 0.37);
       border: 2.5px solid #FFD700;
       max-width: 420px;
       margin: 60px auto 30px auto;
       padding: 48px 32px 32px 32px;
       position: relative;
       z-index: 2;
-      animation: floatCard 3.5s ease-in-out infinite, devGlow 4s alternate infinite;
-      transition: box-shadow 0.4s, transform 0.4s, border 0.4s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      border-image: linear-gradient(120deg, #FFD700 40%, #393053 100%) 1;
-      backdrop-filter: blur(2.5px);
+      animation: fadeIn 1.2s cubic-bezier(.4,2,.6,1);
+      transition: box-shadow 0.4s, transform 0.4s;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(40px); }
