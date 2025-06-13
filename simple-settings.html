@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعدادات بسيطة</title>
+    <style>
+        body {
+            font-family: 'Cairo', Arial, sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+        .settings-container {
+            max-width: 400px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 32px 24px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .setting {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #444;
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        input[type="checkbox"] {
+            margin-left: 8px;
+        }
+        .save-btn {
+            width: 100%;
+            padding: 10px;
+            background: #2d8f6f;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .save-btn:hover {
+            background: #23705a;
+        }
+        .success-message {
+            color: #2d8f6f;
+            text-align: center;
+            margin-top: 16px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-container">
+        <h2>إعدادات بسيطة</h2>
+        <form id="settingsForm">
+            <div class="setting">
+                <label for="devName">اسم المطور</label>
+                <input type="text" id="devName" name="devName" placeholder="أدخل اسم المطور">
+            </div>
+            <div class="setting">
+                <label for="devBio">نبذة عن المطور</label>
+                <textarea id="devBio" name="devBio" placeholder="اكتب نبذة مختصرة"></textarea>
+            </div>
+            <div class="setting">
+                <label for="devBg">لون الخلفية</label>
+                <input type="color" id="devBg" name="devBg">
+            </div>
+            <div class="setting">
+                <label for="devColor">لون النص</label>
+                <input type="color" id="devColor" name="devColor">
+            </div>
+            <button type="submit" class="save-btn">حفظ الإعدادات</button>
+            <div class="success-message" id="successMsg">تم حفظ الإعدادات بنجاح!</div>
+        </form>
+    </div>
+    <script>
+        const form = document.getElementById('settingsForm');
+        const successMsg = document.getElementById('successMsg');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // حفظ إعدادات صفحة المطور في localStorage
+            localStorage.setItem('advancedSettings', JSON.stringify({
+                devName: form.devName.value,
+                devBio: form.devBio.value,
+                devBg: form.devBg.value,
+                devColor: form.devColor.value
+            }));
+            successMsg.style.display = 'block';
+            setTimeout(() => successMsg.style.display = 'none', 2000);
+        });
+
+        // تحميل الإعدادات المحفوظة عند فتح الصفحة
+        window.onload = function() {
+            const s = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
+            if(s.devName) form.devName.value = s.devName;
+            if(s.devBio) form.devBio.value = s.devBio;
+            if(s.devBg) form.devBg.value = s.devBg;
+            if(s.devColor) form.devColor.value = s.devColor;
+        }
+    </script>
+</body>
+</html>
