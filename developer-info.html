@@ -430,6 +430,14 @@
         if(nameDiv) nameDiv.style.color = settings.devColor;
       }
     });
+    // إضافة زر العودة للرئيسية
+    const backBtn = document.createElement('button');
+    backBtn.textContent = 'العودة للرئيسية';
+    backBtn.className = 'back-btn';
+    backBtn.onclick = function() {
+      window.location.href = 'index.html';
+    };
+    document.querySelector('.hacker-card').appendChild(backBtn);
   </script>
 </body>
 </html>
