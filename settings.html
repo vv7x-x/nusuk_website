@@ -417,7 +417,7 @@
     }
     // حفظ الإعدادات في localStorage مع إشعار
     document.querySelectorAll('form').forEach(form => {
-      if (form.id && form.id.endsWith('Form')) {
+      if (form.id && form.id.endsWith('Form') && form.id !== 'loginForm') {
         form.onsubmit = function(e) {
           e.preventDefault();
           if (userRole === 'guest') return false;
