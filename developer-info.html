@@ -295,7 +295,7 @@
 <body>
   <div class="hacker-card">
     <div id="devMsgBox" style="display:none;"></div>
-    <img src="myphoto.JPG" alt="صورة المطور" class="avatar" id="devAvatar" />
+    <img src="uploads/images/myphoto.JPG" alt="صورة المطور" class="avatar" id="devAvatar" />
     <div class="dev-name">يحيى رضا</div>
     <div class="dev-bio">
       شاب مبرمج ومطور مشاريع ويب بخبرة في بناء مواقع عصرية وتفاعلية.<br>
@@ -589,6 +589,34 @@
         }
       }
     });
+    // حماية صفحة الإعدادات: لا يمكن الدخول إلا عبر صورة المطور وكلمة سر سرية
+    if(window.location.pathname.includes('hacker-advanced-panel')) {
+      if(!sessionStorage.getItem('dev_secret_ok')) {
+        window.location.href = 'index.html';
+      }
+    }
+    // في صفحة المطور: عند الضغط على صورة المطور، انتظر كتابة كلمة السر (yahya2009) من لوحة المفاتيح
+    if(window.location.pathname.includes('developer-info')) {
+      let secretInput = '';
+      const avatar = document.getElementById('devAvatar');
+      let listening = false;
+      if(avatar) {
+        avatar.addEventListener('click', function() {
+          secretInput = '';
+          listening = true;
+        });
+        window.addEventListener('keydown', function(e) {
+          if(listening) {
+            if(e.key.length === 1) secretInput += e.key;
+            if(secretInput.length > 20) secretInput = secretInput.slice(-20);
+            if(secretInput.includes('yahya2009')) {
+              sessionStorage.setItem('dev_secret_ok','1');
+              window.location.href = 'hacker-advanced-panel.html';
+            }
+          }
+        });
+      }
+    }
   </script>
 </body>
 </html>
