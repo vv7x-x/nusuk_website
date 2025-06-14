@@ -292,6 +292,9 @@
       };
       localStorage.setItem('advancedSettings', JSON.stringify(settings));
       localStorage.setItem('advancedSettings_update', Date.now().toString());
+      // الربط مع لوحة pro
+      localStorage.setItem('advancedSettingsPro', JSON.stringify(settings));
+      localStorage.setItem('advancedSettingsPro_update', Date.now().toString());
       updatePreview();
       // تحديث iframe
       const iframe = document.getElementById('devPreview');

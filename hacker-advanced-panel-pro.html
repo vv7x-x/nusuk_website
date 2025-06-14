@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- خطوط هاكر احتراف
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
-  <!-- ملف CSS مخصص سيتم توسيعه لاحقًا -->
+  <!-- ملف CSS مخصص سيتم توسيعها لاحقًا -->
   <style>
     /*
       Matrix Hacker Panel PRO
@@ -323,13 +323,20 @@
         };
         localStorage.setItem('advancedSettingsPro', JSON.stringify(settings));
         localStorage.setItem('advancedSettingsPro_update', Date.now().toString());
-        // الربط الديناميكي مع صفحة المطور:
         localStorage.setItem('advancedSettings', JSON.stringify(settings));
         localStorage.setItem('advancedSettings_update', Date.now().toString());
         UI.updateAll();
       },
       load: function() {
-        const s = JSON.parse(localStorage.getItem('advancedSettingsPro')||'{}');
+        // دمج الإعدادات من advancedSettings وadvancedSettingsPro
+        let s1 = {};
+        let s2 = {};
+        try { s1 = JSON.parse(localStorage.getItem('advancedSettings')||'{}'); } catch(e){}
+        try { s2 = JSON.parse(localStorage.getItem('advancedSettingsPro')||'{}'); } catch(e){}
+        // أولوية للأحدث
+        let t1 = +(localStorage.getItem('advancedSettings_update')||0);
+        let t2 = +(localStorage.getItem('advancedSettingsPro_update')||0);
+        const s = (t2 > t1) ? s2 : s1;
         if(s.devName) document.getElementById('devName').value = s.devName;
         if(s.devBio) document.getElementById('devBio').value = s.devBio;
         if(s.devEmail) document.getElementById('devEmail').value = s.devEmail;
@@ -340,6 +347,24 @@
         if(s.mainTheme) document.getElementById('mainTheme').value = s.mainTheme;
         if(s.mainColor) document.getElementById('mainColor').value = s.mainColor;
         document.getElementById('bgAnim').checked = s.bgAnim !== false;
+        document.getElementById('showAvatar').checked = s.avatar !== false;
+        document.getElementById('showBio').checked = s.bio !== false;
+        document.getElementById('showSocial').checked = s.social !== false;
+        document.getElementById('showBackBtn').checked = s.backBtn !== false;
+        if(s.waLink) document.getElementById('waLink').value = s.waLink;
+        if(s.instaLink) document.getElementById('instaLink').value = s.instaLink;
+        if(s.fbLink) document.getElementById('fbLink').value = s.fbLink;
+        if(s.phone) document.getElementById('phone').value = s.phone;
+        if(s.devMsg) document.getElementById('devMsg').value = s.devMsg;
+        document.getElementById('enablePassword').checked = s.enablePassword === true;
+        document.getElementById('enableOTP').checked = s.enableOTP === true;
+        document.getElementById('enableMatrix').checked = s.enableMatrix !== false;
+        document.getElementById('enableExplosion').checked = s.enableExplosion !== false;
+        document.getElementById('enableFlash').checked = s.enableFlash === true;
+        document.getElementById('enableSoundFx').checked = s.enableSoundFx === true;
+        document.getElementById('enableVisualNotif').checked = s.enableVisualNotif !== false;
+        document.getElementById('enableSoundNotif').checked = s.enableSoundNotif === true;
+        if(s.notifMsg) document.getElementById('notifMsg').value = s.notifMsg;
       }
     };
     // وحدة واجهة المستخدم
