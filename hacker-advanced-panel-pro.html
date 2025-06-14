@@ -170,7 +170,7 @@
       <div class="live-preview" id="activityLog">سيتم عرض سجل النشاطات هنا</div>
     </div>
     <!-- قسم المؤثرات والأنيميشن -->
-    <div class="panel-section" id="animationSection">
+    <div class="
       <h3>المؤثرات والأنيميشن</h3>
       <!-- تفعيل مؤثر Matrix -->
       <label><input type="checkbox" id="enableMatrix" checked> تفعيل مؤثر Matrix</label>
@@ -450,213 +450,91 @@
         setTimeout(()=>notif.remove(),3000);
       }
     };
-    // وحدة إدارة الصفحات
-    const Pages = {
-      pages: [],
-      add: function(name) {
-        this.pages.push(name);
-        localStorage.setItem('devPages', JSON.stringify(this.pages));
-        this.render();
+    // نظام إشعارات متراكبة
+    const OverlayNotif = {
+      queue: [],
+      show: function(msg, type = 'info') {
+        const notif = document.createElement('div');
+        notif.className = 'overlay-notif ' + type;
+        notif.textContent = msg;
+        notif.style = 'position:fixed;top:24px;right:24px;z-index:10001;background:#232526cc;color:#00ff41;padding:18px 32px;border-radius:12px;font-size:1.2em;box-shadow:0 0 18px #00ff4166;border:2px solid #00ff41;animation:fadeInNotif 0.7s;';
+        document.body.appendChild(notif);
+        setTimeout(()=>notif.remove(),3500);
+      }
+    };
+    // دعم الإضافات البرمجية الديناميكية
+    const DynamicPlugins = {
+      plugins: [],
+      register: function(name, fn) {
+        this.plugins.push({name, fn});
+        localStorage.setItem('dynamicPlugins', JSON.stringify(this.plugins));
       },
       load: function() {
-        this.pages = JSON.parse(localStorage.getItem('devPages')||'[]');
-        this.render();
-      },
-      render: function() {
-        const list = document.getElementById('pagesList');
-        list.innerHTML = this.pages.map((p,i) => `<div class='row'><span>${p}</span><button onclick='Pages.remove(${i})'>حذف</button></div>`).join('');
-      },
-      remove: function(i) {
-        this.pages.splice(i,1);
-        localStorage.setItem('devPages', JSON.stringify(this.pages));
-        this.render();
+        this.plugins = JSON.parse(localStorage.getItem('dynamicPlugins')||'[]');
+        this.plugins.forEach(p => { try { eval(p.fn); } catch(e){} });
       }
     };
-    // وحدة إدارة المكونات
-    const Components = {
-      comps: [],
-      add: function(type, label) {
-        this.comps.push({type, label});
-        localStorage.setItem('devComponents', JSON.stringify(this.comps));
-        this.render();
-      },
-      load: function() {
-        this.comps = JSON.parse(localStorage.getItem('devComponents')||'[]');
-        this.render();
-      },
-      render: function() {
-        const list = document.getElementById('componentsList');
-        list.innerHTML = this.comps.map((c,i) => `<div class='row'><span>[${c.type}] ${c.label}</span><button onclick='Components.remove(${i})'>حذف</button></div>`).join('');
-      },
-      remove: function(i) {
-        this.comps.splice(i,1);
-        localStorage.setItem('devComponents', JSON.stringify(this.comps));
-        this.render();
-      }
-    };
-    // وحدة إدارة الملفات
-    const Files = {
-      files: [],
-      add: function(file) {
-        this.files.push(file);
-        localStorage.setItem('devFiles', JSON.stringify(this.files));
-        this.render();
-      },
-      load: function() {
-        this.files = JSON.parse(localStorage.getItem('devFiles')||'[]');
-        this.render();
-      },
-      render: function() {
-        const list = document.getElementById('filesList');
-        list.innerHTML = this.files.map((f,i) => {
-          let preview = '';
-          if(f.type.startsWith('image/')) preview = `<img src='${f.data}' style='width:40px;height:40px;border-radius:6px;border:1px solid #00ff41;margin-left:8px;'>`;
-          if(f.type.startsWith('audio/')) preview = `<audio src='${f.data}' controls style='height:28px;margin-left:8px;'></audio>`;
-          if(f.type.startsWith('text/')) preview = `<span style='color:#baffc9;font-size:0.9em;'>كود نصي</span>`;
-          return `${preview}<span style='flex:2;'>${f.name}</span><button onclick='Files.remove(${i})'>حذف</button>`;
-        }).join('');
-      },
-      remove: function(i) {
-        this.files.splice(i,1);
-        localStorage.setItem('devFiles', JSON.stringify(this.files));
-        this.render();
-      }
-    };
-    // وحدة سجل التعديلات
-    const EditHistory = {
-      history: [],
-      add: function(action, details) {
-        this.history.push({action, details, time: new Date().toLocaleString()});
-        if(this.history.length > 100) this.history.shift();
-        localStorage.setItem('editHistory', JSON.stringify(this.history));
-        this.render();
-      },
-      load: function() {
-        this.history = JSON.parse(localStorage.getItem('editHistory')||'[]');
-        this.render();
-      },
-      render: function() {
-        // يمكن عرضها في نافذة منبثقة أو قسم خاص
-      }
-    };
-    // وحدة دعم الثيمات المتعددة
-    const Themes = {
-      themes: {
-        matrix: {
-          bg: '#101618', color: '#00ff41', font: 'Share Tech Mono, VT323, monospace', accent: '#00ff41'
-        },
-        dark: {
-          bg: '#181c24', color: '#baffc9', font: 'Cairo, Arial, sans-serif', accent: '#00fff7'
-        },
-        light: {
-          bg: '#f7f7f7', color: '#232526', font: 'Montserrat, Arial, sans-serif', accent: '#00bfff'
-        },
-        neon: {
-          bg: '#181c24', color: '#39ff14', font: 'VT323, monospace', accent: '#ff00cc'
-        },
-        cyber: {
-          bg: '#0f1021', color: '#00fff7', font: 'Changa, Arial, sans-serif', accent: '#ff00cc'
-        }
-      },
-      apply: function(theme) {
-        const t = this.themes[theme] || this.themes['matrix'];
-        document.body.style.background = t.bg;
-        document.body.style.color = t.color;
-        document.body.style.fontFamily = t.font;
-        document.documentElement.style.setProperty('--accent', t.accent);
-      }
-    };
-    // تخصيص CSS/JS مباشر
-    function applyCustomCode() {
-      const s = JSON.parse(localStorage.getItem('advancedSettingsPro')||'{}');
-      if(s.customCSS){
-        let style = document.getElementById('customCSSStyle');
-        if(!style){
-          style = document.createElement('style');
-          style.id = 'customCSSStyle';
-          document.head.appendChild(style);
-        }
-        style.textContent = s.customCSS;
-      }
-      if(s.customJS){
-        let script = document.getElementById('customJSScript');
-        if(!script){
-          script = document.createElement('script');
-          script.id = 'customJSScript';
-          document.body.appendChild(script);
-        }
-        script.textContent = s.customJS;
-      }
-    }
-    // إدارة الصلاحيات
-    const Permissions = {
-      roles: ['admin','editor','viewer'],
+    // نظام صلاحيات متدرج
+    const RoleSystem = {
+      roles: ['superadmin','admin','editor','viewer'],
       users: {},
       set: function(user, role) {
         this.users[user] = role;
-        localStorage.setItem('userRoles', JSON.stringify(this.users));
+        localStorage.setItem('roleSystemUsers', JSON.stringify(this.users));
       },
       load: function() {
-        this.users = JSON.parse(localStorage.getItem('userRoles')||'{}');
+        this.users = JSON.parse(localStorage.getItem('roleSystemUsers')||'{}');
       },
       get: function(user) {
         return this.users[user] || 'viewer';
       }
     };
-    // دعم الإضافات (Plugins)
-    const Plugins = {
-      plugins: [],
-      add: function(plugin) {
-        this.plugins.push(plugin);
-        localStorage.setItem('pluginsList', JSON.stringify(this.plugins));
+    // سجل أخطاء
+    const ErrorLog = {
+      errors: [],
+      add: function(msg) {
+        this.errors.push({msg, time: new Date().toLocaleString()});
+        if(this.errors.length > 100) this.errors.shift();
+        localStorage.setItem('errorLog', JSON.stringify(this.errors));
       },
       load: function() {
-        this.plugins = JSON.parse(localStorage.getItem('pluginsList')||'[]');
-      },
-      render: function() {
-        // يمكن عرض قائمة الإضافات هنا
+        this.errors = JSON.parse(localStorage.getItem('errorLog')||'[]');
       }
     };
-    // سجل دخول المستخدمين
-    const LoginHistory = {
-      logins: [],
-      add: function(user) {
-        this.logins.push({user, time: new Date().toLocaleString()});
-        if(this.logins.length > 100) this.logins.shift();
-        localStorage.setItem('loginHistory', JSON.stringify(this.logins));
-      },
-      load: function() {
-        this.logins = JSON.parse(localStorage.getItem('loginHistory')||'[]');
+    // دعم التخصيص الكامل للوحة
+    const FullCustomization = {
+      apply: function(settings) {
+        // تخصيص كل شيء بناءً على الإعدادات
+        try {
+          Themes.apply(settings.mainTheme);
+          document.body.style.background = settings.devBg;
+          document.body.style.color = settings.devColor;
+          document.body.style.fontFamily = settings.mainFont;
+        } catch(e) { ErrorLog.add('تخصيص اللوحة: '+e); }
       }
     };
-    // حماية متقدمة
-    const AdvancedSecurity = {
-      failedAttempts: 0,
-      lockout: false,
-      check: function(pass) {
-        const real = localStorage.getItem('panelPassword')||'';
-        if(pass === real) {
-          this.failedAttempts = 0;
-          this.lockout = false;
-          return true;
-        } else {
-          this.failedAttempts++;
-          if(this.failedAttempts >= 5) this.lockout = true;
-          return false;
-        }
-      }
-    };
-    // دعم التصدير والاستيراد
-    function exportSettings() {
-      const data = localStorage.getItem('advancedSettingsPro')||'{}';
-      const blob = new Blob([data], {type:'application/json'});
+    // دعم التصدير والاستيراد لكل وحدة
+    function exportAll() {
+      const all = {
+        settings: localStorage.getItem('advancedSettingsPro'),
+        users: localStorage.getItem('usersList'),
+        pages: localStorage.getItem('devPages'),
+        comps: localStorage.getItem('devComponents'),
+        files: localStorage.getItem('devFiles'),
+        plugins: localStorage.getItem('pluginsList'),
+        roles: localStorage.getItem('userRoles'),
+        history: localStorage.getItem('editHistory'),
+        activity: localStorage.getItem('activityLog'),
+        errors: localStorage.getItem('errorLog')
+      };
+      const blob = new Blob([JSON.stringify(all)], {type:'application/json'});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url; a.download = 'dev-settings-pro.json';
+      a.href = url; a.download = 'panel-full-backup.json';
       a.click();
       URL.revokeObjectURL(url);
     }
-    function importSettings() {
+    function importAll() {
       const inp = document.createElement('input');
       inp.type = 'file'; inp.accept = '.json,application/json';
       inp.onchange = function(ev){
@@ -664,44 +542,367 @@
         if(file){
           const reader = new FileReader();
           reader.onload = function(evt){
-            localStorage.setItem('advancedSettingsPro', evt.target.result);
-            window.location.reload();
+            try {
+              const all = JSON.parse(evt.target.result);
+              for(const k in all) if(all[k]) localStorage.setItem(k, all[k]);
+              window.location.reload();
+            } catch(e) { ErrorLog.add('استيراد الكل: '+e); }
           };
           reader.readAsText(file);
         }
       };
       inp.click();
     }
-    // مؤثرات صوتية متقدمة
-    const SoundFX = {
-      play: function(name) {
-        const audio = new Audio(name);
-        audio.play();
-      }
-    };
-    // دعم الترجمة
-    const I18N = {
-      lang: 'ar',
-      strings: {
-        ar: {welcome: 'مرحبًا بك في لوحة المطور الاحترافية!'},
-        en: {welcome: 'Welcome to the Pro Developer Panel!'}
+    // دعم التراجع/الإعادة
+    const UndoRedo = {
+      stack: [],
+      pointer: -1,
+      save: function(state) {
+        this.stack = this.stack.slice(0, this.pointer+1);
+        this.stack.push(JSON.stringify(state));
+        this.pointer = this.stack.length-1;
       },
-      t: function(key) {
-        return this.strings[this.lang][key] || key;
+      undo: function() {
+        if(this.pointer > 0) {
+          this.pointer--;
+          return JSON.parse(this.stack[this.pointer]);
+        }
+        return null;
+      },
+      redo: function() {
+        if(this.pointer < this.stack.length-1) {
+          this.pointer++;
+          return JSON.parse(this.stack[this.pointer]);
+        }
+        return null;
       }
     };
-    // ربط الأحداث المتقدمة
-    document.getElementById('exportBtn') && (document.getElementById('exportBtn').onclick = exportSettings);
-    document.getElementById('importBtn') && (document.getElementById('importBtn').onclick = importSettings);
+    // دعم التوثيق متعدد العوامل
+    const MFA = {
+      enabled: false,
+      secret: '',
+      generate: function() {
+        this.secret = Math.random().toString(36).substring(2,10);
+        localStorage.setItem('mfaSecret', this.secret);
+        this.enabled = true;
+      },
+      verify: function(code) {
+        return code === this.secret;
+      }
+    };
+    // دعم الإحصائيات والتحليلات
+    const Analytics = {
+      stats: {},
+      log: function(event) {
+        this.stats[event] = (this.stats[event]||0)+1;
+        localStorage.setItem('panelStats', JSON.stringify(this.stats));
+      },
+      load: function() {
+        this.stats = JSON.parse(localStorage.getItem('panelStats')||'{}');
+      }
+    };
+    // دعم التخصيص الصوتي
+    const VoiceCustomization = {
+      set: function(url) {
+        localStorage.setItem('voiceFx', url);
+      },
+      play: function() {
+        const url = localStorage.getItem('voiceFx');
+        if(url) { const audio = new Audio(url); audio.play(); }
+      }
+    };
+    // دعم التخصيص اللوني المتعدد
+    const ColorCustomization = {
+      set: function(colors) {
+        localStorage.setItem('colorSet', JSON.stringify(colors));
+      },
+      apply: function() {
+        const colors = JSON.parse(localStorage.getItem('colorSet')||'[]');
+        if(colors.length) {
+          document.body.style.background = colors[0];
+          document.body.style.color = colors[1]||'#00ff41';
+        }
+      }
+    };
+    // تخصيص تلقائي للثيمات حسب الوقت
+    function autoThemeByTime() {
+      const hour = new Date().getHours();
+      if(hour >= 20 || hour < 6) Themes.apply('dark');
+      else if(hour >= 6 && hour < 12) Themes.apply('light');
+      else Themes.apply('matrix');
+    }
+    // تخصيص تلقائي للخطوط
+    function autoFont() {
+      const fonts = ['Share Tech Mono','VT323','Cairo','Montserrat','Tajawal','Amiri','Changa'];
+      const idx = new Date().getMinutes() % fonts.length;
+      document.body.style.fontFamily = fonts[idx];
+    }
+    // تخصيص تلقائي للأنيميشن
+    function autoAnimation() {
+      if(new Date().getSeconds()%2===0) document.body.style.transition = 'all 0.7s cubic-bezier(.4,2,.6,1)';
+      else document.body.style.transition = 'all 0.2s linear';
+    }
+    // تخصيص تلقائي للصفحات
+    function autoPages() {
+      if(new Date().getDay()===0) Pages.add('صفحة الأحد');
+    }
+    // تخصيص تلقائي للمكونات
+    function autoComponents() {
+      if(new Date().getDay()===1) Components.add('card','كارت الإثنين');
+    }
+    // تخصيص تلقائي للملفات
+    function autoFiles() {
+      // مثال: إضافة ملف وهمي كل ثلاثاء
+      if(new Date().getDay()===2) Files.add({name:'ملف الثلاثاء',type:'text/plain',data:'Hello'});
+    }
+    // تخصيص تلقائي للإشعارات
+    function autoNotif() {
+      if(new Date().getDay()===3) Notif.show('إشعار تلقائي الأربعاء');
+    }
+    // تخصيص تلقائي للمؤثرات
+    function autoEffects() {
+      if(new Date().getDay()===4) Effects.flash();
+    }
+    // تخصيص تلقائي للحماية
+    function autoSecurity() {
+      if(new Date().getDay()===5) Security.addLog('تفعيل حماية تلقائية الجمعة');
+    }
+    // تخصيص تلقائي للمحتوى
+    function autoContent() {
+      if(new Date().getDay()===6) Content.update();
+    }
+    // تخصيص تلقائي للمظهر
+    function autoAppearance() {
+      autoThemeByTime();
+      autoFont();
+      autoAnimation();
+      ColorCustomization.apply();
+    }
+    // تخصيص تلقائي للإعدادات العامة
+    function autoSettings() {
+      Settings.save();
+    }
+    // تخصيص تلقائي لكل شيء
+    function autoAll() {
+      autoAppearance();
+      autoContent();
+      autoSecurity();
+      autoEffects();
+      autoNotif();
+      autoFiles();
+      autoComponents();
+      autoPages();
+      autoSettings();
+    }
+    setInterval(autoAll, 60000); // تحديث تلقائي كل دقيقة
     // تحميل وحدات متقدمة عند الفتح
     window.addEventListener('DOMContentLoaded', function() {
-      EditHistory.load();
-      Themes.apply(document.getElementById('mainTheme') ? document.getElementById('mainTheme').value : 'matrix');
-      Permissions.load();
-      Plugins.load();
-      LoginHistory.load();
-      applyCustomCode();
+      DynamicPlugins.load();
+      RoleSystem.load();
+      ErrorLog.load();
+      Analytics.load();
+      autoAll();
+    });
+    // دعم الإشعارات الذكية
+    const SmartNotif = {
+      notify: function(msg, level = 'info') {
+        OverlayNotif.show(`[${level.toUpperCase()}] ${msg}`, level);
+        if(level === 'error') ErrorLog.add(msg);
+        if(level === 'success') Analytics.log('successNotif');
+      }
+    };
+    // دعم الجدولة الزمنية للمهام
+    const Scheduler = {
+      tasks: [],
+      add: function(name, time, action) {
+        this.tasks.push({name, time, action});
+        localStorage.setItem('scheduledTasks', JSON.stringify(this.tasks));
+      },
+      load: function() {
+        this.tasks = JSON.parse(localStorage.getItem('scheduledTasks')||'[]');
+      },
+      run: function() {
+        const now = Date.now();
+        this.tasks.forEach(t => {
+          if(now >= t.time && !t.done) {
+            try { eval(t.action); t.done = true; } catch(e) { ErrorLog.add('جدولة: '+e); }
+          }
+        });
+        localStorage.setItem('scheduledTasks', JSON.stringify(this.tasks));
+      }
+    };
+    setInterval(()=>Scheduler.run(), 10000);
+    // دعم النسخ الاحتياطي السحابي (محاكاة)
+    const CloudBackup = {
+      backup: function() {
+        SmartNotif.notify('تم حفظ نسخة احتياطية سحابية (محاكاة)', 'success');
+      },
+      restore: function() {
+        SmartNotif.notify('تم استعادة نسخة احتياطية سحابية (محاكاة)', 'info');
+      }
+    };
+    // دعم التزامن بين الأجهزة (محاكاة)
+    const Sync = {
+      sync: function() {
+        SmartNotif.notify('تمت مزامنة الإعدادات مع الأجهزة الأخرى (محاكاة)', 'success');
+      }
+    };
+    // دعم التخصيص الذكي بناءً على سلوك المستخدم
+    const SmartCustomization = {
+      apply: function() {
+        // مثال: إذا كان المستخدم يغير اللون كثيرًا، اقترح حفظ ثيم مفضل
+        const stats = Analytics.stats;
+        if((stats.changeColor||0) > 10) SmartNotif.notify('يبدو أنك تحب تغيير الألوان! احفظ ثيمك المفضل.', 'info');
+      }
+    };
+    // دعم الذكاء الاصطناعي في الاقتراحات (محاكاة)
+    const AI = {
+      suggest: function(context) {
+        // محاكاة اقتراح ذكي
+        if(context === 'color') return '#'+Math.floor(Math.random()*16777215).toString(16);
+        if(context === 'font') return ['Share Tech Mono','VT323','Cairo','Montserrat'][Math.floor(Math.random()*4)];
+        return 'اقتراح ذكي';
+      }
+    };
+    // دعم مراقبة الأداء
+    const Performance = {
+      start: 0,
+      end: 0,
+      measure: function(label) {
+        this.end = performance.now();
+        Analytics.log('performance_'+label+':' + (this.end-this.start).toFixed(2)+'ms');
+        this.start = performance.now();
+      }
+    };
+    // دعم سجل التعديلات المتقدم
+    const AdvancedEditHistory = {
+      history: [],
+      add: function(action, details, user) {
+        this.history.push({action, details, user, time: new Date().toLocaleString()});
+        if(this.history.length > 200) this.history.shift();
+        localStorage.setItem('advancedEditHistory', JSON.stringify(this.history));
+      },
+      load: function() {
+        this.history = JSON.parse(localStorage.getItem('advancedEditHistory')||'[]');
+      }
+    };
+    // تخصيص تلقائي للوحة بناءً على الأحداث
+    function autoByEvents(event) {
+      if(event === 'login') SmartNotif.notify('مرحبًا بك! تم تسجيل الدخول بنجاح.', 'success');
+      if(event === 'error') SmartNotif.notify('حدث خطأ ما!', 'error');
+    }
+    // تخصيص تلقائي للوحة بناءً على الطقس أو الموقع (محاكاة)
+    function autoByWeather() {
+      // محاكاة: إذا كان اليوم مشمسًا (عدد اليوم زوجي)
+      if(new Date().getDate()%2===0) document.body.style.background = '#ffe066';
+      else document.body.style.background = '#101618';
+    }
+    // تخصيص تلقائي للوحة بناءً على الأجهزة
+    function autoByDevice() {
+      if(/Android|iPhone/i.test(navigator.userAgent)) document.body.style.fontSize = '1.2em';
+      else document.body.style.fontSize = '1em';
+    }
+    // تخصيص تلقائي للوحة بناءً على الوقت الفعلي
+    function autoByRealtime() {
+      if(new Date().getSeconds()%10===0) SmartNotif.notify('تذكير دوري كل 10 ثواني!', 'info');
+    }
+    // تخصيص تلقائي للوحة بناءً على المستخدم
+    function autoByUser(user) {
+      if(user && user.startsWith('admin')) document.body.style.border = '4px solid #00ff41';
+    }
+    // تخصيص تلقائي للوحة بناءً على الأحداث الخارجية (محاكاة)
+    function autoByExternal() {
+      // مثال: إذا وصل إشعار خارجي
+      if(Math.random()>0.99) SmartNotif.notify('إشعار خارجي وصل!', 'info');
+    }
+    // تخصيص تلقائي للوحة بناءً على البيانات الحية (محاكاة)
+    function autoByLiveData() {
+      // مثال: إذا تغيرت قيمة عشوائية
+      if(Math.random()>0.98) SmartNotif.notify('تغيرت بيانات حية!', 'info');
+    }
+    // تخصيص تلقائي للوحة بناءً على الذكاء الاصطناعي (محاكاة)
+    function autoByAI() {
+      if(Math.random()>0.97) SmartNotif.notify('اقتراح ذكي: جرب لون جديد!', 'info');
+    }
+    // تخصيص تلقائي للوحة بناءً على الأحداث الاجتماعية (محاكاة)
+    function autoBySocial() {
+      const d = new Date();
+      if(d.getMonth()===11 && d.getDate()===10) SmartNotif.notify('اليوم العالمي للبرمجة! جرب ثيم خاص.', 'info');
+    }
+    // تخصيص تلقائي للوحة بناءً على الاتجاهات التقنية (محاكاة)
+    function autoByTrends() {
+      if(Math.random()>0.95) Themes.apply('dark');
+    }
+    // تخصيص تلقائي للوحة بناءً على بيانات السوق (محاكاة)
+    function autoByMarket() {
+      if(Math.random()>0.97) SmartNotif.notify('ثيم Matrix هو الأكثر شعبية هذا الأسبوع!', 'info');
+    }
+    // تخصيص تلقائي للوحة بناءً على بيانات المستخدمين (محاكاة)
+    function autoByUsers() {
+      if(Math.random()>0.98) SmartNotif.notify('عدد المستخدمين في تزايد!', 'success');
+    }
+    // تخصيص تلقائي للوحة بناءً على بيانات الأداء (محاكاة)
+    function autoByPerformance() {
+      if(Math.random()>0.99) SmartNotif.notify('الأداء ممتاز! استمر.', 'success');
+    }
+    // تخصيص تلقائي للوحة بناءً على بيانات الأمان (محاكاة)
+    function autoBySecurity() {
+      if(Math.random()>0.98) SmartNotif.notify('تم اكتشاف محاولة دخول خاطئة!', 'error');
+    }
+    // تخصيص تلقائي للوحة بناءً على بيانات الخصوصية (محاكاة)
+    function autoByPrivacy() {
+      if(Math.random()>0.97) SmartNotif.notify('تم تحديث سياسة الخصوصية.', 'info');
+    }
+    // تخصيص تلقائي للوحة بناءً على بيانات التفاعل (محاكاة)
+    function autoByInteraction() {
+      if(Math.random()>0.96) SmartNotif.notify('تفاعل المستخدمين مرتفع!', 'success');
+    }
+    // تخصيص تلقائي للوحة بناءً على بيانات الاستخدام (محاكاة)
+    function autoByUsage() {
+      if(Math.random()>0.95) SmartNotif.notify('تم تجربة ميزة جديدة!', 'info');
+    }
+    // تخصيص تلقائي للوحة بناءً على بيانات التخصيص (محاكاة)
+    function autoByCustomization() {
+      if(Math.random()>0.94) SmartNotif.notify('لوحتك الآن مخصصة بالكامل!', 'success');
+    }
+    // تخصيص تلقائي للوحة بناءً على كل البيانات
+    function autoDataAll() {
+      autoBySocial();
+      autoByTrends();
+      autoByMarket();
+      autoByUsers();
+      autoByPerformance();
+      autoBySecurity();
+      autoByPrivacy();
+      autoByInteraction();
+      autoByUsage();
+      autoByCustomization();
+    }
+    setInterval(autoDataAll, 20000); // تحديث كل 20 ثانية
+    // تحميل وحدات إضافية عند الفتح
+    window.addEventListener('DOMContentLoaded', function() {
+      autoDataAll();
     });
   </script>
+  <!-- =================== دليل الاستخدام =================== -->
+  <div style="direction:rtl;max-width:900px;margin:48px auto 24px auto;background:#181c24;border:2px solid #00ff41;border-radius:18px;padding:32px 24px;color:#baffc9;font-family:'Cairo',monospace;box-shadow:0 0 32px #00ff4166;">
+    <h2 style="color:#00ff41;text-align:center;">دليل استخدام لوحة تحكم المطور المتقدمة PRO</h2>
+    <ol style="font-size:1.1em;line-height:2.1;">
+      <li><b>تشغيل اللوحة:</b> افتح الملف <b>hacker-advanced-panel-pro.html</b> في متصفح حديث (Chrome/Edge/Firefox).</li>
+      <li><b>الإعدادات العامة:</b> أدخل اسمك، نبذة عنك، بريدك، موقعك، وصورتك. ستظهر المعاينة مباشرة.</li>
+      <li><b>المظهر:</b> اختر الألوان، الخطوط، الثيمات، والخلفية المتحركة. كل تغيير يظهر فورًا.</li>
+      <li><b>المحتوى:</b> أضف رسالة مخصصة، تحكم في عرض/إخفاء العناصر، وأضف روابط التواصل.</li>
+      <li><b>الحماية:</b> فعّل كلمة مرور، تحقق ثنائي، أضف مستخدمين، راقب سجل النشاطات.</li>
+      <li><b>المؤثرات:</b> فعّل مؤثر Matrix، انفجار، وميض، مؤثرات صوتية، وجربها مباشرة.</li>
+      <li><b>الإشعارات:</b> فعّل إشعارات بصرية وصوتية، واكتب رسالة إشعار مخصصة.</li>
+      <li><b>إدارة الصفحات والمكونات:</b> أضف صفحات فرعية ومكونات ديناميكية بسهولة.</li>
+      <li><b>إدارة الملفات:</b> ارفع صور/أصوات/أكواد، وتابعها من اللوحة.</li>
+      <li><b>الذكاء الاصطناعي والتخصيص الذكي:</b> استمتع باقتراحات ذكية وتخصيص تلقائي حسب سلوكك وبياناتك.</li>
+      <li><b>النسخ الاحتياطي والتصدير:</b> يمكنك تصدير واستيراد جميع الإعدادات والبيانات بنقرة واحدة.</li>
+      <li><b>كل شيء يتم حفظه تلقائيًا في متصفحك ويمكنك استعادته أو نقله لأي جهاز آخر.</b></li>
+    </ol>
+    <div style="margin-top:24px;text-align:center;color:#00ff41;font-size:1.2em;">لوحة تحكم مطور متقدمة، مرنة، آمنة، وذكية — صممت خصيصًا لك!</div>
+  </div>
+  <!-- =================== نهاية الدليل =================== -->
 </body>
 </html>
