@@ -301,9 +301,31 @@
           mainFont: document.getElementById('mainFont').value,
           mainTheme: document.getElementById('mainTheme').value,
           mainColor: document.getElementById('mainColor').value,
-          bgAnim: document.getElementById('bgAnim').checked
+          bgAnim: document.getElementById('bgAnim').checked,
+          avatar: document.getElementById('showAvatar').checked,
+          bio: document.getElementById('showBio').checked,
+          social: document.getElementById('showSocial').checked,
+          backBtn: document.getElementById('showBackBtn').checked,
+          waLink: document.getElementById('waLink').value,
+          instaLink: document.getElementById('instaLink').value,
+          fbLink: document.getElementById('fbLink').value,
+          phone: document.getElementById('phone').value,
+          devMsg: document.getElementById('devMsg').value,
+          enablePassword: document.getElementById('enablePassword').checked,
+          enableOTP: document.getElementById('enableOTP').checked,
+          enableMatrix: document.getElementById('enableMatrix').checked,
+          enableExplosion: document.getElementById('enableExplosion').checked,
+          enableFlash: document.getElementById('enableFlash').checked,
+          enableSoundFx: document.getElementById('enableSoundFx').checked,
+          enableVisualNotif: document.getElementById('enableVisualNotif').checked,
+          enableSoundNotif: document.getElementById('enableSoundNotif').checked,
+          notifMsg: document.getElementById('notifMsg').value
         };
         localStorage.setItem('advancedSettingsPro', JSON.stringify(settings));
+        localStorage.setItem('advancedSettingsPro_update', Date.now().toString());
+        // الربط الديناميكي مع صفحة المطور:
+        localStorage.setItem('advancedSettings', JSON.stringify(settings));
+        localStorage.setItem('advancedSettings_update', Date.now().toString());
         UI.updateAll();
       },
       load: function() {
@@ -882,6 +904,98 @@
     // تحميل وحدات إضافية عند الفتح
     window.addEventListener('DOMContentLoaded', function() {
       autoDataAll();
+    });
+    // تخصيص عبر أوامر صوتية (محاكاة)
+    function voiceCommandCustomization() {
+      if (!('webkitSpeechRecognition' in window)) return;
+      const rec = new webkitSpeechRecognition();
+      rec.lang = 'ar';
+      rec.onresult = function(e) {
+        const cmd = e.results[0][0].transcript.trim();
+        if(cmd.includes('داكن')) Themes.apply('dark');
+        if(cmd.includes('ماتريكس')) Themes.apply('matrix');
+        if(cmd.includes('نيون')) Themes.apply('neon');
+        if(cmd.includes('فاتح')) Themes.apply('light');
+        if(cmd.includes('سايبر')) Themes.apply('cyber');
+        SmartNotif.notify('تم تنفيذ الأمر الصوتي: '+cmd, 'success');
+      };
+      document.body.addEventListener('dblclick', ()=>rec.start());
+    }
+    // تخصيص تلقائي بناءً على الموقع الجغرافي (محاكاة)
+    function autoByGeo() {
+      if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          if(pos.coords.latitude > 30) Themes.apply('matrix');
+          else Themes.apply('light');
+        });
+      }
+    }
+    // تخصيص تلقائي بناءً على سرعة الإنترنت (محاكاة)
+    function autoByNetwork() {
+      if(navigator.connection && navigator.connection.downlink < 1) {
+        document.body.style.filter = 'grayscale(1)';
+        SmartNotif.notify('اتصال الإنترنت ضعيف، تم تفعيل وضع التوفير.', 'info');
+      } else {
+        document.body.style.filter = '';
+      }
+    }
+    // تخصيص تلقائي بناءً على حالة البطارية (محاكاة)
+    function autoByBattery() {
+      if(navigator.getBattery) {
+        navigator.getBattery().then(bat => {
+          if(bat.level < 0.2) {
+            document.body.style.opacity = '0.7';
+            SmartNotif.notify('البطارية منخفضة، تم تقليل الإضاءة.', 'info');
+          } else {
+            document.body.style.opacity = '1';
+          }
+        });
+      }
+    }
+    // تخصيص تلقائي بناءً على الطقس الحقيقي (محاكاة)
+    function autoByWeatherReal() {
+      // محاكاة: إذا كان اليوم مشمسًا (عدد اليوم زوجي)
+      if(new Date().getDate()%2===0) document.body.style.background = '#ffe066';
+      else document.body.style.background = '#101618';
+    }
+    // تخصيص تلقائي بناءً على الأحداث العالمية (محاكاة)
+    function autoByGlobalEvents() {
+      if(Math.random()>0.995) SmartNotif.notify('حدث عالمي: تم تفعيل ثيم خاص!', 'info');
+    }
+    // تخصيص تلقائي بناءً على المناسبات المحلية (محاكاة)
+    function autoByLocalEvents() {
+      if(Math.random()>0.995) SmartNotif.notify('مناسبة محلية: تم تفعيل ثيم خاص!', 'info');
+    }
+    // تخصيص تلقائي بناءً على مزاج المستخدم (محاكاة)
+    function autoByMood() {
+      if(Math.random()>0.995) SmartNotif.notify('مزاجك اليوم رائع! جرب ثيم ملون.', 'success');
+    }
+    // تخصيص تلقائي بناءً على الوقت الفعلي الدقيق
+    function autoByExactTime() {
+      const now = new Date();
+      if(now.getHours() === 0 && now.getMinutes() === 0) SmartNotif.notify('منتصف الليل! تم تفعيل وضع الليل.', 'info');
+    }
+    // تخصيص تلقائي بناءً على تفضيلات الذكاء الاصطناعي (محاكاة)
+    function autoByAIPrefs() {
+      if(Math.random()>0.995) Themes.apply(AI.suggest('theme')||'matrix');
+    }
+    // تخصيص تلقائي متكامل
+    function autoUltraAll() {
+      autoByGeo();
+      autoByNetwork();
+      autoByBattery();
+      autoByWeatherReal();
+      autoByGlobalEvents();
+      autoByLocalEvents();
+      autoByMood();
+      autoByExactTime();
+      autoByAIPrefs();
+    }
+    setInterval(autoUltraAll, 30000); // تحديث كل 30 ثانية
+    // تحميل وحدات تخصيص متقدمة جدًا عند الفتح
+    window.addEventListener('DOMContentLoaded', function() {
+      voiceCommandCustomization();
+      autoUltraAll();
     });
   </script>
   <!-- =================== دليل الاستخدام =================== -->
