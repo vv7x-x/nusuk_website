@@ -77,10 +77,89 @@
       .panel-container { flex-direction: column; gap: 0; padding: 8px 0; }
       .panel-section { min-width: 0; max-width: 99vw; margin-bottom: 18px; }
     }
+    .stat-card {
+      background: #181c24;
+      color: #00ff41;
+      border: 2px solid #00ff41;
+      border-radius: 12px;
+      padding: 10px 24px;
+      font-size: 1.1em;
+      font-weight: bold;
+      box-shadow: 0 0 12px #00ff4166;
+      display: flex; align-items: center; gap: 8px;
+      transition: background 0.3s, color 0.3s;
+    }
+    #sidebar-nav {
+      transition: background 0.3s;
+    }
+    .nav-btn {
+      background: #181c24;
+      color: #00ff41;
+      border: 2px solid #00ff41;
+      border-radius: 50%;
+      width: 40px; height: 40px;
+      margin-bottom: 6px;
+      font-size: 1.3em;
+      cursor: pointer;
+      box-shadow: 0 0 8px #00ff4166;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      background: #00ff41;
+      color: #101618;
+      transform: scale(1.08);
+      box-shadow: 0 0 18px #00ff41cc;
+    }
+    body.theme-light {
+      background: #f7fff7;
+      color: #222;
+    }
+    body.theme-light .panel-section, body.theme-light .stat-card {
+      background: #fff;
+      color: #222;
+      border-color: #39ff14;
+      box-shadow: 0 0 18px #39ff1444;
+    }
+    body.theme-light .nav-btn {
+      background: #fff;
+      color: #39ff14;
+      border-color: #39ff14;
+    }
+    body.theme-light .nav-btn:hover, body.theme-light .nav-btn.active {
+      background: #39ff14;
+      color: #fff;
+    }
+    body.theme-light #sidebar-nav {
+      background: #f7fff7ee;
+    }
+    @media (max-width: 700px) {
+      #sidebar-nav { width: 44px; }
+      .nav-btn { width: 32px; height: 32px; font-size: 1em; }
+      #stats-bar { flex-direction: column; gap: 8px; align-items: center; }
+    }
   </style>
 </head>
 <body>
-  <canvas id="matrix-bg" class="matrix-bg"></canvas>
+    <div id="sidebar-nav" style="position:fixed;top:0;right:0;height:100vh;width:64px;background:#101618ee;z-index:10;display:flex;flex-direction:column;align-items:center;gap:18px;padding:18px 0 0 0;box-shadow:0 0 18px #00ff4166;">
+      <button class="nav-btn" data-target="generalSection" title="عام">🏠</button>
+      <button class="nav-btn" data-target="appearanceSection" title="المظهر">🎨</button>
+      <button class="nav-btn" data-target="contentSection" title="المحتوى">📝</button>
+      <button class="nav-btn" data-target="advancedSection" title="متقدم">⚙️</button>
+      <button class="nav-btn" data-target="livePreviewSection" title="معاينة">👁️</button>
+      <button class="nav-btn" data-target="pagesSection" title="الصفحات">📄</button>
+      <button class="nav-btn" data-target="componentsSection" title="المكونات">🧩</button>
+      <button class="nav-btn" data-target="filesSection" title="الملفات">📁</button>
+      <button class="nav-btn" data-target="animationSection" title="أنيميشن">✨</button>
+      <button class="nav-btn" data-target="securitySection" title="الحماية">🔒</button>
+      <button class="nav-btn" data-target="notificationsSection" title="إشعارات">🔔</button>
+      <button id="toggleThemeBtn" title="تبديل الوضع الليلي/النهاري">🌙</button>
+    </div>
+    <div id="stats-bar" style="max-width:1200px;margin:0 auto 18px auto;padding:18px 0 0 0;display:flex;gap:18px;justify-content:center;z-index:2;position:relative;">
+      <div class="stat-card" id="stat-pages">📄 <span>0</span> صفحات</div>
+      <div class="stat-card" id="stat-comps">🧩 <span>0</span> مكون</div>
+      <div class="stat-card" id="stat-files">📁 <span>0</span> ملف</div>
+    </div>
+    <canvas id="matrix-bg" class="matrix-bg"></canvas>
   <div class="panel-container">
     <div class="panel-section" id="generalSection">
       <h3>المعلومات العامة</h3>
@@ -420,6 +499,8 @@
           renderPages();
         };
       });
+      // تحديث عدادات الصفحات
+      document.getElementById('stat-pages').querySelector('span').textContent = pages.length;
     }
     document.getElementById('addPageBtn').onclick = function(){
       const val = document.getElementById('newPageName').value.trim();
@@ -450,6 +531,8 @@
           renderComponents();
         };
       });
+      // تحديث عدادات المكونات
+      document.getElementById('stat-comps').querySelector('span').textContent = comps.length;
     }
     document.getElementById('addComponentBtn').onclick = function(){
       const type = document.getElementById('componentType').value;
@@ -485,6 +568,8 @@
           renderFiles();
         };
       });
+      // تحديث عدادات الملفات
+      document.getElementById('stat-files').querySelector('span').textContent = files.length;
     }
     document.getElementById('uploadFilesBtn').onclick = function(){
       const inp = document.getElementById('fileUpload');
@@ -596,6 +681,41 @@
       const code = Math.floor(100000+Math.random()*900000);
       showNotif('رمز التحقق: '+code);
     };
+    // تحديث عدادات الإحصائيات
+    function updateStats() {
+      const pages = JSON.parse(localStorage.getItem('devPages')||'[]');
+      const comps = JSON.parse(localStorage.getItem('devComponents')||'[]');
+      const files = JSON.parse(localStorage.getItem('devFiles')||'[]');
+      document.querySelector('#stat-pages span').textContent = pages.length;
+      document.querySelector('#stat-comps span').textContent = comps.length;
+      document.querySelector('#stat-files span').textContent = files.length;
+    }
+    window.addEventListener('DOMContentLoaded', updateStats);
+    // تحديث عند أي تغيير
+    [renderPages, renderComponents, renderFiles].forEach(fn => {
+      const orig = fn;
+      window[fn.name] = function(...args){
+        orig.apply(this,args); updateStats();
+      };
+    });
+    // التنقل السريع بين الأقسام
+    document.querySelectorAll('.nav-btn[data-target]').forEach(btn => {
+      btn.onclick = function(){
+        const target = document.getElementById(this.dataset.target);
+        if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
+        document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+        this.classList.add('active');
+      };
+    });
+    // زر الوضع الليلي/النهاري
+    document.getElementById('toggleThemeBtn').onclick = function(){
+      document.body.classList.toggle('theme-light');
+      localStorage.setItem('panelTheme', document.body.classList.contains('theme-light') ? 'light' : 'dark');
+    };
+    // تفعيل الوضع المحفوظ
+    window.addEventListener('DOMContentLoaded', function(){
+      if(localStorage.getItem('panelTheme')==='light') document.body.classList.add('theme-light');
+    });
   </script>
 </body>
 </html>
