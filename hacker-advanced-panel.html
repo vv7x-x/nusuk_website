@@ -420,6 +420,24 @@
       }
       updatePreview();
     });
+    // عند تحميل الإعدادات، تفعيل الحماية إذا كانت مفعلة
+    window.addEventListener('DOMContentLoaded', function() {
+      if(localStorage.getItem('panelPasswordEnabled')==='1') {
+        let pass = prompt('أدخل كلمة المرور للدخول إلى لوحة التحكم:');
+        if(pass !== localStorage.getItem('panelPassword')) {
+          alert('كلمة المرور غير صحيحة!');
+          window.location.href = 'index.html';
+        }
+      }
+      if(localStorage.getItem('panelOTPEnabled')==='1') {
+        let otp = prompt('أدخل رمز التحقق الثنائي (OTP):');
+        // رمز تجريبي فقط
+        if(!otp || otp.length!==6) {
+          alert('رمز التحقق غير صحيح!');
+          window.location.href = 'index.html';
+        }
+      }
+    });
     // تحديث الإعدادات عند أي تغيير
     document.querySelectorAll('.panel-section input, .panel-section textarea, .panel-section select').forEach(el => {
       el.addEventListener('input', saveSettings);
@@ -715,6 +733,72 @@
     // تفعيل الوضع المحفوظ
     window.addEventListener('DOMContentLoaded', function(){
       if(localStorage.getItem('panelTheme')==='light') document.body.classList.add('theme-light');
+    });
+    // إعدادات المؤثرات والإشعارات
+    function getPanelSettings() {
+      return JSON.parse(localStorage.getItem('advancedSettings')||'{}');
+    }
+    // تفعيل المؤثرات حسب الإعدادات
+    function panelEffectsOnAction(type) {
+      const s = getPanelSettings();
+      if(type==='save' && s.enableExplosion) triggerExplosion();
+      if(type==='change' && s.enableFlash) triggerFlash();
+      if(type==='notif' && s.enableVisualNotif) showNotif('تم تنفيذ الإجراء بنجاح!');
+      if(type==='notif' && s.enableSoundNotif) {
+        const audio = new Audio('uploads/الأصوات/welcome.mp3');
+        audio.play();
+      }
+    }
+    // تفعيل المؤثرات عند الحفظ أو التغيير
+    document.querySelectorAll('.panel-section input, .panel-section textarea, .panel-section select').forEach(el => {
+      el.addEventListener('input', function(){
+        saveSettings();
+        panelEffectsOnAction('change');
+      });
+      el.addEventListener('change', function(){
+        saveSettings();
+        panelEffectsOnAction('change');
+      });
+    });
+    // تفعيل المؤثرات عند الحفظ اليدوي
+    document.getElementById('setPasswordBtn').addEventListener('click', function(){
+      panelEffectsOnAction('save');
+    });
+    // تفعيل المؤثرات عند إضافة صفحة/مكون/ملف
+    document.getElementById('addPageBtn').addEventListener('click', function(){
+      panelEffectsOnAction('notif');
+    });
+    document.getElementById('addComponentBtn').addEventListener('click', function(){
+      panelEffectsOnAction('notif');
+    });
+    document.getElementById('uploadFilesBtn').addEventListener('click', function(){
+      panelEffectsOnAction('notif');
+    });
+    // تفعيل/تعطيل كلمة المرور
+    document.getElementById('enablePassword').addEventListener('change', function(){
+      const enabled = this.checked;
+      localStorage.setItem('panelPasswordEnabled', enabled ? '1' : '0');
+      showNotif(enabled ? 'تم تفعيل كلمة المرور للوحة.' : 'تم تعطيل كلمة المرور.');
+    });
+    // تفعيل/تعطيل التحقق الثنائي
+    document.getElementById('enableOTP').addEventListener('change', function(){
+      const enabled = this.checked;
+      localStorage.setItem('panelOTPEnabled', enabled ? '1' : '0');
+      showNotif(enabled ? 'تم تفعيل التحقق الثنائي.' : 'تم تعطيله.');
+    });
+    // تفعيل/تعطيل الإشعارات
+    document.getElementById('enableVisualNotif').addEventListener('change', function(){
+      showNotif(this.checked ? 'تم تفعيل الإشعارات البصرية.' : 'تم تعطيل الإشعارات البصرية.');
+    });
+    document.getElementById('enableSoundNotif').addEventListener('change', function(){
+      showNotif(this.checked ? 'تم تفعيل الإشعارات الصوتية.' : 'تم تعطيل الإشعارات الصوتية.');
+    });
+    // تفعيل/تعطيل المؤثرات
+    document.getElementById('enableExplosion').addEventListener('change', function(){
+      showNotif(this.checked ? 'تم تفعيل مؤثر الانفجار.' : 'تم تعطيله.');
+    });
+    document.getElementById('enableFlash').addEventListener('change', function(){
+      showNotif(this.checked ? 'تم تفعيل مؤثر الوميض.' : 'تم تعطيله.');
     });
   </script>
 </body>
