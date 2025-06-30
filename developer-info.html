@@ -172,128 +172,9 @@
     }
     /* استايل رجال أعمال */
     .business-style {
-      background: linear-gradient(120deg, #f7f7fa 0%, #e0e0e0 100%);
-      border-radius: 32px;
-      box-shadow: 0 0 32px 0 #bfa76a44, 0 0 0 2px #bfa76a33;
-      border: 2.5px solid #bfa76a;
-      padding: 48px 28px 36px 28px;
-      margin: 64px auto 32px auto;
-      color: #23272e;
-      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
-      transition: box-shadow 0.3s, border 0.3s, background 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .business-style::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(120deg, #fffbe6 0%, #f7f7fa 100%);
-      opacity: 0.13;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .business-style .dev-name {
-      background: linear-gradient(90deg, #bfa76a 0%, #e0e0e0 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-      font-size: 2.4rem;
-      font-weight: bold;
-      letter-spacing: 2.5px;
-      text-shadow: 0 0 12px #bfa76a44, 0 0 2px #fff;
-      animation: business-gradient 3s linear infinite alternate;
-    }
-    @keyframes business-gradient {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-    .business-style .avatar {
-      border: 3px solid #bfa76a;
-      box-shadow: 0 0 32px #bfa76a44, 0 0 16px #e0e0e0;
-      background: #fff;
-      transition: box-shadow 0.3s, border 0.3s, transform 0.3s;
-    }
-    .business-style .avatar:hover {
-      border: 3px solid #23272e;
-      box-shadow: 0 0 32px #bfa76a, 0 0 16px #e0e0e0;
-      transform: scale(1.07) rotate(-2deg);
-    }
-    .business-style .dev-bio {
-      background: #f7f7fa;
-      border-radius: 16px;
-      box-shadow: 0 2px 12px #bfa76a33;
-      color: #23272e;
-      font-size: 1.13rem;
-      font-family: 'Cairo', 'Montserrat', 'Share Tech Mono', monospace;
-      text-align: center;
-    }
-    .business-style .social-icons a {
-      background: #fff;
-      border: 2.5px solid #bfa76a;
-      box-shadow: 0 0 8px #bfa76a33;
-      transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
-    }
-    .business-style .social-icons a:hover, .business-style .social-icons a:focus {
-      background: #e0e0e0;
-      border: 2.5px solid #bfa76a;
-      box-shadow: 0 0 16px #bfa76a, 0 0 8px #e0e0e0;
-      transform: scale(1.08) rotate(-2deg);
-    }
-    .business-style .call-btn {
-      background: linear-gradient(90deg, #bfa76a 40%, #e0e0e0 100%);
-      color: #23272e;
-      border: none;
-      border-radius: 12px;
-      padding: 10px 32px;
-      font-size: 1.15rem;
-      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
-      font-weight: bold;
-      letter-spacing: 1.2px;
-      box-shadow: 0 2px 12px #bfa76a33;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
-      outline: none;
-      text-decoration: none;
-      margin: 0 auto 10px auto;
-      text-shadow: none;
-      animation: none;
-    }
-    .business-style .call-btn:hover {
-      background: linear-gradient(90deg, #e0e0e0 40%, #bfa76a 100%);
-      color: #bfa76a;
-      box-shadow: 0 0 16px #bfa76a, 0 0 8px #e0e0e0;
-      transform: scale(1.05);
-    }
-    .business-style .back-btn {
-      background: #fff;
-      color: #bfa76a;
-      border: none;
-      border-radius: 12px;
-      padding: 10px 32px;
-      font-size: 1.1rem;
-      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
-      font-weight: bold;
-      letter-spacing: 1.1px;
-      box-shadow: 0 2px 8px #bfa76a33;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
-      outline: none;
-      margin-bottom: 10px;
-      text-shadow: none;
-    }
-    .business-style .back-btn:hover {
-      background: #e0e0e0;
-      color: #23272e;
-      box-shadow: 0 0 16px #bfa76a, 0 0 8px #e0e0e0;
-      transform: scale(1.05);
-    }
-    /* Business Style (رجال أعمال) */
-    .business-card {
-      background: linear-gradient(120deg, #f7f7fa 0%, #e0e0e0 100%);
+      background: linear-gradient(120deg, #f7f7fa 0%, #f3efe7 100%);
       border-radius: 36px;
-      box-shadow: 0 0 36px 0 #bfa76a55, 0 0 0 2.5px #bfa76a44;
+      box-shadow: 0 0 36px 0 #bfa76a33, 0 0 0 2.5px #bfa76a22;
       border: 2.5px solid #bfa76a;
       max-width: 440px;
       padding: 56px 32px 40px 32px;
@@ -302,45 +183,53 @@
       font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
       position: relative;
       overflow: hidden;
+      transition: box-shadow 0.3s, border 0.3s, background 0.3s;
     }
-    .business-card::before {
+    .business-style::before {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(120deg, #fffbe6 0%, #bfa76a22 60%, #f7f7fa 100%);
-      opacity: 0.13;
-      filter: blur(12px);
+      background: linear-gradient(120deg, #fffbe6 0%, #bfa76a11 60%, #f7f7fa 100%);
+      opacity: 0.11;
+      filter: blur(14px);
       z-index: 0;
+      pointer-events: none;
     }
-    .business-avatar {
+    .business-style .dev-name, .business-name {
+      background: linear-gradient(90deg, #bfa76a 0%, #e0e0e0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      font-size: 2.4rem;
+      font-weight: bold;
+      letter-spacing: 2.5px;
+      text-shadow: 0 0 12px #bfa76a33, 0 0 2px #fff;
+      animation: business-gradient 3s linear infinite alternate;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    @keyframes business-gradient {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    .business-style .avatar, .business-avatar {
       width: 130px;
       height: 130px;
       border-radius: 50%;
       border: 3.5px solid #bfa76a;
-      box-shadow: 0 0 32px #e0e0e0, 0 0 0 4px #bfa76a33;
+      box-shadow: 0 0 32px #e0e0e0, 0 0 0 4px #bfa76a22;
       margin-bottom: 26px;
       background: #fff;
       transition: box-shadow 0.3s, transform 0.3s, border 0.3s;
       z-index: 1;
       position: relative;
     }
-    .business-avatar:hover {
+    .business-style .avatar:hover, .business-avatar:hover {
       border: 3.5px solid #23272e;
       box-shadow: 0 0 36px #bfa76a, 0 0 16px #e0e0e0;
       transform: scale(1.09) rotate(-2deg);
     }
-    .business-name {
-      font-size: 2.4rem;
-      color: #bfa76a;
-      text-shadow: 0 0 10px #e0e0e0, 0 0 2px #fff;
-      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
-      margin-bottom: 12px;
-      letter-spacing: 2.5px;
-      text-align: center;
-      font-weight: bold;
-      z-index: 1;
-      position: relative;
-    }
-    .business-bio {
+    .business-style .dev-bio, .business-bio {
       font-size: 1.15rem;
       color: #23272e;
       margin-bottom: 32px;
@@ -350,11 +239,11 @@
       padding: 12px 14px;
       box-shadow: 0 2px 16px #e0e0e0;
       text-align: center;
-      font-family: 'Cairo', 'Share Tech Mono', monospace;
+      font-family: 'Cairo', 'Montserrat', 'Share Tech Mono', monospace;
       z-index: 1;
       position: relative;
     }
-    .business-social-icons {
+    .business-style .social-icons, .business-social-icons {
       margin-top: 18px;
       margin-bottom: 18px;
       display: flex;
@@ -363,21 +252,22 @@
       z-index: 1;
       position: relative;
     }
-    .business-social-icons a {
+    .business-style .social-icons a, .business-social-icons a {
       background: #fffbe6;
       border: 2.5px solid #bfa76a;
-      box-shadow: 0 0 10px #bfa76a33;
+      box-shadow: 0 0 10px #bfa76a22;
       border-radius: 50%;
       transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
       padding: 3px;
     }
+    .business-style .social-icons a:hover, .business-style .social-icons a:focus,
     .business-social-icons a:hover, .business-social-icons a:focus {
       background: #e0e0e0;
       border: 2.5px solid #23272e;
       box-shadow: 0 0 18px #bfa76a, 0 0 8px #e0e0e0;
       transform: scale(1.12) rotate(-2deg);
     }
-    .business-social-icons img {
+    .business-style .social-icons img, .business-social-icons img {
       width: 54px;
       height: 54px;
       border-radius: 50%;
@@ -386,10 +276,10 @@
       filter: grayscale(0.05) contrast(1.15);
       transition: filter 0.3s;
     }
-    .business-social-icons a:hover img {
+    .business-style .social-icons a:hover img, .business-social-icons a:hover img {
       filter: grayscale(0) contrast(1.25) drop-shadow(0 0 10px #bfa76a);
     }
-    .business-call-btn {
+    .business-style .call-btn, .business-call-btn {
       background: linear-gradient(90deg, #bfa76a 40%, #e0e0e0 100%);
       color: #23272e;
       border: none;
@@ -409,13 +299,13 @@
       z-index: 1;
       position: relative;
     }
-    .business-call-btn:hover {
+    .business-style .call-btn:hover, .business-call-btn:hover {
       background: linear-gradient(90deg, #e0e0e0 40%, #bfa76a 100%);
       color: #bfa76a;
       box-shadow: 0 0 18px #bfa76a, 0 0 8px #e0e0e0;
       transform: scale(1.07);
     }
-    .business-back-btn {
+    .business-style .back-btn, .business-back-btn {
       margin-top: 22px;
       background: #fffbe6;
       color: #bfa76a;
@@ -435,41 +325,53 @@
       z-index: 1;
       position: relative;
     }
-    .business-back-btn:hover {
+    .business-style .back-btn:hover, .business-back-btn:hover {
       background: #e0e0e0;
       color: #23272e;
       box-shadow: 0 0 18px #bfa76a, 0 0 8px #e0e0e0;
       transform: scale(1.07);
     }
+    /* ميديا استايل */
     @media (max-width: 600px) {
-      .hacker-card {
-        max-width: 99vw;
-        padding: 12px 2vw 18px 2vw;
-        border-radius: 16px;
-      }
-      .avatar { width: 64px; height: 64px; }
-      .dev-name { font-size: 1.4rem; }
-      .dev-title, .dev-bio, .contact { font-size: 1.01rem; }
-      .social-icons img { width: 32px; height: 32px; }
-      .call-btn, .back-btn { font-size: 1.18rem; padding: 7px 16px; }
-      .business-card {
+      .business-style, .business-card {
         max-width: 99vw;
         padding: 16px 2vw 22px 2vw;
         border-radius: 18px;
       }
-      .business-avatar { width: 70px; height: 70px; }
-      .business-name { font-size: 1.5rem; }
-      .business-bio, .business-social-icons, .business-call-btn, .business-back-btn { font-size: 1.05rem; }
-      .business-social-icons img { width: 36px; height: 36px; }
-      .business-call-btn, .business-back-btn { padding: 8px 18px; }
+      .business-style .avatar, .business-avatar { width: 70px; height: 70px; }
+      .business-style .dev-name, .business-name { font-size: 1.5rem; }
+      .business-style .dev-bio, .business-bio, .business-style .social-icons, .business-social-icons, .business-style .call-btn, .business-call-btn, .business-style .back-btn, .business-back-btn { font-size: 1.05rem; }
+      .business-style .social-icons img, .business-social-icons img { width: 36px; height: 36px; }
+      .business-style .call-btn, .business-call-btn, .business-style .back-btn, .business-back-btn { padding: 8px 18px; }
     }
     @media (min-width: 1200px) {
-      .hacker-card { max-width: 440px; }
-      .avatar { width: 140px; height: 140px; }
-      .social-icons img { width: 60px; height: 60px; }
-      .business-card { max-width: 480px; }
-      .business-avatar { width: 150px; height: 150px; }
-      .business-social-icons img { width: 66px; height: 66px; }
+      .business-style, .business-card { max-width: 480px; }
+      .business-style .avatar, .business-avatar { width: 150px; height: 150px; }
+      .business-style .social-icons img, .business-social-icons img { width: 66px; height: 66px; }
+    }
+    /* إزالة أي زر أحمر أو خطأ */
+    button, .call-btn, .back-btn, .business-call-btn, .business-back-btn {
+      background: linear-gradient(90deg, #bfa76a 40%, #e0e0e0 100%) !important;
+      color: #23272e !important;
+      border: none !important;
+      box-shadow: 0 2px 12px #bfa76a22 !important;
+      outline: none !important;
+      text-shadow: none !important;
+      font-weight: bold;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+    }
+    button:hover, .call-btn:hover, .back-btn:hover, .business-call-btn:hover, .business-back-btn:hover {
+      background: linear-gradient(90deg, #e0e0e0 40%, #bfa76a 100%) !important;
+      color: #bfa76a !important;
+      box-shadow: 0 0 16px #bfa76a, 0 0 8px #e0e0e0 !important;
+      transform: scale(1.05);
+    }
+    /* إزالة أي لون أحمر أو خطأ من النصوص */
+    .error, .danger, .alert, .text-danger, .text-error {
+      color: #bfa76a !important;
+      background: #fffbe6 !important;
+      border: 1.5px solid #bfa76a !important;
+      box-shadow: 0 0 8px #bfa76a22 !important;
     }
     #devMsgBox {
       display: none;
