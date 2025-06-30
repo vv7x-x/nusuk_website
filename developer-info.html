@@ -289,6 +289,158 @@
       box-shadow: 0 0 16px #bfa76a, 0 0 8px #e0e0e0;
       transform: scale(1.05);
     }
+    /* Business Style (رجال أعمال) */
+    .business-card {
+      background: linear-gradient(120deg, #f7f7fa 0%, #e0e0e0 100%);
+      border-radius: 36px;
+      box-shadow: 0 0 36px 0 #bfa76a55, 0 0 0 2.5px #bfa76a44;
+      border: 2.5px solid #bfa76a;
+      max-width: 440px;
+      padding: 56px 32px 40px 32px;
+      margin: 72px auto 36px auto;
+      color: #23272e;
+      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
+      position: relative;
+      overflow: hidden;
+    }
+    .business-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(120deg, #fffbe6 0%, #bfa76a22 60%, #f7f7fa 100%);
+      opacity: 0.13;
+      filter: blur(12px);
+      z-index: 0;
+    }
+    .business-avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 3.5px solid #bfa76a;
+      box-shadow: 0 0 32px #e0e0e0, 0 0 0 4px #bfa76a33;
+      margin-bottom: 26px;
+      background: #fff;
+      transition: box-shadow 0.3s, transform 0.3s, border 0.3s;
+      z-index: 1;
+      position: relative;
+    }
+    .business-avatar:hover {
+      border: 3.5px solid #23272e;
+      box-shadow: 0 0 36px #bfa76a, 0 0 16px #e0e0e0;
+      transform: scale(1.09) rotate(-2deg);
+    }
+    .business-name {
+      font-size: 2.4rem;
+      color: #bfa76a;
+      text-shadow: 0 0 10px #e0e0e0, 0 0 2px #fff;
+      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
+      margin-bottom: 12px;
+      letter-spacing: 2.5px;
+      text-align: center;
+      font-weight: bold;
+      z-index: 1;
+      position: relative;
+    }
+    .business-bio {
+      font-size: 1.15rem;
+      color: #23272e;
+      margin-bottom: 32px;
+      line-height: 2.2;
+      background: #f7f7fa;
+      border-radius: 18px;
+      padding: 12px 14px;
+      box-shadow: 0 2px 16px #e0e0e0;
+      text-align: center;
+      font-family: 'Cairo', 'Share Tech Mono', monospace;
+      z-index: 1;
+      position: relative;
+    }
+    .business-social-icons {
+      margin-top: 18px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      z-index: 1;
+      position: relative;
+    }
+    .business-social-icons a {
+      background: #fffbe6;
+      border: 2.5px solid #bfa76a;
+      box-shadow: 0 0 10px #bfa76a33;
+      border-radius: 50%;
+      transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+      padding: 3px;
+    }
+    .business-social-icons a:hover, .business-social-icons a:focus {
+      background: #e0e0e0;
+      border: 2.5px solid #23272e;
+      box-shadow: 0 0 18px #bfa76a, 0 0 8px #e0e0e0;
+      transform: scale(1.12) rotate(-2deg);
+    }
+    .business-social-icons img {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #fff;
+      padding: 2.5px;
+      filter: grayscale(0.05) contrast(1.15);
+      transition: filter 0.3s;
+    }
+    .business-social-icons a:hover img {
+      filter: grayscale(0) contrast(1.25) drop-shadow(0 0 10px #bfa76a);
+    }
+    .business-call-btn {
+      background: linear-gradient(90deg, #bfa76a 40%, #e0e0e0 100%);
+      color: #23272e;
+      border: none;
+      border-radius: 14px;
+      padding: 12px 38px;
+      font-size: 1.18rem;
+      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
+      font-weight: bold;
+      letter-spacing: 1.3px;
+      box-shadow: 0 2px 16px #e0e0e0;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+      outline: none;
+      text-decoration: none;
+      margin: 0 auto 12px auto;
+      text-shadow: none;
+      z-index: 1;
+      position: relative;
+    }
+    .business-call-btn:hover {
+      background: linear-gradient(90deg, #e0e0e0 40%, #bfa76a 100%);
+      color: #bfa76a;
+      box-shadow: 0 0 18px #bfa76a, 0 0 8px #e0e0e0;
+      transform: scale(1.07);
+    }
+    .business-back-btn {
+      margin-top: 22px;
+      background: #fffbe6;
+      color: #bfa76a;
+      border: none;
+      border-radius: 14px;
+      padding: 12px 38px;
+      font-size: 1.13rem;
+      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
+      font-weight: bold;
+      letter-spacing: 1.2px;
+      box-shadow: 0 2px 10px #e0e0e0;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+      outline: none;
+      margin-bottom: 12px;
+      text-shadow: none;
+      z-index: 1;
+      position: relative;
+    }
+    .business-back-btn:hover {
+      background: #e0e0e0;
+      color: #23272e;
+      box-shadow: 0 0 18px #bfa76a, 0 0 8px #e0e0e0;
+      transform: scale(1.07);
+    }
     @media (max-width: 600px) {
       .hacker-card {
         max-width: 99vw;
@@ -300,11 +452,24 @@
       .dev-title, .dev-bio, .contact { font-size: 1.01rem; }
       .social-icons img { width: 32px; height: 32px; }
       .call-btn, .back-btn { font-size: 1.18rem; padding: 7px 16px; }
+      .business-card {
+        max-width: 99vw;
+        padding: 16px 2vw 22px 2vw;
+        border-radius: 18px;
+      }
+      .business-avatar { width: 70px; height: 70px; }
+      .business-name { font-size: 1.5rem; }
+      .business-bio, .business-social-icons, .business-call-btn, .business-back-btn { font-size: 1.05rem; }
+      .business-social-icons img { width: 36px; height: 36px; }
+      .business-call-btn, .business-back-btn { padding: 8px 18px; }
     }
     @media (min-width: 1200px) {
       .hacker-card { max-width: 440px; }
       .avatar { width: 140px; height: 140px; }
       .social-icons img { width: 60px; height: 60px; }
+      .business-card { max-width: 480px; }
+      .business-avatar { width: 150px; height: 150px; }
+      .business-social-icons img { width: 66px; height: 66px; }
     }
     #devMsgBox {
       display: none;
