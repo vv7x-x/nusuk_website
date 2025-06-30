@@ -295,7 +295,7 @@
 <body>
   <div class="hacker-card">
     <div id="devMsgBox" style="display:none;"></div>
-    <img src="uploads/images/myphoto.JPG" alt="صورة المطور" class="avatar" id="devAvatar" />
+    <img src="myphoto.JPG" alt="صورة المطور" class="avatar" id="devAvatar" />
     <div class="dev-name">يحيى رضا</div>
     <div class="dev-bio">
       شاب مبرمج ومطور مشاريع ويب بخبرة في بناء مواقع عصرية وتفاعلية.<br>
@@ -434,8 +434,161 @@
     document.getElementById('devAvatar').addEventListener('mouseenter', function() {
       playSound('الأصوات/يحيى رضا.mp3');
     });
-  
-
+    
+    // ربط ديناميكي مع إعدادات advanced-settings.html
+    document.addEventListener('DOMContentLoaded', function() {
+      const settings = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
+      // الاسم
+      if(settings.devName) {
+        const nameDiv = document.querySelector('.dev-name');
+        if(nameDiv) nameDiv.textContent = settings.devName;
+      }
+      // النبذة
+      if(settings.devBio) {
+        const bioDiv = document.querySelector('.dev-bio');
+        if(bioDiv) bioDiv.textContent = settings.devBio;
+      }
+      // صورة المطور
+      if(settings.devAvatar) {
+        const avatar = document.getElementById('devAvatar');
+        if(avatar) avatar.src = settings.devAvatar;
+      }
+      // لون الخلفية
+      if(settings.devBg) {
+        document.body.style.background = settings.devBg;
+      }
+      // لون النص
+      if(settings.devColor) {
+        document.body.style.color = settings.devColor;
+        const nameDiv = document.querySelector('.dev-name');
+        if(nameDiv) nameDiv.style.color = settings.devColor;
+      }
+      // إظهار/إخفاء صورة المطور
+      const avatar = document.getElementById('devAvatar');
+      if(avatar) avatar.style.display = (settings.avatar === false) ? 'none' : '';
+      // إظهار/إخفاء النبذة
+      const bio = document.querySelector('.dev-bio');
+      if(bio) bio.style.display = (settings.bio === false) ? 'none' : '';
+      // إظهار/إخفاء وسائل التواصل
+      const social = document.querySelector('.social-icons');
+      if(social) social.style.display = (settings.social === false) ? 'none' : '';
+      // إظهار/إخفاء زر العودة
+      const backBtn = document.querySelector('.back-btn');
+      if(backBtn) backBtn.style.display = (settings.backBtn === false) ? 'none' : '';
+      // روابط التواصل
+      if(settings.waLink) {
+        const wa = document.getElementById('waIcon');
+        if(wa) wa.href = settings.waLink;
+      }
+      if(settings.instaLink) {
+        const insta = document.getElementById('instaIcon');
+        if(insta) insta.href = settings.instaLink;
+      }
+      if(settings.fbLink) {
+        const fb = document.getElementById('fbIcon');
+        if(fb) fb.href = settings.fbLink;
+      }
+      // رقم الهاتف
+      if(settings.phone) {
+        const phoneIcon = document.getElementById('phoneIcon');
+        const callBtn = document.querySelector('.call-btn');
+        if(phoneIcon) phoneIcon.href = 'tel:' + settings.phone;
+        if(callBtn) callBtn.href = 'tel:' + settings.phone;
+      }
+      // رسالة مخصصة
+      const msgBox = document.getElementById('devMsgBox');
+      if(settings.devMsg && msgBox) {
+        msgBox.textContent = settings.devMsg;
+        msgBox.style.display = 'block';
+        msgBox.style.background = '#101618';
+        msgBox.style.border = '2px solid #00ff41';
+        msgBox.style.color = '#00ff41';
+        msgBox.style.padding = '12px 10px';
+        msgBox.style.margin = '18px 0 18px 0';
+        msgBox.style.borderRadius = '10px';
+        msgBox.style.boxShadow = '0 0 18px #00ff4166';
+        msgBox.style.fontFamily = 'Share Tech Mono,VT323,monospace';
+        msgBox.style.fontSize = '1.08em';
+        msgBox.style.textAlign = 'center';
+        msgBox.style.letterSpacing = '1px';
+        setTimeout(() => { msgBox.style.display = 'none'; }, 6000);
+      } else if(msgBox) {
+        msgBox.style.display = 'none';
+      }
+    });
+    // استمع لتحديث الإعدادات من صفحة الإعدادات (ربط ديناميكي فوري)
+    window.addEventListener('storage', function(e) {
+      if(e.key === 'advancedSettings_update') {
+        // إعادة تحميل الإعدادات وتحديث الصفحة فوراً
+        const settings = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
+        // الاسم
+        if(settings.devName) {
+          const nameDiv = document.querySelector('.dev-name');
+          if(nameDiv) nameDiv.textContent = settings.devName;
+        }
+        // النبذة
+        if(settings.devBio) {
+          const bioDiv = document.querySelector('.dev-bio');
+          if(bioDiv) bioDiv.textContent = settings.devBio;
+        }
+        // صورة المطور
+        if(settings.devAvatar) {
+          const avatar = document.getElementById('devAvatar');
+          if(avatar) avatar.src = settings.devAvatar;
+        }
+        // لون الخلفية
+        if(settings.devBg) {
+          document.body.style.background = settings.devBg;
+        }
+        // لون النص
+        if(settings.devColor) {
+          document.body.style.color = settings.devColor;
+          const nameDiv = document.querySelector('.dev-name');
+          if(nameDiv) nameDiv.style.color = settings.devColor;
+        }
+        // إظهار/إخفاء صورة المطور
+        const avatar = document.getElementById('devAvatar');
+        if(avatar) avatar.style.display = (settings.avatar === false) ? 'none' : '';
+        // إظهار/إخفاء النبذة
+        const bio = document.querySelector('.dev-bio');
+        if(bio) bio.style.display = (settings.bio === false) ? 'none' : '';
+        // إظهار/إخفاء وسائل التواصل
+        const social = document.querySelector('.social-icons');
+        if(social) social.style.display = (settings.social === false) ? 'none' : '';
+        // إظهار/إخفاء زر العودة
+        const backBtn = document.querySelector('.back-btn');
+        if(backBtn) backBtn.style.display = (settings.backBtn === false) ? 'none' : '';
+        // روابط التواصل
+        if(settings.waLink) {
+          const wa = document.getElementById('waIcon');
+          if(wa) wa.href = settings.waLink;
+        }
+        if(settings.instaLink) {
+          const insta = document.getElementById('instaIcon');
+          if(insta) insta.href = settings.instaLink;
+        }
+        if(settings.fbLink) {
+          const fb = document.getElementById('fbIcon');
+          if(fb) fb.href = settings.fbLink;
+        }
+        // رقم الهاتف
+        if(settings.phone) {
+          const phoneIcon = document.getElementById('phoneIcon');
+          const callBtn = document.querySelector('.call-btn');
+          if(phoneIcon) phoneIcon.href = 'tel:' + settings.phone;
+          if(callBtn) callBtn.href = 'tel:' + settings.phone;
+        }
+        // رسالة مخصصة
+        const msgBox = document.getElementById('devMsgBox');
+        if(settings.devMsg && msgBox) {
+          msgBox.textContent = settings.devMsg;
+          msgBox.style.display = 'block';
+          setTimeout(() => { msgBox.style.display = 'none'; }, 6000);
+        } else if(msgBox) {
+          msgBox.style.display = 'none';
+        }
+      }
+    });
   </script>
 </body>
 </html>
