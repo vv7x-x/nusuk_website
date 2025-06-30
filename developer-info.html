@@ -4,40 +4,53 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>عن المطور | يحيى رضا</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* ألوان رجال أعمال هادئة وفاخرة */
     :root {
-      --main-bg: #f5f4f1;
       --business-gold: #bfa76a;
       --business-dark: #23272e;
-      --business-gray: #7e6a22;
-      --business-white: #5c2121;
-      --business-shadow: #030303;
+      --business-bg: #f5f4f1;
+      --business-white: #fff;
+      --business-gray: #e5e3dc;
+      --business-shadow: #d6cfc1;
+      --business-blue: #2d3a4a;
     }
     html, body {
-      background: linear-gradient(120deg, var(--main-bg) 0%, var(--business-gray) 100%);
+      min-height: 100vh;
+      background: linear-gradient(120deg, var(--business-bg) 0%, var(--business-gray) 100%);
       color: var(--business-dark);
-      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace, sans-serif;
+      font-family: 'Montserrat', 'Cairo', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
     }
-    body::before, body::after {
-      display: none;
-    }
-    .hacker-card, .business-style {
+    .business-card {
       background: var(--business-white);
       border-radius: 32px;
       box-shadow: 0 0 32px 0 var(--business-shadow), 0 0 0 2px var(--business-gold)33;
       border: 2.5px solid var(--business-gold);
-      max-width: 440px;
+      max-width: 420px;
       padding: 48px 28px 36px 28px;
       margin: 64px auto 32px auto;
       color: var(--business-dark);
       position: relative;
       overflow: hidden;
       transition: box-shadow 0.3s, border 0.3s, background 0.3s;
+      z-index: 2;
+      animation: fadeInCard 1.2s cubic-bezier(.4,2,.6,1);
     }
-    .hacker-card::before, .business-style::before {
-      display: none;
+    @keyframes fadeInCard {
+      from { opacity: 0; transform: translateY(40px) scale(0.95); }
+      to { opacity: 1; transform: none; }
+    }
+    .business-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(120deg, #fffbe6 0%, #bfa76a11 60%, #f7f7fa 100%);
+      opacity: 0.13;
+      filter: blur(14px);
+      z-index: 0;
+      pointer-events: none;
     }
     .avatar {
       width: 120px;
@@ -48,34 +61,54 @@
       margin-bottom: 22px;
       background: var(--business-white);
       transition: box-shadow 0.3s, transform 0.3s, border 0.3s;
+      z-index: 1;
+      position: relative;
+      animation: floatAvatar 3.5s ease-in-out infinite;
     }
-    .avatar:hover {
-      border: 3px solid var(--business-dark);
-      box-shadow: 0 0 32px var(--business-gold), 0 0 16px var(--business-shadow);
-      transform: scale(1.07) rotate(-2deg);
+    @keyframes floatAvatar {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px) scale(1.04); }
     }
     .dev-name {
       font-size: 2.2rem;
       color: var(--business-gold);
       text-shadow: 0 0 8px var(--business-shadow), 0 0 2px var(--business-white);
-      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
+      font-family: 'Montserrat', 'Cairo', sans-serif;
       margin-bottom: 10px;
       letter-spacing: 2px;
       text-align: center;
       font-weight: bold;
-      animation: none;
+      animation: fadeInName 1.2s 0.3s cubic-bezier(.4,2,.6,1) backwards;
+    }
+    @keyframes fadeInName {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: none; }
+    }
+    .dev-title {
+      color: var(--business-blue);
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 18px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      opacity: 0.85;
     }
     .dev-bio {
-      font-size: 1.1rem;
+      font-size: 1.08rem;
       color: var(--business-dark);
       margin-bottom: 28px;
       line-height: 2.1;
-      background: var(--main-bg);
+      background: var(--business-bg);
       border-radius: 16px;
-      padding: 8px 10px;
+      padding: 10px 12px;
       box-shadow: 0 2px 12px var(--business-shadow);
       text-align: center;
-      font-family: 'Cairo', 'Share Tech Mono', monospace;
+      font-family: 'Cairo', 'Montserrat', sans-serif;
+      animation: fadeInBio 1.2s 0.5s cubic-bezier(.4,2,.6,1) backwards;
+    }
+    @keyframes fadeInBio {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: none; }
     }
     .social-icons {
       margin-top: 16px;
@@ -83,15 +116,23 @@
       display: flex;
       justify-content: center;
       gap: 22px;
-      animation: none;
+      z-index: 1;
+      animation: fadeInSocial 1.2s 0.7s cubic-bezier(.4,2,.6,1) backwards;
+    }
+    @keyframes fadeInSocial {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: none; }
     }
     .social-icons a {
-      background: var(--main-bg);
+      background: var(--business-bg);
       border: 2.5px solid var(--business-gold);
       box-shadow: 0 0 8px var(--business-shadow);
       border-radius: 50%;
       transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
       padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .social-icons a:hover, .social-icons a:focus {
       background: var(--business-gray);
@@ -100,8 +141,8 @@
       transform: scale(1.08) rotate(-2deg);
     }
     .social-icons img {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: var(--business-white);
       padding: 2px;
@@ -118,7 +159,7 @@
       border-radius: 12px;
       padding: 10px 32px;
       font-size: 1.15rem;
-      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
+      font-family: 'Montserrat', 'Cairo', sans-serif;
       font-weight: bold;
       letter-spacing: 1.2px;
       box-shadow: 0 2px 12px var(--business-shadow);
@@ -128,7 +169,8 @@
       text-decoration: none;
       margin: 0 auto 10px auto;
       text-shadow: none;
-      animation: none;
+      animation: fadeInBtn 1.2s 1s cubic-bezier(.4,2,.6,1) backwards;
+      display: block;
     }
     .call-btn:hover {
       background: linear-gradient(90deg, var(--business-gray) 40%, var(--business-gold) 100%);
@@ -138,13 +180,13 @@
     }
     .back-btn {
       margin-top: 18px;
-      background: var(--main-bg);
+      background: var(--business-bg);
       color: var(--business-gold);
       border: none;
       border-radius: 12px;
       padding: 10px 32px;
       font-size: 1.1rem;
-      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
+      font-family: 'Montserrat', 'Cairo', sans-serif;
       font-weight: bold;
       letter-spacing: 1.1px;
       box-shadow: 0 2px 8px var(--business-shadow);
@@ -153,6 +195,8 @@
       outline: none;
       margin-bottom: 10px;
       text-shadow: none;
+      animation: fadeInBtn 1.2s 1.2s cubic-bezier(.4,2,.6,1) backwards;
+      display: block;
     }
     .back-btn:hover {
       background: var(--business-gray);
@@ -160,246 +204,49 @@
       box-shadow: 0 0 16px var(--business-gold), 0 0 8px var(--business-shadow);
       transform: scale(1.05);
     }
-    /* استايل رجال أعمال */
-    .business-style {
-      background: linear-gradient(120deg, #3d3d6b 0%, #976705 100%);
-      border-radius: 36px;
-      box-shadow: 0 0 36px 0 #bfa76a33, 0 0 0 2.5px #bfa76a22;
-      border: 2.5px solid #bfa76a;
-      max-width: 440px;
-      padding: 56px 32px 40px 32px;
-      margin: 72px auto 36px auto;
-      color: #23272e;
-      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
-      position: relative;
-      overflow: hidden;
-      transition: box-shadow 0.3s, border 0.3s, background 0.3s;
+    @keyframes fadeInBtn {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to { opacity: 1; transform: none; }
     }
-    .business-style::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(120deg, #fffbe6 0%, #bfa76a11 60%, #f7f7fa 100%);
-      opacity: 0.11;
-      filter: blur(14px);
+    /* Animation background */
+    .animated-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
       z-index: 0;
       pointer-events: none;
+      background: radial-gradient(circle at 70% 20%, #bfa76a22 0%, transparent 60%),
+                  radial-gradient(circle at 20% 80%, #2d3a4a22 0%, transparent 70%);
+      overflow: hidden;
     }
-    .business-style .dev-name, .business-name {
-      background: linear-gradient(90deg, #bfa76a 0%, #e0e0e0 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-      font-size: 2.4rem;
-      font-weight: bold;
-      letter-spacing: 2.5px;
-      text-shadow: 0 0 12px #bfa76a33, 0 0 2px #fff;
-      animation: business-gradient 3s linear infinite alternate;
-      text-align: center;
-      margin-bottom: 12px;
+    canvas#dev-anim {
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.18;
     }
-    @keyframes business-gradient {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-    .business-style .avatar, .business-avatar {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      border: 3.5px solid #bfa76a;
-      box-shadow: 0 0 32px #e0e0e0, 0 0 0 4px #bfa76a22;
-      margin-bottom: 26px;
-      background: #fff;
-      transition: box-shadow 0.3s, transform 0.3s, border 0.3s;
-      z-index: 1;
-      position: relative;
-    }
-    .business-style .avatar:hover, .business-avatar:hover {
-      border: 3.5px solid #23272e;
-      box-shadow: 0 0 36px #bfa76a, 0 0 16px #e0e0e0;
-      transform: scale(1.09) rotate(-2deg);
-    }
-    .business-style .dev-bio, .business-bio {
-      font-size: 1.15rem;
-      color: #23272e;
-      margin-bottom: 32px;
-      line-height: 2.2;
-      background: #f7f7fa;
-      border-radius: 18px;
-      padding: 12px 14px;
-      box-shadow: 0 2px 16px #e0e0e0;
-      text-align: center;
-      font-family: 'Cairo', 'Montserrat', 'Share Tech Mono', monospace;
-      z-index: 1;
-      position: relative;
-    }
-    .business-style .social-icons, .business-social-icons {
-      margin-top: 18px;
-      margin-bottom: 18px;
-      display: flex;
-      justify-content: center;
-      gap: 28px;
-      z-index: 1;
-      position: relative;
-    }
-    .business-style .social-icons a, .business-social-icons a {
-      background: #fffbe6;
-      border: 2.5px solid #bfa76a;
-      box-shadow: 0 0 10px #bfa76a22;
-      border-radius: 50%;
-      transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
-      padding: 3px;
-    }
-    .business-style .social-icons a:hover, .business-style .social-icons a:focus,
-    .business-social-icons a:hover, .business-social-icons a:focus {
-      background: #e0e0e0;
-      border: 2.5px solid #23272e;
-      box-shadow: 0 0 18px #bfa76a, 0 0 8px #e0e0e0;
-      transform: scale(1.12) rotate(-2deg);
-    }
-    .business-style .social-icons img, .business-social-icons img {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      background: #fff;
-      padding: 2.5px;
-      filter: grayscale(0.05) contrast(1.15);
-      transition: filter 0.3s;
-    }
-    .business-style .social-icons a:hover img, .business-social-icons a:hover img {
-      filter: grayscale(0) contrast(1.25) drop-shadow(0 0 10px #bfa76a);
-    }
-    .business-style .call-btn, .business-call-btn {
-      background: linear-gradient(90deg, #bfa76a 40%, #e0e0e0 100%);
-      color: #23272e;
-      border: none;
-      border-radius: 14px;
-      padding: 12px 38px;
-      font-size: 1.18rem;
-      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
-      font-weight: bold;
-      letter-spacing: 1.3px;
-      box-shadow: 0 2px 16px #e0e0e0;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
-      outline: none;
-      text-decoration: none;
-      margin: 0 auto 12px auto;
-      text-shadow: none;
-      z-index: 1;
-      position: relative;
-    }
-    .business-style .call-btn:hover, .business-call-btn:hover {
-      background: linear-gradient(90deg, #e0e0e0 40%, #bfa76a 100%);
-      color: #bfa76a;
-      box-shadow: 0 0 18px #bfa76a, 0 0 8px #e0e0e0;
-      transform: scale(1.07);
-    }
-    .business-style .back-btn, .business-back-btn {
-      margin-top: 22px;
-      background: #fffbe6;
-      color: #bfa76a;
-      border: none;
-      border-radius: 14px;
-      padding: 12px 38px;
-      font-size: 1.13rem;
-      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
-      font-weight: bold;
-      letter-spacing: 1.2px;
-      box-shadow: 0 2px 10px #e0e0e0;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
-      outline: none;
-      margin-bottom: 12px;
-      text-shadow: none;
-      z-index: 1;
-      position: relative;
-    }
-    .business-style .back-btn:hover, .business-back-btn:hover {
-      background: #e0e0e0;
-      color: #23272e;
-      box-shadow: 0 0 18px #bfa76a, 0 0 8px #e0e0e0;
-      transform: scale(1.07);
-    }
-    /* ميديا استايل */
     @media (max-width: 600px) {
-      .hacker-card, .business-style {
-        max-width: 99vw;
-        padding: 12px 2vw 18px 2vw;
-        border-radius: 16px;
-      }
+      .business-card { max-width: 99vw; padding: 12px 2vw 18px 2vw; border-radius: 16px; }
       .avatar { width: 64px; height: 64px; }
       .dev-name { font-size: 1.4rem; }
       .dev-title, .dev-bio, .contact { font-size: 1.01rem; }
-      .social-icons img { width: 32px; height: 32px; }
-      .call-btn, .back-btn { font-size: 1.18rem; padding: 7px 16px; }
-    }
-    @media (min-width: 1200px) {
-      .hacker-card, .business-style { max-width: 480px; }
-      .avatar { width: 140px; height: 140px; }
-      .social-icons img { width: 60px; height: 60px; }
-    }
-    /* إزالة أي زر أحمر أو خطأ */
-    button, .call-btn, .back-btn {
-      background: linear-gradient(90deg, var(--business-gold) 40%, var(--business-gray) 100) !important;
-      color: var(--business-dark) !important;
-      border: none !important;
-      box-shadow: 0 2px 12px var(--business-shadow) !important;
-      outline: none !important;
-      text-shadow: none !important;
-      font-weight: bold;
-      transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
-    }
-    button:hover, .call-btn:hover, .back-btn:hover {
-      background: linear-gradient(90deg, var(--business-gray) 40%, var(--business-gold) 100) !important;
-      color: var(--business-gold) !important;
-      box-shadow: 0 0 16px var(--business-gold), 0 0 8px var(--business-shadow) !important;
-      transform: scale(1.05);
-    }
-    /* إزالة أي لون أحمر أو خطأ من النصوص */
-    .error, .danger, .alert, .text-danger, .text-error {
-      color: var(--business-gold) !important;
-      background: var(--main-bg) !important;
-      border: 1.5px solid var(--business-gold) !important;
-      box-shadow: 0 0 8px var(--business-shadow) !important;
-    }
-    #devMsgBox {
-      display: none;
-      background: rgba(57, 255, 20, 0.9);
-      color: #0a0f1a;
-      padding: 12px 18px;
-      border-radius: 12px;
-      margin-bottom: 18px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      font-size: 1.1rem;
-      font-family: 'Share Tech Mono', monospace;
-      text-align: center;
-      position: relative;
-      z-index: 3;
-      overflow: hidden;
-      animation: slideIn 0.8s ease-out forwards;
-    }
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      .social-icons img { width: 28px; height: 28px; }
+      .call-btn, .back-btn { font-size: 1.08rem; padding: 7px 16px; }
     }
   </style>
 </head>
 <body>
-  <div class="hacker-card business-style">
-    <div id="devMsgBox" style="display:none;"></div>
-    <img src="myphoto.JPG" alt="صورة المطور" class="avatar" id="devAvatar" />
+  <div class="animated-bg">
+    <canvas id="dev-anim"></canvas>
+  </div>
+  <div class="business-card">
+    <img src="uploads/images/myphoto.JPG" alt="صورة المطور" class="avatar" id="devAvatar" />
     <div class="dev-name">يحيى رضا</div>
+    <div class="dev-title">مبرمج ومطور ويب | Business Developer</div>
     <div class="dev-bio">
-      شاب مبرمج ومطور مشاريع ويب بخبرة في بناء مواقع عصرية وتفاعلية.<br>
-      أستخدم أحدث تقنيات البرمجة وأعشق تحويل الأفكار إلى واقع رقمي.<br>
-      أبحث دائمًا عن التحديات الجديدة وأطور نفسي باستمرار.<br>
+      خبرة في بناء مواقع وتطبيقات عصرية للشركات والأفراد.<br>
+      أستخدم أحدث التقنيات وأهتم بالتفاصيل والنتائج الاحترافية.<br>
+      أبحث عن التحديات الجديدة وأطور نفسي باستمرار.<br>
       تواصل معي عبر وسائل التواصل التالية:
     </div>
     <div class="social-icons">
@@ -416,108 +263,58 @@
         <img src="https://img.icons8.com/ios-filled/50/39ff14/phone.png" alt="رقمي">
       </a>
     </div>
-    <div class="contact">
-      <a href="tel:+201155528093" class="call-btn">اتصل الآن</a>
-    </div>
+    <a href="tel:+201155528093" class="call-btn">اتصل الآن</a>
     <button class="back-btn" onclick="window.location.href='index.html'">العودة للرئيسية</button>
   </div>
   <script>
-    // تطبيق إعدادات لوحة التحكم على الصفحة
-    function applySettings() {
-      const settings = JSON.parse(localStorage.getItem('khutwa_settings')||'{}');
-      // اللوجو (لو تم رفعه)
-      if(settings.logo) {
-        let favicon = document.querySelector('link[rel="icon"]');
-        if(!favicon) {
-          favicon = document.createElement('link');
-          favicon.rel = 'icon';
-          document.head.appendChild(favicon);
-        }
-        favicon.href = settings.logo;
-      }
-      // اللون الرئيسي
-      if(settings.mainColor) {
-        document.documentElement.style.setProperty('--hacker-cyan', settings.mainColor);
-      }
-      // الخط
-      if(settings.font) {
-        document.body.style.fontFamily = settings.font + ", 'Share Tech Mono', 'VT323', monospace, 'Cairo', sans-serif";
-      }
-      // الخلفية المتحركة
-      if(settings.bgAnim === false) {
-        document.body.style.setProperty('animation', 'none');
-        document.body.style.setProperty('background', '#181c24');
-        document.body.style.setProperty('backgroundImage', 'none');
-        document.body.style.setProperty('backgroundColor', '#181c24');
-        document.body.classList.add('no-bg-anim');
-      } else {
-        document.body.classList.remove('no-bg-anim');
-      }
-      // إظهار/إخفاء صورة المطور
-      const avatar = document.getElementById('devAvatar');
-      if(avatar) avatar.style.display = (settings.avatar === false) ? 'none' : '';
-      // إظهار/إخفاء زر العودة
-      const backBtn = document.querySelector('.back-btn');
-      if(backBtn) backBtn.style.display = (settings.backBtn === false) ? 'none' : '';
-      // إظهار/إخفاء وسائل التواصل
-      const social = document.querySelector('.social-icons');
-      if(social) social.style.display = (settings.social === false) ? 'none' : '';
-      // إظهار/إخفاء السيرة الذاتية
-      const bio = document.querySelector('.dev-bio');
-      if(bio) bio.style.display = (settings.bio === false) ? 'none' : '';
-      // الأصوات
-      window.KHUTWA_SOUND_ENABLED = (settings.sound !== false);
-      // صوت الترحيب
-      window.KHUTWA_WELCOME_ENABLED = (settings.welcome !== false);
+    // Canvas Animation: خطوط ذهبية متحركة
+    const canvas = document.getElementById('dev-anim');
+    const ctx = canvas.getContext('2d');
+    function resizeAnim() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
-    applySettings();
-    // جلب إعدادات صفحة المطور من الباك اند وتطبيقها
-    async function applyDeveloperSettingsAPI() {
-      try {
-        const res = await fetch('http://localhost:3001/api/developer-settings');
-        const data = await res.json();
-        if (data.developerName) {
-          const nameDiv = document.querySelector('.dev-name');
-          if (nameDiv) nameDiv.textContent = data.developerName;
+    window.addEventListener('resize', resizeAnim);
+    resizeAnim();
+    // خطوط ذهبية متحركة
+    const lines = Array.from({length: 18}, (_,i) => ({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      len: 120+Math.random()*180,
+      speed: 0.3+Math.random()*0.7,
+      angle: Math.random()*Math.PI*2,
+      width: 1.5+Math.random()*1.5,
+      alpha: 0.12+Math.random()*0.18
+    }));
+    function drawAnim() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(const l of lines) {
+        ctx.save();
+        ctx.globalAlpha = l.alpha;
+        ctx.strokeStyle = ctx.createLinearGradient(l.x, l.y, l.x+Math.cos(l.angle)*l.len, l.y+Math.sin(l.angle)*l.len);
+        ctx.strokeStyle.addColorStop(0, '#bfa76a');
+        ctx.strokeStyle.addColorStop(1, '#fffbe6');
+        ctx.lineWidth = l.width;
+        ctx.beginPath();
+        ctx.moveTo(l.x, l.y);
+        ctx.lineTo(l.x+Math.cos(l.angle)*l.len, l.y+Math.sin(l.angle)*l.len);
+        ctx.stroke();
+        ctx.restore();
+        l.x += Math.cos(l.angle)*l.speed;
+        l.y += Math.sin(l.angle)*l.speed;
+        if(l.x<0||l.x>canvas.width||l.y<0||l.y>canvas.height) {
+          l.x = Math.random()*canvas.width;
+          l.y = Math.random()*canvas.height;
         }
-        if (data.developerBio) {
-          const bioDiv = document.querySelector('.dev-bio');
-          if (bioDiv) bioDiv.textContent = data.developerBio;
-        }
-        if (data.developerPhoto) {
-          const avatar = document.getElementById('devAvatar');
-          if (avatar) avatar.src = data.developerPhoto;
-        }
-        if (data.backgroundColor) {
-          document.body.style.backgroundColor = data.backgroundColor;
-        }
-        if (data.textColor) {
-          document.body.style.color = data.textColor;
-        }
-        if (data.logo) {
-          let favicon = document.querySelector('link[rel="icon"]');
-          if (!favicon) {
-            favicon = document.createElement('link');
-            favicon.rel = 'icon';
-            document.head.appendChild(favicon);
-          }
-          favicon.href = data.logo;
-        }
-      } catch (e) {
-        // في حال لم يعمل الباك اند، تجاهل الخطأ
       }
+      requestAnimationFrame(drawAnim);
     }
-    applyDeveloperSettingsAPI();
-    // الأصوات حسب الإعدادات
+    drawAnim();
+    // أصوات تفاعلية
     function playSound(src) {
-      if(window.KHUTWA_SOUND_ENABLED === false) return;
       const audio = new Audio(src);
       audio.play();
     }
-    // تشغيل صوت ترحيبي عند الدخول للموقع
-    window.addEventListener('DOMContentLoaded', function() {
-      if(window.KHUTWA_WELCOME_ENABLED !== false) playSound('الأصوات/about dev2.mp3');
-    });
     document.getElementById('instaIcon').addEventListener('mouseenter', function() {
       playSound('الأصوات/insta.mp3');
     });
@@ -532,161 +329,6 @@
     });
     document.getElementById('devAvatar').addEventListener('mouseenter', function() {
       playSound('الأصوات/يحيى رضا.mp3');
-    });
-    
-    // ربط ديناميكي مع إعدادات advanced-settings.html
-    document.addEventListener('DOMContentLoaded', function() {
-      const settings = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
-      // الاسم
-      if(settings.devName) {
-        const nameDiv = document.querySelector('.dev-name');
-        if(nameDiv) nameDiv.textContent = settings.devName;
-      }
-      // النبذة
-      if(settings.devBio) {
-        const bioDiv = document.querySelector('.dev-bio');
-        if(bioDiv) bioDiv.textContent = settings.devBio;
-      }
-      // صورة المطور
-      if(settings.devAvatar) {
-        const avatar = document.getElementById('devAvatar');
-        if(avatar) avatar.src = settings.devAvatar;
-      }
-      // لون الخلفية
-      if(settings.devBg) {
-        document.body.style.background = settings.devBg;
-      }
-      // لون النص
-      if(settings.devColor) {
-        document.body.style.color = settings.devColor;
-        const nameDiv = document.querySelector('.dev-name');
-        if(nameDiv) nameDiv.style.color = settings.devColor;
-      }
-      // إظهار/إخفاء صورة المطور
-      const avatar = document.getElementById('devAvatar');
-      if(avatar) avatar.style.display = (settings.avatar === false) ? 'none' : '';
-      // إظهار/إخفاء النبذة
-      const bio = document.querySelector('.dev-bio');
-      if(bio) bio.style.display = (settings.bio === false) ? 'none' : '';
-      // إظهار/إخفاء وسائل التواصل
-      const social = document.querySelector('.social-icons');
-      if(social) social.style.display = (settings.social === false) ? 'none' : '';
-      // إظهار/إخفاء زر العودة
-      const backBtn = document.querySelector('.back-btn');
-      if(backBtn) backBtn.style.display = (settings.backBtn === false) ? 'none' : '';
-      // روابط التواصل
-      if(settings.waLink) {
-        const wa = document.getElementById('waIcon');
-        if(wa) wa.href = settings.waLink;
-      }
-      if(settings.instaLink) {
-        const insta = document.getElementById('instaIcon');
-        if(insta) insta.href = settings.instaLink;
-      }
-      if(settings.fbLink) {
-        const fb = document.getElementById('fbIcon');
-        if(fb) fb.href = settings.fbLink;
-      }
-      // رقم الهاتف
-      if(settings.phone) {
-        const phoneIcon = document.getElementById('phoneIcon');
-        const callBtn = document.querySelector('.call-btn');
-        if(phoneIcon) phoneIcon.href = 'tel:' + settings.phone;
-        if(callBtn) callBtn.href = 'tel:' + settings.phone;
-      }
-      // رسالة مخصصة
-      const msgBox = document.getElementById('devMsgBox');
-      if(settings.devMsg && msgBox) {
-        msgBox.textContent = settings.devMsg;
-        msgBox.style.display = 'block';
-        msgBox.style.background = '#101618';
-        msgBox.style.border = '2px solid #00ff41';
-        msgBox.style.color = '#00ff41';
-        msgBox.style.padding = '12px 10px';
-        msgBox.style.margin = '18px 0 18px 0';
-        msgBox.style.borderRadius = '10px';
-        msgBox.style.boxShadow = '0 0 18px #00ff4166';
-        msgBox.style.fontFamily = 'Share Tech Mono,VT323,monospace';
-        msgBox.style.fontSize = '1.08em';
-        msgBox.style.textAlign = 'center';
-        msgBox.style.letterSpacing = '1px';
-        setTimeout(() => { msgBox.style.display = 'none'; }, 6000);
-      } else if(msgBox) {
-        msgBox.style.display = 'none';
-      }
-    });
-    // استمع لتحديث الإعدادات من صفحة الإعدادات (ربط ديناميكي فوري)
-    window.addEventListener('storage', function(e) {
-      if(e.key === 'advancedSettings_update') {
-        // إعادة تحميل الإعدادات وتحديث الصفحة فوراً
-        const settings = JSON.parse(localStorage.getItem('advancedSettings')||'{}');
-        // الاسم
-        if(settings.devName) {
-          const nameDiv = document.querySelector('.dev-name');
-          if(nameDiv) nameDiv.textContent = settings.devName;
-        }
-        // النبذة
-        if(settings.devBio) {
-          const bioDiv = document.querySelector('.dev-bio');
-          if(bioDiv) bioDiv.textContent = settings.devBio;
-        }
-        // صورة المطور
-        if(settings.devAvatar) {
-          const avatar = document.getElementById('devAvatar');
-          if(avatar) avatar.src = settings.devAvatar;
-        }
-        // لون الخلفية
-        if(settings.devBg) {
-          document.body.style.background = settings.devBg;
-        }
-        // لون النص
-        if(settings.devColor) {
-          document.body.style.color = settings.devColor;
-          const nameDiv = document.querySelector('.dev-name');
-          if(nameDiv) nameDiv.style.color = settings.devColor;
-        }
-        // إظهار/إخفاء صورة المطور
-        const avatar = document.getElementById('devAvatar');
-        if(avatar) avatar.style.display = (settings.avatar === false) ? 'none' : '';
-        // إظهار/إخفاء النبذة
-        const bio = document.querySelector('.dev-bio');
-        if(bio) bio.style.display = (settings.bio === false) ? 'none' : '';
-        // إظهار/إخفاء وسائل التواصل
-        const social = document.querySelector('.social-icons');
-        if(social) social.style.display = (settings.social === false) ? 'none' : '';
-        // إظهار/إخفاء زر العودة
-        const backBtn = document.querySelector('.back-btn');
-        if(backBtn) backBtn.style.display = (settings.backBtn === false) ? 'none' : '';
-        // روابط التواصل
-        if(settings.waLink) {
-          const wa = document.getElementById('waIcon');
-          if(wa) wa.href = settings.waLink;
-        }
-        if(settings.instaLink) {
-          const insta = document.getElementById('instaIcon');
-          if(insta) insta.href = settings.instaLink;
-        }
-        if(settings.fbLink) {
-          const fb = document.getElementById('fbIcon');
-          if(fb) fb.href = settings.fbLink;
-        }
-        // رقم الهاتف
-        if(settings.phone) {
-          const phoneIcon = document.getElementById('phoneIcon');
-          const callBtn = document.querySelector('.call-btn');
-          if(phoneIcon) phoneIcon.href = 'tel:' + settings.phone;
-          if(callBtn) callBtn.href = 'tel:' + settings.phone;
-        }
-        // رسالة مخصصة
-        const msgBox = document.getElementById('devMsgBox');
-        if(settings.devMsg && msgBox) {
-          msgBox.textContent = settings.devMsg;
-          msgBox.style.display = 'block';
-          setTimeout(() => { msgBox.style.display = 'none'; }, 6000);
-        } else if(msgBox) {
-          msgBox.style.display = 'none';
-        }
-      }
     });
   </script>
 </body>
