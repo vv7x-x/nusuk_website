@@ -6,68 +6,58 @@
   <title>عن المطور | يحيى رضا</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
   <style>
+    /* ألوان رجال أعمال هادئة وفاخرة */
     :root {
-      --main-bg: #f7f7fa;
-      --hacker-green: #23272e;
-      --hacker-cyan: #bdbdbd;
-      --hacker-blue: #a0aec0;
-      --hacker-shadow: #e0e0e0;
-      --hacker-dark: #f7f7fa;
-      --hacker-gray: #bdbdbd;
-      --gold: #bfa76a;
+      --main-bg: #f5f4f1;
+      --business-gold: #bfa76a;
+      --business-dark: #23272e;
+      --business-gray: #e5e3dc;
+      --business-white: #fff;
+      --business-shadow: #d6cfc1;
     }
     html, body {
-      background: linear-gradient(120deg, #f7f7fa 0%, #e0e0e0 100%);
-      color: #23272e;
-      font-family: 'Cairo', 'Montserrat', 'Share Tech Mono', 'VT323', monospace, sans-serif;
+      background: linear-gradient(120deg, var(--main-bg) 0%, var(--business-gray) 100%);
+      color: var(--business-dark);
+      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace, sans-serif;
     }
-    body::before {
-      background: radial-gradient(ellipse at 60% 20%, #e0e0e0 0%, transparent 60%),
-                  radial-gradient(ellipse at 20% 80%, #bfa76a22 0%, transparent 70%),
-                  linear-gradient(120deg, #e0e0e0 0%, #f7f7fa 100%);
-      opacity: 0.5;
+    body::before, body::after {
+      display: none;
     }
-    body::after {
-      background: repeating-linear-gradient(120deg, #e0e0e01a 0 2px, transparent 2px 80px),
-                  repeating-linear-gradient(-120deg, #bfa76a11 0 2px, transparent 2px 80px);
-      opacity: 0.08;
-    }
-    .hacker-card {
-      background: #fff;
+    .hacker-card, .business-style {
+      background: var(--business-white);
       border-radius: 32px;
-      box-shadow: 0 0 32px 0 #e0e0e0, 0 0 0 2px #bfa76a33;
-      border: 2.5px solid #e0e0e0;
-      max-width: 420px;
+      box-shadow: 0 0 32px 0 var(--business-shadow), 0 0 0 2px var(--business-gold)33;
+      border: 2.5px solid var(--business-gold);
+      max-width: 440px;
       padding: 48px 28px 36px 28px;
       margin: 64px auto 32px auto;
-      backdrop-filter: blur(8px) saturate(1.1);
-      color: #23272e;
+      color: var(--business-dark);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s, border 0.3s, background 0.3s;
     }
-    .hacker-card::before {
-      background: linear-gradient(120deg, #e0e0e0 0%, #bfa76a22 60%, #f7f7fa 100%);
-      opacity: 0.12;
-      filter: blur(8px);
+    .hacker-card::before, .business-style::before {
+      display: none;
     }
     .avatar {
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      border: 3px solid #bfa76a;
-      box-shadow: 0 0 24px #e0e0e0;
+      border: 3px solid var(--business-gold);
+      box-shadow: 0 0 24px var(--business-shadow);
       margin-bottom: 22px;
-      background: #fff;
+      background: var(--business-white);
       transition: box-shadow 0.3s, transform 0.3s, border 0.3s;
-      animation: floatAvatar 3.5s ease-in-out infinite;
     }
     .avatar:hover {
-      border: 3px solid #bdbdbd;
-      box-shadow: 0 0 32px #bfa76a, 0 0 16px #e0e0e0;
+      border: 3px solid var(--business-dark);
+      box-shadow: 0 0 32px var(--business-gold), 0 0 16px var(--business-shadow);
       transform: scale(1.07) rotate(-2deg);
     }
     .dev-name {
       font-size: 2.2rem;
-      color: #bfa76a;
-      text-shadow: 0 0 8px #e0e0e0, 0 0 2px #fff;
+      color: var(--business-gold);
+      text-shadow: 0 0 8px var(--business-shadow), 0 0 2px var(--business-white);
       font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
       margin-bottom: 10px;
       letter-spacing: 2px;
@@ -77,13 +67,13 @@
     }
     .dev-bio {
       font-size: 1.1rem;
-      color: #23272e;
+      color: var(--business-dark);
       margin-bottom: 28px;
       line-height: 2.1;
-      background: #f7f7fa;
+      background: var(--main-bg);
       border-radius: 16px;
       padding: 8px 10px;
-      box-shadow: 0 2px 12px #e0e0e0;
+      box-shadow: 0 2px 12px var(--business-shadow);
       text-align: center;
       font-family: 'Cairo', 'Share Tech Mono', monospace;
     }
@@ -96,34 +86,34 @@
       animation: none;
     }
     .social-icons a {
-      background: #f7f7fa;
-      border: 2.5px solid #e0e0e0;
-      box-shadow: 0 0 8px #e0e0e0;
+      background: var(--main-bg);
+      border: 2.5px solid var(--business-gold);
+      box-shadow: 0 0 8px var(--business-shadow);
       border-radius: 50%;
       transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
       padding: 2px;
     }
     .social-icons a:hover, .social-icons a:focus {
-      background: #e0e0e0;
-      border: 2.5px solid #bfa76a;
-      box-shadow: 0 0 16px #bfa76a, 0 0 8px #e0e0e0;
+      background: var(--business-gray);
+      border: 2.5px solid var(--business-dark);
+      box-shadow: 0 0 16px var(--business-gold), 0 0 8px var(--business-shadow);
       transform: scale(1.08) rotate(-2deg);
     }
     .social-icons img {
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      background: #fff;
+      background: var(--business-white);
       padding: 2px;
-      filter: grayscale(0.1) contrast(1.1);
+      filter: grayscale(0.05) contrast(1.1);
       transition: filter 0.3s;
     }
     .social-icons a:hover img {
-      filter: grayscale(0) contrast(1.2) drop-shadow(0 0 8px #bfa76a);
+      filter: grayscale(0) contrast(1.2) drop-shadow(0 0 8px var(--business-gold));
     }
     .call-btn {
-      background: linear-gradient(90deg, #bfa76a 40%, #e0e0e0 100%);
-      color: #23272e;
+      background: linear-gradient(90deg, var(--business-gold) 40%, var(--business-gray) 100%);
+      color: var(--business-dark);
       border: none;
       border-radius: 12px;
       padding: 10px 32px;
@@ -131,7 +121,7 @@
       font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
       font-weight: bold;
       letter-spacing: 1.2px;
-      box-shadow: 0 2px 12px #e0e0e0;
+      box-shadow: 0 2px 12px var(--business-shadow);
       cursor: pointer;
       transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
       outline: none;
@@ -141,15 +131,15 @@
       animation: none;
     }
     .call-btn:hover {
-      background: linear-gradient(90deg, #e0e0e0 40%, #bfa76a 100%);
-      color: #bfa76a;
-      box-shadow: 0 0 16px #bfa76a, 0 0 8px #e0e0e0;
+      background: linear-gradient(90deg, var(--business-gray) 40%, var(--business-gold) 100%);
+      color: var(--business-gold);
+      box-shadow: 0 0 16px var(--business-gold), 0 0 8px var(--business-shadow);
       transform: scale(1.05);
     }
     .back-btn {
       margin-top: 18px;
-      background: #f7f7fa;
-      color: #bfa76a;
+      background: var(--main-bg);
+      color: var(--business-gold);
       border: none;
       border-radius: 12px;
       padding: 10px 32px;
@@ -157,7 +147,7 @@
       font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
       font-weight: bold;
       letter-spacing: 1.1px;
-      box-shadow: 0 2px 8px #e0e0e0;
+      box-shadow: 0 2px 8px var(--business-shadow);
       cursor: pointer;
       transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
       outline: none;
@@ -165,9 +155,9 @@
       text-shadow: none;
     }
     .back-btn:hover {
-      background: #e0e0e0;
-      color: #23272e;
-      box-shadow: 0 0 16px #bfa76a, 0 0 8px #e0e0e0;
+      background: var(--business-gray);
+      color: var(--business-dark);
+      box-shadow: 0 0 16px var(--business-gold), 0 0 8px var(--business-shadow);
       transform: scale(1.05);
     }
     /* استايل رجال أعمال */
@@ -333,45 +323,45 @@
     }
     /* ميديا استايل */
     @media (max-width: 600px) {
-      .business-style, .business-card {
+      .hacker-card, .business-style {
         max-width: 99vw;
-        padding: 16px 2vw 22px 2vw;
-        border-radius: 18px;
+        padding: 12px 2vw 18px 2vw;
+        border-radius: 16px;
       }
-      .business-style .avatar, .business-avatar { width: 70px; height: 70px; }
-      .business-style .dev-name, .business-name { font-size: 1.5rem; }
-      .business-style .dev-bio, .business-bio, .business-style .social-icons, .business-social-icons, .business-style .call-btn, .business-call-btn, .business-style .back-btn, .business-back-btn { font-size: 1.05rem; }
-      .business-style .social-icons img, .business-social-icons img { width: 36px; height: 36px; }
-      .business-style .call-btn, .business-call-btn, .business-style .back-btn, .business-back-btn { padding: 8px 18px; }
+      .avatar { width: 64px; height: 64px; }
+      .dev-name { font-size: 1.4rem; }
+      .dev-title, .dev-bio, .contact { font-size: 1.01rem; }
+      .social-icons img { width: 32px; height: 32px; }
+      .call-btn, .back-btn { font-size: 1.18rem; padding: 7px 16px; }
     }
     @media (min-width: 1200px) {
-      .business-style, .business-card { max-width: 480px; }
-      .business-style .avatar, .business-avatar { width: 150px; height: 150px; }
-      .business-style .social-icons img, .business-social-icons img { width: 66px; height: 66px; }
+      .hacker-card, .business-style { max-width: 480px; }
+      .avatar { width: 140px; height: 140px; }
+      .social-icons img { width: 60px; height: 60px; }
     }
     /* إزالة أي زر أحمر أو خطأ */
-    button, .call-btn, .back-btn, .business-call-btn, .business-back-btn {
-      background: linear-gradient(90deg, #bfa76a 40%, #e0e0e0 100%) !important;
-      color: #23272e !important;
+    button, .call-btn, .back-btn {
+      background: linear-gradient(90deg, var(--business-gold) 40%, var(--business-gray) 100) !important;
+      color: var(--business-dark) !important;
       border: none !important;
-      box-shadow: 0 2px 12px #bfa76a22 !important;
+      box-shadow: 0 2px 12px var(--business-shadow) !important;
       outline: none !important;
       text-shadow: none !important;
       font-weight: bold;
       transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
     }
-    button:hover, .call-btn:hover, .back-btn:hover, .business-call-btn:hover, .business-back-btn:hover {
-      background: linear-gradient(90deg, #e0e0e0 40%, #bfa76a 100%) !important;
-      color: #bfa76a !important;
-      box-shadow: 0 0 16px #bfa76a, 0 0 8px #e0e0e0 !important;
+    button:hover, .call-btn:hover, .back-btn:hover {
+      background: linear-gradient(90deg, var(--business-gray) 40%, var(--business-gold) 100) !important;
+      color: var(--business-gold) !important;
+      box-shadow: 0 0 16px var(--business-gold), 0 0 8px var(--business-shadow) !important;
       transform: scale(1.05);
     }
     /* إزالة أي لون أحمر أو خطأ من النصوص */
     .error, .danger, .alert, .text-danger, .text-error {
-      color: #bfa76a !important;
-      background: #fffbe6 !important;
-      border: 1.5px solid #bfa76a !important;
-      box-shadow: 0 0 8px #bfa76a22 !important;
+      color: var(--business-gold) !important;
+      background: var(--main-bg) !important;
+      border: 1.5px solid var(--business-gold) !important;
+      box-shadow: 0 0 8px var(--business-shadow) !important;
     }
     #devMsgBox {
       display: none;
