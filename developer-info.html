@@ -14,6 +14,7 @@
       --hacker-shadow: #00ffb0;
       --hacker-dark: #181c24;
       --hacker-gray: #22272e;
+      --gold: #FFD700;
     }
     html, body {
       height: 100%;
@@ -126,18 +127,22 @@
       box-shadow: 0 0 48px #00fff7, 0 0 24px #FFD700;
     }
     .dev-name {
-      font-size: 2.5rem;
-      color: var(--hacker-green);
-      text-shadow: 0 0 8px var(--hacker-cyan), 0 0 2px #fff;
-      font-family: 'VT323', 'Share Tech Mono', monospace;
-      margin-bottom: 8px;
-      letter-spacing: 1.5px;
+      font-size: 2.8rem;
+      color: var(--gold);
+      text-shadow: 0 0 16px var(--hacker-cyan), 0 0 4px #fff, 0 0 32px #FFD700;
+      font-family: 'Montserrat', 'Cairo', 'Share Tech Mono', monospace;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
       text-align: center;
-      animation: neonText 2.5s alternate infinite;
+      font-weight: bold;
+      animation: rgbName 2.5s linear infinite;
     }
-    @keyframes neonText {
-      0% { text-shadow: 0 0 8px var(--hacker-cyan), 0 0 2px #fff; }
-      100% { text-shadow: 0 0 24px var(--hacker-green), 0 0 8px var(--hacker-cyan); }
+    @keyframes rgbName {
+      0% { color: #ff0055; text-shadow: 0 0 16px #ff0055, 0 0 32px #FFD700; }
+      25% { color: #00ff99; text-shadow: 0 0 16px #00ff99, 0 0 32px #FFD700; }
+      50% { color: #00aaff; text-shadow: 0 0 16px #00aaff, 0 0 32px #FFD700; }
+      75% { color: #FFD700; text-shadow: 0 0 16px #FFD700, 0 0 32px #00fff7; }
+      100% { color: #ff0055; text-shadow: 0 0 16px #ff0055, 0 0 32px #FFD700; }
     }
     .dev-bio {
       font-size: 1.25rem;
