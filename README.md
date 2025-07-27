@@ -11,10 +11,10 @@
 
 ## 🔗 روابط مهمة
 
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repo-black?style=for-the-badge&logo=github)](https://github.com/yourusername/khutwa_website)  
-[![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge&logo=google-chrome)](https://your-live-demo-link.com)  
-[![Download ZIP](https://img.shields.io/badge/Download-ZIP-blue?style=for-the-badge&logo=download)](https://github.com/yourusername/khutwa_website/archive/refs/heads/main.zip)  
-[![Contact](https://img.shields.io/badge/Contact-Email-red?style=for-the-badge&logo=gmail)](mailto:youremail@example.com)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repo-black?style=for-the-badge&logo=github)](https://github.com/vv7x-x/khutwa_website)  
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge&logo=google-chrome)](https://khutwa-website-xi.vercel.app/)  
+[![Download ZIP](https://img.shields.io/badge/Download-ZIP-blue?style=for-the-badge&logo=download)](https://github.com/vv7x-x/khutwa_website/tree/main)  
+[![Contact](https://img.shields.io/badge/Contact-Email-red?style=for-the-badge&logo=gmail)](mailto:yvhyvredv@gmail.com)
 
 ---
 
@@ -55,7 +55,7 @@
 
 ## 🎨 التخصيص والإعدادات
 
-![Control Panel](https://i.imgur.com/8hKZKpg.png)  
+
 *لوحة التحكم المتقدمة*
 
 - جميع إعدادات لوحة التحكم (ألوان، تصميم، خيارات) تحفظ تلقائيًا في **LocalStorage**.  
@@ -76,7 +76,7 @@
 
 ## 🤝 الدعم والمساهمة
 
-لأي استفسارات أو طلب دعم، تواصل معنا عبر صفحة [developer-info.html](developer-info.html) أو عبر البريد: [youremail@example.com](mailto:youremail@example.com).
+لأي استفسارات أو طلب دعم، تواصل معنا عبر صفحة [developer-info.html](https://khutwa-website-xi.vercel.app/developer-info.html) أو عبر البريد: [yvhyvredv@gmail.com](mailto:yvhyvredv@gmail.com).
 
 ---
 
