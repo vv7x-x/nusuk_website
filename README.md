@@ -1,7 +1,7 @@
 
 # 🚀 khutwa_website
 
-![khutwa_website Banner]([https://i.imgur.com/X4frXvI.png](https://www.pinterest.com/pin/615796949074741492/))
+![khutwa_website Banner](https://www.pinterest.com/pin/615796949074741492/)
 
 ---
 
