@@ -1,8 +1,7 @@
 
 # 🚀 khutwa_website
 
-![khutwa_website Banner](https://www.pinterest.com/pin/615796949074741492/)
-
+![khutwa_website Banner](https://github.com/vv7x-x/khutwa_website/blob/main/uploads/images/logo.png)
 ---
 
 ## 📌 نبذة عن المشروع
