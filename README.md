@@ -13,7 +13,7 @@
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repo-black?style=for-the-badge&logo=github)](https://github.com/vv7x-x/khutwa_website)  
 [![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge&logo=google-chrome)](https://khutwa-website-xi.vercel.app/)  
-[![Download ZIP](https://img.shields.io/badge/Download-ZIP-blue?style=for-the-badge&logo=download)](https://github.com/vv7x-x/khutwa_website/tree/main.zip)  
+[![Download ZIP](https://img.shields.io/badge/Download-ZIP-blue?style=for-the-badge&logo=download)](https://github.com/vv7x-x/khutwa_website.zip)  
 [![Contact](https://img.shields.io/badge/Contact-Email-red?style=for-the-badge&logo=gmail)](mailto:yvhyvredv@gmail.com)
 
 ---
