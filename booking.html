@@ -223,11 +223,11 @@
   <nav>
     <div class="nav-container">
       <div class="nav-links">
-        <a href="about.html">من نحن</a>
-        <a href="offers.html">العروض</a>
-        <a href="gallery.html">صور الرحلات</a>
-        <a href="contact.html">اتصل بنا</a>
-        <a href="booking.html">حجز</a>
+        <a href="about">من نحن</a>
+        <a href="offers">العروض</a>
+        <a href="gallery">صور الرحلات</a>
+        <a href="contact">اتصل بنا</a>
+        <a href="booking">حجز</a>
       </div>
       <img src="uploads/images/logo.png" alt="شعار نسك" class="nav-logo" id="logo" />
     </div>
@@ -255,7 +255,7 @@
   <a href="https://wa.me/+201007522405" target="_blank" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
     <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="تواصل واتساب" style="width:60px; height:60px;">
   </a>
-  <a href="developer-info.html" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; text-decoration: none; color: gold; font-size: 1rem; background: rgba(0, 0, 0, 0.8); padding: 10px 15px; border-radius: 8px; box-shadow: 0 0 10px #222;">معلومات عن المطور</a>
+  <a href="developer-info" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; text-decoration: none; color: gold; font-size: 1rem; background: rgba(0, 0, 0, 0.8); padding: 10px 15px; border-radius: 8px; box-shadow: 0 0 10px #222;">معلومات عن المطور</a>
   <footer style="background: rgba(0, 0, 0, 0.9); color: #FFD700; text-align: center; padding: 16px; font-size: 1.1rem; border-top: 2px solid #FFD700; letter-spacing: 1px; box-shadow: 0 -2px 16px #FFD70033;">
     &copy; 2025 نُسُك للحج والعمرة - جميع الحقوق محفوظة
   </footer>
@@ -264,13 +264,13 @@
     document.addEventListener('DOMContentLoaded', function() {
       const path = window.location.pathname;
       const pageMap = {
-        '/index.html': 'الرئيسية',
-        '/about.html': 'من نحن',
-        '/offers.html': 'العروض',
-        '/gallery.html': 'صور الرحلات',
-        '/contact.html': 'اتصل بنا',
-        '/booking.html': 'حجز',
-        '/developer-info.html': 'معلومات عن المطور'
+        '/home': 'الرئيسية',
+        '/about': 'من نحن',
+        '/offers': 'العروض',
+        '/gallery': 'صور الرحلات',
+        '/contact': 'اتصل بنا',
+        '/booking': 'حجز',
+        '/developer-info': 'معلومات عن المطور'
       };
       if (pageMap[path]) {
         document.title = pageMap[path] + ' - نُسُك للحج والعمرة';
