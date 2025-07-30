@@ -1,0 +1,24 @@
+# فعّل mod_rewrite
+RewriteEngine On
+
+# تأكد إن الرابط مش لملف أو مجلد فعلي
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# إزالة .html تلقائيًا (مثال: /about ➜ about.html)
+RewriteRule ^([a-zA-Z0-9\-_]+)/?$ $1.html [L]
+
+# روابط مخصصة
+RewriteRule ^home/?$ index.html [L]
+RewriteRule ^about/?$ about.html [L]
+RewriteRule ^booking/?$ booking.html [L]
+RewriteRule ^bookings/?$ bookings.html [L]
+RewriteRule ^contact/?$ contact.html [L]
+RewriteRule ^gallery/?$ gallery.html [L]
+RewriteRule ^offers/?$ offers.html [L]
+RewriteRule ^developer/?$ developer-info.html [L]
+RewriteRule ^panel/?$ hacker-advanced-panel.html [L]
+RewriteRule ^panel-pro/?$ hacker-advanced-panel-pro.html [L]
+
+# دعم صفحات داخل مجلد pages
+RewriteRule ^pages/([a-zA-Z0-9\-_]+)/?$ pages/$1.html [L]

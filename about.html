@@ -293,22 +293,34 @@
     AOS.init({ duration: 1000 });
   </script>
   <script>
-      // تحديث عنوان الصفحة تلقائياً بناءً على اسم الصفحة بدون .html
-      document.addEventListener('DOMContentLoaded', function() {
-        const path = window.location.pathname;
-        const pageMap = {
-          '/index.html': 'الرئيسية',
-          '/about.html': 'من نحن',
-          '/offers.html': 'العروض',
-          '/gallery.html': 'صور الرحلات',
-          '/contact.html': 'اتصل بنا',
-          '/booking.html': 'حجز',
-          '/developer-info.html': 'معلومات عن المطور'
-        };
-        if (pageMap[path]) {
-          document.title = pageMap[path] + ' - نُسُك للحج والعمرة';
-        }
-      });
+  document.addEventListener('DOMContentLoaded', function() {
+    const path = window.location.pathname;
+
+    // إزالة الشرطة المائلة الأخيرة (لو فيه) وإضافة .html لو مش موجود
+    const cleanPath = path.endsWith('/') ? path.slice(0, -1) : path;
+    const finalPath = cleanPath === '/' || cleanPath === '/home' ? '/index.html' : cleanPath + '.html';
+
+    const pageMap = {
+      '/index.html': 'الرئيسية',
+      '/about.html': 'من نحن',
+      '/offers.html': 'العروض',
+      '/gallery.html': 'صور الرحلات',
+      '/contact.html': 'اتصل بنا',
+      '/booking.html': 'حجز',
+      '/bookings.html': 'الحجوزات',
+      '/developer-info.html': 'معلومات عن المطور',
+      '/hacker-advanced-panel.html': 'لوحة تحكم متقدمة',
+      '/hacker-advanced-panel-pro.html': 'لوحة تحكم احترافية'
+    };
+
+    const title = pageMap[finalPath] || 'الصفحة';
+
+    // مثال: وضع العنوان في عنصر
+    const titleElement = document.getElementById('page-title');
+    if (titleElement) {
+      titleElement.textContent = title;
+    }
+  });
     </script>
     <script>
     function applySettings() {
