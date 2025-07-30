@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>قائمة الحجوزات | نُسُك للحج والعمرة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #18122B 0%, #393053 100%);
+      font-family: 'Tajawal', 'Cairo', sans-serif;
+      color: #FFD700;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 900px;
+      margin: 60px auto 30px auto;
+      background: rgba(30, 30, 40, 0.97);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      border: 2px solid #FFD700;
+      padding: 40px 20px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #FFD700;
+      padding-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #23223a;
+      color: #FFD700;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 16px 10px;
+      text-align: center;
+      border-bottom: 1px solid #FFD70044;
+    }
+    th {
+      background: #393053;
+      font-size: 1.1rem;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    tr:hover {
+      background: #FFD70022;
+      color: #fff;
+    }
+    .empty {
+      text-align: center;
+      color: #fffbe7;
+      margin-top: 40px;
+      font-size: 1.2rem;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 10px 2vw; }
+      h1 { font-size: 1.3rem; }
+      th, td { padding: 8px 2px; font-size: 0.9rem; }
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      z-index: 999;
+    }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 1200px;
+    }
+    .nav-logo {
+      width: 60px;
+      height: auto;
+      cursor: pointer;
+      filter: drop-shadow(0 0 5px gold);
+      transition: transform 0.3s ease-in-out;
+    }
+    .nav-logo:hover {
+      transform: scale(1.1);
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: gold;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="about.html">من نحن</a>
+        <a href="offers.html">العروض</a>
+        <a href="gallery.html">صور الرحلات</a>
+        <a href="contact.html">اتصل بنا</a>
+        <a href="booking.html">حجز</a>
+        <a href="bookings.html">الحجوزات</a>
+      </div>
+      <img src="uploads/images/logo.png" alt="شعار نسك" class="nav-logo" id="logo" />
+    </div>
+  </nav>
+  <div class="container" id="adminContainer">
+    <h1>قائمة الحجوزات</h1>
+    <div id="adminLogin" style="text-align:center; margin:40px 0;">
+      <input type="email" id="adminEmail" placeholder="بريدك الإلكتروني" style="padding:10px; border-radius:8px; border:1px solid #FFD700; font-size:1.1rem; width:220px; text-align:center; margin-bottom:10px;">
+      <button onclick="requestAdminAccess()" style="padding:10px 20px; border-radius:8px; border:none; background:gold; color:#18122B; font-weight:bold; margin-right:10px; cursor:pointer;">طلب دخول</button>
+      <div id="adminError" style="color:#f44; margin-top:10px; display:none;">يرجى إدخال بريد إلكتروني صحيح!</div>
+      <div id="adminWait" style="color:#FFD700; margin-top:10px; display:none;">تم إرسال طلب الدخول، انتظر موافقة الأدمن...</div>
+    </div>
+    <table id="bookingsTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>الاسم</th>
+          <th>رقم الهاتف</th>
+          <th>تفاصيل الحجز</th>
+          <th>تاريخ الإضافة</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="empty" id="emptyMsg" style="display:none;">لا توجد حجوزات بعد.</div>
+  </div>
+  <script>
+    document.getElementById('logo').onclick = () => window.location.href = 'index.html';
+    function requestAdminAccess() {
+      const email = document.getElementById('adminEmail').value.trim();
+      if(!email || !/^\S+@\S+\.\S+$/.test(email)) {
+        document.getElementById('adminError').style.display = 'block';
+        setTimeout(()=>{document.getElementById('adminError').style.display='none';}, 2000);
+        return;
+      }
+      document.getElementById('adminError').style.display = 'none';
+      document.getElementById('adminWait').style.display = 'block';
+      localStorage.setItem('khutwa_admin_email', email);
+      // جلب IP والموقع الجغرافي
+      fetch('https://ipapi.co/json/')
+        .then(res => res.json())
+        .then(ipdata => {
+          fetch('http://localhost:4000/api/admin-request', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, ip: ipdata.ip, city: ipdata.city, country: ipdata.country_name })
+          });
+        });
+    }
+
+    // تحقق تلقائي عند تحميل الصفحة
+    window.addEventListener('DOMContentLoaded', function() {
+      const email = localStorage.getItem('khutwa_admin_email');
+      if(email) {
+        fetch('http://localhost:4000/api/admin-check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.approved) {
+            document.getElementById('adminLogin').style.display = 'none';
+            loadBookings();
+          }
+        });
+      }
+    });
+
+    function loadBookings() {
+      fetch('http://localhost:4000/api/bookings')
+        .then(res => res.json())
+        .then(data => {
+          if(data.success && data.bookings.length > 0) {
+            document.getElementById('bookingsTable').style.display = '';
+            document.getElementById('emptyMsg').style.display = 'none';
+            const tbody = document.querySelector('#bookingsTable tbody');
+            tbody.innerHTML = '';
+            data.bookings.reverse().forEach(b => {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `
+                <td>${b.name}</td>
+                <td>${b.phone}</td>
+                <td>${b.details}</td>
+                <td>${new Date(b.date).toLocaleString('ar-EG')}</td>
+              `;
+              tbody.appendChild(tr);
+            });
+          } else {
+            document.getElementById('bookingsTable').style.display = 'none';
+            document.getElementById('emptyMsg').style.display = '';
+          }
+        });
+    }
+  </script>
+</body>
+</html>
