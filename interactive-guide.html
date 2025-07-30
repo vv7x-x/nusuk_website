@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دليل المناسك التفاعلي | نُسُك للحج والعمرة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #18122B 0%, #393053 100%);
+      font-family: 'Tajawal', 'Cairo', sans-serif;
+      color: #FFD700;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 60px auto 30px auto;
+      background: rgba(30, 30, 40, 0.97);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      border: 2px solid #FFD700;
+      padding: 40px 20px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #FFD700;
+      padding-bottom: 10px;
+    }
+    .ritual-step {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 32px;
+      margin-bottom: 48px;
+      background: #23223a;
+      border-radius: 18px;
+      padding: 24px 16px;
+      box-shadow: 0 2px 12px #FFD70022;
+    }
+    .ritual-3d {
+      flex: 1 1 340px;
+      min-width: 320px;
+      max-width: 420px;
+      height: 340px;
+      background: #18122B;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ritual-info {
+      flex: 2 1 400px;
+      min-width: 260px;
+      color: #fffbe7;
+    }
+    .ritual-info h2 {
+      color: #FFD700;
+      margin-top: 0;
+    }
+    .ritual-info ul {
+      margin: 0 0 0 1.5em;
+      padding: 0;
+      list-style: disc inside;
+    }
+    .ritual-info .dua {
+      background: #FFD70022;
+      color: #FFD700;
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin: 18px 0 0 0;
+      font-weight: bold;
+      font-size: 1.1em;
+      direction: rtl;
+    }
+    @media (max-width: 900px) {
+      .ritual-step { flex-direction: column; align-items: stretch; }
+      .ritual-3d, .ritual-info { max-width: 100%; }
+    }
+    .dark-mode {
+      background: #18122B !important;
+      color: #FFD700 !important;
+    }
+    .toggle-dark {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 9999;
+      background: #23223a;
+      color: #FFD700;
+      border: 2px solid #FFD700;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.5rem;
+      transition: background 0.2s;
+    }
+    .toggle-dark:hover { background: #FFD700; color: #23223a; }
+  </style>
+</head>
+<body>
+  <button class="toggle-dark" onclick="toggleDarkMode()" title="تبديل الوضع الليلي">🌙</button>
+  <div class="container">
+    <h1>دليل المناسك التفاعلي</h1>
+    <!-- مثال خطوة: الكعبة المشرفة -->
+    <div class="ritual-step">
+      <div class="ritual-3d">
+        <!-- نموذج 3D للكعبة (مثال باستخدام Sketchfab Embed) -->
+        <iframe title="الكعبة المشرفة 3D" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking" src="https://sketchfab.com/models/7w7pAfrJkQw/embed"></iframe>
+      </div>
+      <div class="ritual-info">
+        <h2>الطواف حول الكعبة</h2>
+        <ul>
+          <li>يبدأ الحاج أو المعتمر بالطواف حول الكعبة سبعة أشواط.</li>
+          <li>يُستحب استحضار النية والدعاء أثناء الطواف.</li>
+          <li>يجب أن يكون الطواف خارج الكعبة وجميع الأشواط متتالية.</li>
+        </ul>
+        <div class="dua">اللهم إيمانًا بك وتصديقًا بكتابك ووفاءً بعهدك واتباعًا لسنة نبيك محمد ﷺ</div>
+      </div>
+    </div>
+    <!-- مثال خطوة: المسعى -->
+    <div class="ritual-step">
+      <div class="ritual-3d">
+        <!-- نموذج 3D للمسعى (مثال باستخدام Sketchfab Embed) -->
+        <iframe title="المسعى 3D" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking" src="https://sketchfab.com/models/1e7b1e1e1e1e1e1e1e1e/embed"></iframe>
+      </div>
+      <div class="ritual-info">
+        <h2>السعي بين الصفا والمروة</h2>
+        <ul>
+          <li>السعي سبعة أشواط بين الصفا والمروة بعد الطواف.</li>
+          <li>يبدأ من الصفا وينتهي بالمروة.</li>
+          <li>يُستحب الذكر والدعاء أثناء السعي.</li>
+        </ul>
+        <div class="dua">رب اغفر وارحم وتجاوز عما تعلم إنك أنت الأعز الأكرم</div>
+      </div>
+    </div>
+    <!-- مثال خطوة: رمي الجمرات -->
+    <div class="ritual-step">
+      <div class="ritual-3d">
+        <!-- نموذج 3D للجمرات (مثال باستخدام Sketchfab Embed) -->
+        <iframe title="الجمرات 3D" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking" src="https://sketchfab.com/models/2e2e2e2e2e2e2e2e2e2e/embed"></iframe>
+      </div>
+      <div class="ritual-info">
+        <h2>رمي الجمرات</h2>
+        <ul>
+          <li>رمي الجمرات الثلاث في أيام التشريق.</li>
+          <li>يُستحب التكبير مع كل حصاة.</li>
+          <li>الترتيب: الصغرى ثم الوسطى ثم الكبرى (العقبة).</li>
+        </ul>
+        <div class="dua">الله أكبر، الله أكبر، الله أكبر، ولله الحمد</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>
