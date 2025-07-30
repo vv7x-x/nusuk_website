@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    { "source": "/home", "destination": "/index.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/booking", "destination": "/booking.html" },
+    { "source": "/bookings", "destination": "/bookings.html" },
+    { "source": "/offers", "destination": "/offers.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/gallery", "destination": "/gallery.html" },
+    { "source": "/developer", "destination": "/developer-info.html" },
+    { "source": "/panel", "destination": "/hacker-advanced-panel.html" },
+    { "source": "/panel-pro", "destination": "/hacker-advanced-panel-pro.html" }
+  ]
+}
