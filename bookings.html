@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>قائمة الحجوزات | نُسُك للحج والعمرة</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
   <style>
+    /* أنيميشن للعنوان */
+    h1#bookingsTitleAnim {
+      animation: pulseTitle 2s infinite alternate;
+    }
+    @keyframes pulseTitle {
+      0% { text-shadow: 0 0 0 #FFD700; }
+      100% { text-shadow: 0 0 18px #FFD700, 0 2px 8px #FFD70044; }
+    }
+    /* أنيميشن لصفوف الجدول */
+    tr[data-aos] { opacity: 0; }
+    .empty.animated {
+      animation: fadeInUp 1s cubic-bezier(.4,2,.6,1) forwards;
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
     body {
       margin: 0;
       background: linear-gradient(135deg, #18122B 0%, #393053 100%);
@@ -124,7 +142,7 @@
     </div>
   </nav>
   <div class="container" id="adminContainer">
-    <h1>قائمة الحجوزات</h1>
+    <h1 id="bookingsTitleAnim" data-aos="fade-down">قائمة الحجوزات</h1>
     <div id="adminLogin" style="text-align:center; margin:40px 0;">
       <input type="email" id="adminEmail" placeholder="بريدك الإلكتروني" style="padding:10px; border-radius:8px; border:1px solid #FFD700; font-size:1.1rem; width:220px; text-align:center; margin-bottom:10px;">
       <button onclick="requestAdminAccess()" style="padding:10px 20px; border-radius:8px; border:none; background:gold; color:#18122B; font-weight:bold; margin-right:10px; cursor:pointer;">طلب دخول</button>
@@ -133,7 +151,7 @@
     </div>
     <table id="bookingsTable" style="display:none;">
       <thead>
-        <tr>
+        <tr data-aos="fade-up" data-aos-delay="100">
           <th>الاسم</th>
           <th>رقم الهاتف</th>
           <th>تفاصيل الحجز</th>
@@ -143,6 +161,8 @@
       <tbody></tbody>
     </table>
     <div class="empty" id="emptyMsg" style="display:none;">لا توجد حجوزات بعد.</div>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({ duration: 1000 });</script>
   </div>
   <script>
     document.getElementById('logo').onclick = () => window.location.href = 'index.html';
@@ -196,8 +216,10 @@
             document.getElementById('emptyMsg').style.display = 'none';
             const tbody = document.querySelector('#bookingsTable tbody');
             tbody.innerHTML = '';
-            data.bookings.reverse().forEach(b => {
+            data.bookings.reverse().forEach((b, i) => {
               const tr = document.createElement('tr');
+              tr.setAttribute('data-aos', 'fade-up');
+              tr.setAttribute('data-aos-delay', 150 + i * 60);
               tr.innerHTML = `
                 <td>${b.name}</td>
                 <td>${b.phone}</td>
@@ -206,9 +228,13 @@
               `;
               tbody.appendChild(tr);
             });
+            setTimeout(()=>AOS.refresh(), 100);
           } else {
             document.getElementById('bookingsTable').style.display = 'none';
-            document.getElementById('emptyMsg').style.display = '';
+            const emptyMsg = document.getElementById('emptyMsg');
+            emptyMsg.style.display = '';
+            emptyMsg.classList.remove('animated');
+            setTimeout(()=>emptyMsg.classList.add('animated'), 50);
           }
         });
     }

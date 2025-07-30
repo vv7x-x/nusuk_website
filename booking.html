@@ -187,6 +187,36 @@
       background: #FFD70022;
       border-radius: 8px;
     }
+    /* === Animation Styles (Cleaned) === */
+    .success.show {
+      animation: fadeInUp 1s cubic-bezier(.4,2,.6,1) forwards;
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    #bookingTitleAnim {
+      animation: pulseTitle 2s infinite alternate;
+    }
+    @keyframes pulseTitle {
+      0% { text-shadow: 0 0 0 #FFD700; }
+      100% { text-shadow: 0 0 18px #FFD700, 0 2px 8px #FFD70044; }
+    }
+    input:focus, textarea:focus, select:focus {
+      box-shadow: 0 0 8px #FFD70099;
+      background: #222820;
+    }
+    #submitBtn.sending {
+      opacity: 0.7;
+      pointer-events: none;
+      background: repeating-linear-gradient(90deg, #FFD700 0 20px, #393053 20px 40px);
+      background-size: 200% 100%;
+      animation: btnLoading 1s linear infinite;
+    }
+    @keyframes btnLoading {
+      0% { background-position: 0 0; }
+      100% { background-position: 200% 0; }
+    }
   </style>
 </head>
 <body>
@@ -220,39 +250,7 @@
       <button type="submit" id="submitBtn" data-aos="zoom-in-up" data-aos-delay="400"><span id="btnText">إرسال الحجز</span><span id="btnLoader" style="display:none;vertical-align:middle;margin-right:8px;">⏳</span></button>
     </form>
     <div class="success" id="successMsg" style="display:none;opacity:0;">تم إرسال الحجز بنجاح! سيتم تحويلك إلى جروب الواتساب...</div>
-    /* أنيميشن لرسالة النجاح */
-    .success.show {
-      animation: fadeInUp 1s cubic-bezier(.4,2,.6,1) forwards;
-    }
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    /* أنيميشن لعنوان الصفحة */
-    #bookingTitleAnim {
-      animation: pulseTitle 2s infinite alternate;
-    }
-    @keyframes pulseTitle {
-      0% { text-shadow: 0 0 0 #FFD700; }
-      100% { text-shadow: 0 0 18px #FFD700, 0 2px 8px #FFD70044; }
-    }
-    /* حركة للحقول عند التركيز */
-    input:focus, textarea:focus, select:focus {
-      box-shadow: 0 0 8px #FFD70099;
-      background: #222820;
-    }
-    /* زر متحرك عند الإرسال */
-    #submitBtn.sending {
-      opacity: 0.7;
-      pointer-events: none;
-      background: repeating-linear-gradient(90deg, #FFD700 0 20px, #393053 20px 40px);
-      background-size: 200% 100%;
-      animation: btnLoading 1s linear infinite;
-    }
-    @keyframes btnLoading {
-      0% { background-position: 0 0; }
-      100% { background-position: 200% 0; }
-    }
+
   </section>
   <a href="https://wa.me/+201007522405" target="_blank" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
     <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="تواصل واتساب" style="width:60px; height:60px;">
