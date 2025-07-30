@@ -56,7 +56,7 @@ const transporter = nodemailer.createTransport({
 // Endpoint لطلب دخول الأدمن
 app.post('/api/admin-request', async (req, res) => {
   const { email, ip, city, country } = req.body;
-  const approveLink = `http://localhost:${PORT}/api/admin-approve?email=${encodeURIComponent(email)}`;
+  const approveLink = `https://khutwa-website-wine.vercel.app/api/admin-approve?email=${encodeURIComponent(email)}`;
   const mailOptions = {
     from: ADMIN_EMAIL,
     to: ADMIN_EMAIL,
