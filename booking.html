@@ -203,23 +203,56 @@
     </div>
   </nav>
   <section>
-    <h2>حجز رحلة</h2>
-    <form id="bookingForm">
-      <label for="name">الاسم الكامل</label>
-      <input type="text" id="name" name="name" required />
-      <label for="phone">رقم الهاتف</label>
-      <input type="tel" id="phone" name="phone" required pattern="[0-9]+" />
-      <label for="trip">نوع الرحلة</label>
-      <select id="trip" name="trip" required>
+    <h2 data-aos="fade-down" id="bookingTitleAnim">حجز رحلة</h2>
+    <form id="bookingForm" data-aos="zoom-in">
+      <label for="name" data-aos="fade-right" data-aos-delay="100">الاسم الكامل</label>
+      <input type="text" id="name" name="name" required data-aos="fade-left" data-aos-delay="150" />
+      <label for="phone" data-aos="fade-right" data-aos-delay="200">رقم الهاتف</label>
+      <input type="tel" id="phone" name="phone" required pattern="[0-9]+" data-aos="fade-left" data-aos-delay="250" />
+      <label for="trip" data-aos="fade-right" data-aos-delay="300">نوع الرحلة</label>
+      <select id="trip" name="trip" required data-aos="fade-left" data-aos-delay="350">
         <option value="">اختر نوع الرحلة</option>
         <option value="عمرة">عمرة</option>
         <option value="حج">حج</option>
         <option value="سياحة داخلية">سياحة داخلية</option>
         <option value="سياحة خارجية">سياحة خارجية</option>
       </select>
-      <button type="submit">إرسال الحجز</button>
+      <button type="submit" id="submitBtn" data-aos="zoom-in-up" data-aos-delay="400"><span id="btnText">إرسال الحجز</span><span id="btnLoader" style="display:none;vertical-align:middle;margin-right:8px;">⏳</span></button>
     </form>
-    <div class="success" id="successMsg" style="display:none;">تم إرسال الحجز بنجاح! سيتم تحويلك إلى جروب الواتساب...</div>
+    <div class="success" id="successMsg" style="display:none;opacity:0;">تم إرسال الحجز بنجاح! سيتم تحويلك إلى جروب الواتساب...</div>
+    /* أنيميشن لرسالة النجاح */
+    .success.show {
+      animation: fadeInUp 1s cubic-bezier(.4,2,.6,1) forwards;
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    /* أنيميشن لعنوان الصفحة */
+    #bookingTitleAnim {
+      animation: pulseTitle 2s infinite alternate;
+    }
+    @keyframes pulseTitle {
+      0% { text-shadow: 0 0 0 #FFD700; }
+      100% { text-shadow: 0 0 18px #FFD700, 0 2px 8px #FFD70044; }
+    }
+    /* حركة للحقول عند التركيز */
+    input:focus, textarea:focus, select:focus {
+      box-shadow: 0 0 8px #FFD70099;
+      background: #222820;
+    }
+    /* زر متحرك عند الإرسال */
+    #submitBtn.sending {
+      opacity: 0.7;
+      pointer-events: none;
+      background: repeating-linear-gradient(90deg, #FFD700 0 20px, #393053 20px 40px);
+      background-size: 200% 100%;
+      animation: btnLoading 1s linear infinite;
+    }
+    @keyframes btnLoading {
+      0% { background-position: 0 0; }
+      100% { background-position: 200% 0; }
+    }
   </section>
   <a href="https://wa.me/+201007522405" target="_blank" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
     <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="تواصل واتساب" style="width:60px; height:60px;">
@@ -262,6 +295,12 @@
         return;
       }
       const data = { name, phone, details: trip };
+      const btn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const btnLoader = document.getElementById('btnLoader');
+      btn.classList.add('sending');
+      btnLoader.style.display = 'inline-block';
+      btnText.textContent = 'جاري الإرسال...';
       try {
         const res = await fetch('http://localhost:4000/api/booking', {
           method: 'POST',
@@ -270,7 +309,9 @@
         });
         const result = await res.json();
         if(result.success) {
-          document.getElementById('successMsg').style.display = 'block';
+          const msg = document.getElementById('successMsg');
+          msg.style.display = 'block';
+          setTimeout(()=>{ msg.classList.add('show'); msg.style.opacity = 1; }, 50);
           setTimeout(function() {
             window.location.href = 'https://chat.whatsapp.com/HZrzRZ8r5NI2I88pIZu92c';
           }, 2000);
@@ -280,6 +321,10 @@
         }
       } catch (err) {
         alert('حدث خطأ أثناء إرسال الحجز. حاول مرة أخرى.');
+      } finally {
+        btn.classList.remove('sending');
+        btnLoader.style.display = 'none';
+        btnText.textContent = 'إرسال الحجز';
       }
     });
     const logo = document.getElementById('logo');
