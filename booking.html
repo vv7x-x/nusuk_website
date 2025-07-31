@@ -219,6 +219,7 @@
     }
   </style>
 </head>
+  <button id="toggleTheme" title="تبديل الوضع الليلي/النهاري" style="position:fixed;top:18px;right:18px;z-index:10000;background:#FFD700;color:#18122B;border:none;padding:10px 18px;border-radius:8px;box-shadow:0 0 8px #FFD70055;cursor:pointer;font-weight:bold;transition:background 0.3s;">🌙</button>
 <body>
   <nav>
     <div class="nav-container">
@@ -334,7 +335,24 @@
       audio.play();
     };
   </script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  // زر تبديل الوضع الليلي/النهاري
+  const toggleTheme = document.getElementById('toggleTheme');
+  toggleTheme.addEventListener('click', function() {
+    const dark = document.body.classList.toggle('night-mode');
+    if(dark) {
+      document.body.style.background = '#181c24';
+      document.body.style.color = '#FFD700';
+      toggleTheme.textContent = '☀️';
+    } else {
+      document.body.style.background = 'linear-gradient(135deg, #18122B 0%, #393053 100%)';
+      document.body.style.color = '#FFD700';
+      toggleTheme.textContent = '🌙';
+    }
+  });
+
+</script>
   <script>
     AOS.init({ duration: 1000 });
   </script>

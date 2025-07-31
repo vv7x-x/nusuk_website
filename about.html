@@ -213,13 +213,15 @@
       <img src="uploads/images/logo.png" alt="شعار نسك" class="nav-logo" id="logo" />
     </div>
   </nav>
+  <!-- زر تبديل الوضع الليلي/النهاري -->
+  <button id="toggleTheme" title="تبديل الوضع الليلي/النهاري" style="position:fixed;top:18px;right:18px;z-index:10000;background:#FFD700;color:#18122B;border:none;padding:10px 18px;border-radius:8px;box-shadow:0 0 8px #FFD70055;cursor:pointer;font-weight:bold;transition:background 0.3s;">🌙</button>
   <header>
     <img src="uploads/images/logo.png" alt="شعار نسك" class="logo" data-aos="zoom-in" />
     <h1 data-aos="fade-down">نُسُك للحج والعمرة</h1>
   </header>
   <section>
     <h2>من نحن</h2>
-    <p>
+    <p id="aboutText">
       شركة نُسُك هي شركة سياحة مصرية، متخصصة في تقديم حلول شاملة للسفر والسياحة وخدمات الحج والعمرة. تأسست نُسُك عام 2010، واستطاعت خلال السنوات الماضية أن تبني سمعة قوية وثقة عالية لدى عملائها، من خلال تقديم خدمات ذات جودة عالية تراعي راحة العملاء وتلبية احتياجاتهم.
       <br><br>
       تتمي نُسُك بتقديم مجموعة متنوعة من خدمات السفر التي تشمل حجز تذاكر الطيران لجميع الوجهات العالمية، استخراج التأشيرات السياحية، وحجز الفنادق في أفضل المواقع حول العالم. تسعى الشركة لتسهيل تجربة السفر، سواء كانت سياحة داخلية لاستكشاف معالم مصر أو سياحة خارجية لزيارة أجمل الوجهات السياحية العالمية.
@@ -228,6 +230,7 @@
       <br><br>
       تسعى نُسُك دائماً إلى التطوير والابتكار في تقديم خدماتها، بما يتماشى مع تطلعات عملائها، مع فريق عمل متخصص يحرص على خدمة العملاء بمهنية وإخلاص، لضمان رضاهم وتحقيق تجربة سفر متميزة.
     </p>
+
   </section>
   <a href="https://wa.me/+201007522405" target="_blank" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
     <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="تواصل واتساب" style="width:60px; height:60px;">
@@ -242,6 +245,21 @@
     </a>
     <a href="developer-info" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; text-decoration: none; color: gold; font-size: 1rem; background: rgba(0, 0, 0, 0.8); padding: 10px 15px; border-radius: 8px; box-shadow: 0 0 10px #222;">معلومات عن المطور</a>
   <script>
+    // زر تبديل الوضع الليلي/النهاري
+    const toggleTheme = document.getElementById('toggleTheme');
+    toggleTheme.addEventListener('click', function() {
+      const dark = document.body.classList.toggle('night-mode');
+      if(dark) {
+        document.body.style.background = '#181c24';
+        document.body.style.color = '#FFD700';
+        toggleTheme.textContent = '☀️';
+      } else {
+        document.body.style.background = 'linear-gradient(135deg, #18122B 0%, #393053 100%)';
+        document.body.style.color = '#FFD700';
+        toggleTheme.textContent = '🌙';
+      }
+    });
+
     const scrollDownAbout = document.getElementById('scrollDown');
     scrollDownAbout.addEventListener('mouseover', () => {
       scrollDownAbout.firstElementChild.style.transform = 'scale(1.2)';
