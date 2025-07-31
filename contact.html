@@ -221,10 +221,15 @@
     <h2>اتصل بنا</h2>
     <p>إذا كان لديك أي استفسار أو ترغب في معرفة المزيد من المعلومات حول عروضنا، لا تتردد في الاتصال بنا من خلال الطرق التالية:</p>
     <ul>
-      <li>رقم الهاتف: +201007522405</li>
+      <li>
+        رقم الهاتف: <span id="phoneNum">+201007522405</span>
+        <button id="copyPhone" title="نسخ الرقم" style="margin-right:8px;background:#FFD700;color:#18122B;border:none;padding:2px 10px;border-radius:6px;cursor:pointer;font-size:1rem;vertical-align:middle;">📋</button>
+        <span id="copyMsg" style="display:none;color:#0f0;font-weight:bold;margin-right:8px;">✔ تم النسخ!</span>
+      </li>
     </ul>
+    <button id="shareBtn" style="margin-top:18px;background:#393053;color:#FFD700;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:1rem;font-weight:bold;box-shadow:0 0 8px #FFD70055;">🔗 مشاركة الصفحة</button>
   </section>
-  <a href="https://wa.me/+201007522405" target="_blank" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
+  <a href="https://wa.me/+201007522405" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
     <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="تواصل واتساب" style="width:60px; height:60px;">
   </a>
   <a href="#" id="scrollDown" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; cursor: pointer;">
@@ -242,6 +247,27 @@
   <script>
     const audio = new Audio('الأصوات/call.mp3');
     audio.play();
+    // زر نسخ رقم الهاتف مع إشعار
+    document.getElementById('copyPhone').onclick = function() {
+      const phone = document.getElementById('phoneNum').innerText;
+      navigator.clipboard.writeText(phone).then(()=>{
+        const msg = document.getElementById('copyMsg');
+        msg.style.display = 'inline';
+        setTimeout(()=>{msg.style.display='none';}, 1500);
+      });
+    };
+    // زر مشاركة الصفحة (Web Share API)
+    document.getElementById('shareBtn').onclick = function() {
+      if (navigator.share) {
+        navigator.share({
+          title: document.title,
+          text: 'صفحة التواصل مع نُسُك للحج والعمرة',
+          url: window.location.href
+        });
+      } else {
+        alert('ميزة المشاركة غير مدعومة في هذا المتصفح.');
+      }
+    };
   </script>
   <script>
     const logo = document.getElementById('logo');
