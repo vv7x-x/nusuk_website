@@ -56,7 +56,8 @@ yaml
 ---
 
 ## ▶️ التشغيل محليًا | Run Locally
-```bash
+
+
 git clone https://github.com/vv7x-x/nusuk_website.git
 cd nusuk_website
 node main.js
@@ -106,5 +107,3 @@ This project is licensed under CC BY-NC-ND 4.0.
 
 شكراً لاستخدامك مشروع nusuk_website! | Thanks for using nusuk_website!
 
-markdown
-نسخ الكود
