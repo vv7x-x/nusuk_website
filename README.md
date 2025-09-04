@@ -50,8 +50,8 @@ Modern multi-page website for Hajj, Umrah, and tourism services with a responsiv
 ├── sitemap.xml
 └── sitemap-generator.js
 
-yaml
-نسخ الكود
+
+
 
 ---
 
