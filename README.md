@@ -112,7 +112,7 @@
 
 ## 🤝 الدعم والمساهمة
 
-لأي استفسار أو دعم، تواصل عبر صفحة [developer-info](https://khutwa-website-xi.vercel.app/developer-info) أو البريد: [yvhyvredv@gmail.com](mailto:yvhyvredv@gmail.com).
+لأي استفسار أو دعم، تواصل عبر صفحة [developer-info](https://khutwa-website-wine.vercel.app/developer-info.html) أو البريد: [yvhyvredv@gmail.com](mailto:yvhyvredv@gmail.com).
 
 ---
 
